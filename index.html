@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Spare — From payments to stocks</title>
+    <meta name="description" content="Spare rounds up the USDG payments you make from a linked wallet and auto-invests the spare change into tokenized stocks on Robinhood Chain, from SPY and NVDA to the full stock universe. No subscription. A 0.25% fee when your change converts, plus the pool's own swap fee." />
+    <meta name="keywords" content="Spare, round-ups, spare change, tokenized stocks, Robinhood Chain, auto-invest, USDG, SPY, NVDA" />
+    <meta name="author" content="Spare" />
+    <!-- Spare lilac (Spare Holo token HOLO.lilac) -->
+    <meta name="theme-color" content="#C9B6FF" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+
+    <link rel="canonical" href="https://trysparerh.com/" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=2" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png?v=2" />
+    <link rel="shortcut icon" href="/favicon.ico?v=2" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=2" />
+    <link rel="manifest" href="/site.webmanifest?v=2" />
+
+    <!-- Preconnect to third-party origins we know we'll hit early. Saves
+         ~100ms each on the first script/asset request (DNS + TLS handshake
+         happen in parallel with the initial HTML parse). -->
+    <link rel="preconnect" href="https://prod.spline.design" crossorigin />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Spare" />
+    <meta property="og:url" content="https://trysparerh.com/" />
+    <meta property="og:title" content="Spare — Your coffee just bought you SPY" />
+    <meta property="og:description" content="Round up your USDG payments and auto-invest the change into tokenized stocks on Robinhood Chain. No subscription." />
+    <meta property="og:image" content="https://trysparerh.com/og.jpg?v=2" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Spare — Round-Up Stream: rules in, stocks out. Round-ups into tokenized stocks on Robinhood Chain." />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@TrySpareRH" />
+    <meta name="twitter:creator" content="@TrySpareRH" />
+    <meta name="twitter:title" content="Spare — Your coffee just bought you SPY" />
+    <meta name="twitter:description" content="Round up your USDG payments and auto-invest the change into tokenized stocks on Robinhood Chain. No subscription." />
+    <meta name="twitter:image" content="https://trysparerh.com/og.jpg?v=2" />
+    <meta name="twitter:image:alt" content="Spare — Round-Up Stream: rules in, stocks out." />
+
+    <!-- JSON-LD structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Spare",
+      "url": "https://trysparerh.com/",
+      "description": "Spare rounds up the USDG payments you make from a linked wallet and auto-invests the spare change into tokenized stocks on Robinhood Chain, from SPY and NVDA to the full stock universe. No subscription. A 0.25% fee when your change converts, plus the pool's own swap fee.",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "description": "No subscription. 0.25% fee on spare change converted into stock, plus each pool's own swap fee."
+      },
+      "sameAs": ["https://x.com/TrySpareRH", "https://t.me/sparerh"]
+    }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

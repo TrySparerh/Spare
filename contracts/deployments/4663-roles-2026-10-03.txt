@@ -1,0 +1,56 @@
+SPARE roles - Robinhood Chain mainnet (4663), read-only (eth_call and eth_getLogs only)
+date        2026-10-03, run 00:39 UTC
+command     bash contracts/scripts/roles.sh https://rpc.mainnet.chain.robinhood.com
+            (from the repo root, public RPC; addresses from contracts/addresses/4663.json)
+----------------------------------------------------------------------------------------
+SPARE roles - chain 4663, block 78666930, 2026-10-03T00:39:51Z, addresses contracts/addresses/4663.json
+
+== ownership and pause (Ownable2Step + SpareAuth)
+contract          owner                                       pendingOwner                                pauser                                      paused
+AssetRegistry     0x56B67D71039365083727b661Dbe9Bdb7f7D15189  0x0000000000000000000000000000000000000000  0x56B67D71039365083727b661Dbe9Bdb7f7D15189  false
+ElectionRegistry  0x56B67D71039365083727b661Dbe9Bdb7f7D15189  0x0000000000000000000000000000000000000000  0x56B67D71039365083727b661Dbe9Bdb7f7D15189  false
+ScreeningGate     0x56B67D71039365083727b661Dbe9Bdb7f7D15189  0x0000000000000000000000000000000000000000  0x56B67D71039365083727b661Dbe9Bdb7f7D15189  false
+StockRouter       0x56B67D71039365083727b661Dbe9Bdb7f7D15189  0x0000000000000000000000000000000000000000  0x56B67D71039365083727b661Dbe9Bdb7f7D15189  false
+CashPark          0x56B67D71039365083727b661Dbe9Bdb7f7D15189  0x0000000000000000000000000000000000000000  0x56B67D71039365083727b661Dbe9Bdb7f7D15189  false
+FeeVault          0x56B67D71039365083727b661Dbe9Bdb7f7D15189  0x0000000000000000000000000000000000000000  0x56B67D71039365083727b661Dbe9Bdb7f7D15189  false
+SweepExecutor     0x56B67D71039365083727b661Dbe9Bdb7f7D15189  0x0000000000000000000000000000000000000000  0x56B67D71039365083727b661Dbe9Bdb7f7D15189  false
+
+== keepers (KeeperSet logs since block 76221269, each re-read live with isKeeper)
+CashPark          0xB7FE91DF829FD2F616c111EDFb9f7B5703FE84fD  isKeeper=false
+CashPark          0x61B47c967dCC2B1A253644cD2ddCeff8d99D6d03  isKeeper=true
+SweepExecutor     0xB7FE91DF829FD2F616c111EDFb9f7B5703FE84fD  isKeeper=false
+SweepExecutor     0x61B47c967dCC2B1A253644cD2ddCeff8d99D6d03  isKeeper=true
+
+== StockRouter callers (CallerSet logs, re-read live with isCaller)
+0x908F545d0FB87fAC3b225cbd12E899BCE77147Ab  isCaller=true
+0x4197a7Eb8e08a35fd55273afA3D0f8Cb3bd98525  isCaller=true
+sequencerFeed   0x0000000000000000000000000000000000000000
+
+== CashPark
+executor        0x908F545d0FB87fAC3b225cbd12E899BCE77147Ab   (only it can credit / withdrawForSweep / returnFromSweep)
+adapter         0x1E29fD4F78cDfabdE3Df605e66aE3d78a8980DD8
+totalPending    0 USDG base units
+totalUnits      0
+USDG held       0 base units
+
+== ScreeningGate
+attestor        0x56B67D71039365083727b661Dbe9Bdb7f7D15189
+enforced        false
+
+== SweepExecutor params (owner-set; bounds MAX_FEE_BPS 100, MAX_SLIPPAGE_BPS 500, threshold >= 1e6, epoch >= 3600)
+finalityBuffer  3000
+threshold       5000000
+feeBps          25
+slippageBps     150
+epochLength     86400
+
+== FeeVault
+USDG held       0 base units (owner-withdrawable)
+
+== AssetRegistry
+registered 36, active 26
+
+== adapters (immutable wiring, no roles)
+UsdgParkAdapter park = 0x947538724Ed80BA609B4A1B4bBCb62d7f3Cd6Abb
+SgovParkAdapter park = 0x947538724Ed80BA609B4A1B4bBCb62d7f3Cd6Abb, router = 0x1Fec3654Fea787a63104a6634C9781B837B5e17E
+RuleRegistry: no admin role (users link, unlink and set rules for themselves only)

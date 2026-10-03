@@ -1,0 +1,606 @@
+{
+  "common": {
+    "ok": "OK",
+    "live": "LIVE",
+    "liveData": "LIVE",
+    "soon": "SOON",
+    "online": "ONLINE",
+    "offline": "OFFLINE",
+    "standby": "STANDBY",
+    "ready": "READY",
+    "paused": "PAUSED",
+    "connected": "CONNECTED",
+    "notConnected": "NOT CONNECTED",
+    "onChain": "ON-CHAIN",
+    "example": "EXAMPLE",
+    "reading": "Reading…",
+    "loading": "Loading…",
+    "close": "Close",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "copy": "Copy",
+    "copied": "Copied",
+    "retry": "Try again",
+    "connectWallet": "Connect wallet",
+    "wallet": "Wallet",
+    "hideWallets": "Hide wallets",
+    "walletPillHint": "or use the wallet pill in the system tray.",
+    "disconnect": "Disconnect",
+    "spareSoonTooltip": "The $SPARE token isn't live. We'll publish its address here and on X when it is."
+  },
+  "appNames": {
+    "fund-wallet": "Fund Wallet",
+    "spare-balance": "Spare Balance",
+    "link-wallet": "Link Wallet",
+    "roundup-rules": "Round-Up Rules",
+    "stock-mix": "Stock Mix",
+    "auto-invest": "Auto-Invest",
+    "spare-activity": "Activity",
+    "viewing-key": "Viewing Key",
+    "stock-desk": "Stock Desk",
+    "after-hours": "After Hours",
+    "portfolio-xray": "Portfolio X-Ray",
+    "docs": "Docs",
+    "roadmap": "Roadmap",
+    "telegram": "Telegram",
+    "x": "X",
+    "recycle-bin": "Recycle Bin",
+    "my-spare": "My Spare",
+    "about": "About Spare",
+    "taskmanager": "Task Manager"
+  },
+  "welcome": {
+    "title": "Welcome to Spare",
+    "body": "Round up the USDG payments you already make and invest the change in tokenized stocks. Want to set up your round-ups now?",
+    "setUp": "Set up round-ups",
+    "lookAround": "Look around",
+    "spareNotLive": "not live yet",
+    "spareSoonAria": "$SPARE: soon. {{tooltip}}"
+  },
+  "taskbar": {
+    "start": "Start"
+  },
+  "startMenu": {
+    "sections": {
+      "programs": "Programs",
+      "markets": "Markets",
+      "resources": "Resources",
+      "web": "Web",
+      "system": "System"
+    },
+    "morePages": "More pages",
+    "fewerPages": "Fewer pages",
+    "disconnectWallet": "Disconnect Wallet",
+    "shutDown": "Shut Down…"
+  },
+  "publicRoutes": {
+    "docs": {
+      "label": "Docs",
+      "tagline": "How Spare works"
+    },
+    "universe": {
+      "label": "Stock Universe",
+      "tagline": "The stocks your spare change can buy"
+    },
+    "dispatch": {
+      "label": "Live Sweeps",
+      "tagline": "Every round-up and sweep, live"
+    },
+    "datalayer": {
+      "label": "Data Layer",
+      "tagline": "Chainlink, pools and contracts, live"
+    },
+    "devtools": {
+      "label": "DevTools",
+      "tagline": "Addresses, ABIs and code"
+    },
+    "mcp": {
+      "label": "MCP",
+      "tagline": "Connect your AI agent to Spare"
+    },
+    "flywheel": {
+      "label": "Flywheel",
+      "tagline": "From payments to stocks to $SPARE"
+    },
+    "buyback": {
+      "label": "Buyback",
+      "tagline": "Where Spare's fees go"
+    },
+    "roadmap": {
+      "label": "Roadmap",
+      "tagline": "S1 live · S2 privacy · S3 $SPARE"
+    },
+    "whitepaper": {
+      "label": "Whitepaper",
+      "tagline": "Spare's design"
+    },
+    "x": {
+      "label": "X",
+      "tagline": "@TrySpareRH"
+    },
+    "telegram": {
+      "label": "Telegram",
+      "tagline": "Spare community"
+    }
+  },
+  "login": {
+    "title": {
+      "opening": "Opening Spare…",
+      "connected": "Wallet connected",
+      "signIn": "Spare · Sign in with your wallet"
+    },
+    "sub": {
+      "loading": "Loading your round-ups…",
+      "connected": "{{address}} · Enter Spare to continue",
+      "choose": "Choose your wallet",
+      "prompt": "Press Enter or click below to connect your wallet"
+    },
+    "cardAria": "Sign in to Spare",
+    "tagline": "From payments to stocks",
+    "openingAria": "Opening Spare",
+    "connectWallet": "Connect Wallet",
+    "guest": "Continue as guest",
+    "enter": "Enter Spare ▸",
+    "micro": "Robinhood Chain · chain 4663 · Tokenized stocks aren't offered to US persons.",
+    "linksAria": "Spare pages"
+  },
+  "walletPicker": {
+    "title": "Select Wallet",
+    "robinhoodScan": "Robinhood Wallet (scan QR)",
+    "noRobinhoodChain": "{{name}} — no Robinhood Chain support",
+    "openApp": "Open app ↗",
+    "install": "Install ↗",
+    "connecting": "Connecting…",
+    "rejected": "User rejected the request."
+  },
+  "walletTray": {
+    "title": "Wallet Connected",
+    "connectedFallback": "Connected",
+    "chainId": "chainId {{id}}",
+    "copyAddress": "Copy Address"
+  },
+  "systemTray": {
+    "ethSource": "ETH/USD from Chainlink on Robinhood Chain",
+    "ethUpdated": "updated {{time}}",
+    "ethStale": "stale",
+    "connect": "CONNECT",
+    "addressCopied": "Address copied",
+    "copied": "COPIED!"
+  },
+  "ticker": {
+    "chip": {
+      "marketClosed": "MARKET CLOSED",
+      "spare": "SPARE"
+    },
+    "title": {
+      "open": "Chainlink stock feeds are live on Robinhood Chain",
+      "closed": "The US-equities 24/5 session is closed — prices are last closes and sweeps wait",
+      "mixed": "Some stock feeds are live, some are waiting",
+      "reading": "Reading the stock universe from Robinhood Chain",
+      "offline": "Couldn't reach Robinhood Chain"
+    },
+    "pricesUnavailable": "stock prices unavailable",
+    "readingPrices": "reading stock prices…",
+    "lastCloseTag": "LAST CLOSE",
+    "price": {
+      "live": "live Chainlink price",
+      "lastClose": "last close",
+      "none": "no price yet"
+    },
+    "oracle": "oracle {{status}}",
+    "aria": "{{label}}: {{list}}"
+  },
+  "appWindow": {
+    "menu": {
+      "file": "File",
+      "edit": "Edit",
+      "view": "View",
+      "tools": "Tools",
+      "help": "Help"
+    },
+    "minimize": "Minimize",
+    "maximize": "Maximize",
+    "restore": "Restore",
+    "online": "online",
+    "resize": "Drag to resize"
+  },
+  "bios": {
+    "cardTitle": "Spare · power-on self-test",
+    "cardAria": "Spare boot checks",
+    "badge": {
+      "checking": "CHECKING",
+      "attention": "ATTENTION"
+    },
+    "rows": {
+      "system": "System",
+      "chain": "Chain",
+      "contracts": "Contracts",
+      "engine": "Engine",
+      "oracles": "Oracles",
+      "universe": "Universe",
+      "park": "Park",
+      "api": "Spare API",
+      "keeper": "Keeper"
+    },
+    "tags": {
+      "ok": "OK",
+      "fail": "FAIL",
+      "wait": "WAIT",
+      "degraded": "DEGRADED",
+      "paused": "PAUSED",
+      "idle": "IDLE",
+      "standby": "STANDBY"
+    },
+    "pending": "checking",
+    "pressEnter": "[ PRESS ENTER ]",
+    "tapToEnter": "[ TAP TO ENTER ]",
+    "spareSoonTitle": "$SPARE is coming soon. There is no contract address yet.",
+    "age": {
+      "s": "{{s}}s",
+      "m": "{{m}}m",
+      "hm": "{{h}}h {{m}}m",
+      "dh": "{{d}}d {{h}}h"
+    },
+    "ago": "{{age}} ago",
+    "system": "Spare {{release}} · Season 1 · Robinhood Chain mainnet",
+    "chain": {
+      "ok": "Robinhood Chain · id {{id}} · block #{{block}}",
+      "wrong": "wrong chain {{id}}",
+      "rpcDown": "RPC unreachable"
+    },
+    "contracts": {
+      "ok": "Spare deployed · SweepExecutor {{address}}",
+      "noCode": "no bytecode at SweepExecutor"
+    },
+    "engine": {
+      "paused": "collections and sweeps paused — exits open",
+      "running": "running · fee {{fee}}% · sweep at ${{threshold}}"
+    },
+    "oracles": {
+      "none": "no active stocks",
+      "live": "{{live}}/{{total}} stock feeds live · {{symbols}}",
+      "lastClose": "last close {{ago}}",
+      "lastCloseUnknown": "last close unknown",
+      "closed": "market closed · {{lastClose}} — sweeps wait",
+      "degraded": "{{live}}/{{total}} live · {{symbol}} {{status}}"
+    },
+    "universe": {
+      "active": "{{count}} active",
+      "standby": "{{count}} standby ({{symbols}})"
+    },
+    "park": {
+      "usdg": "USDG · exit always open",
+      "sgov": "SGOV treasury park",
+      "adapter": "adapter {{address}} · exit always open"
+    },
+    "keeper": {
+      "idle": "last activity {{ago}}",
+      "lastRoundUp": "last round-up {{ago}}",
+      "noRoundUp": "last round-up none yet",
+      "lastSweep": "last sweep {{ago}}",
+      "noSweep": "last sweep none yet",
+      "watchingOne": "no round-ups yet — watching {{count}} linked wallet",
+      "watchingMany": "no round-ups yet — watching {{count}} linked wallets",
+      "noRoundUps": "no round-ups yet",
+      "unavailable": "status unavailable"
+    },
+    "api": {
+      "offline": "offline — on-chain app still works",
+      "offlineShort": "offline",
+      "online": "online · Spare MCP {{tools}} tools"
+    },
+    "skipped": "skipped — {{reason}}",
+    "reason": {
+      "rpcDown": "RPC unreachable",
+      "notDeployed": "contracts not deployed"
+    },
+    "readFailed": "read failed"
+  },
+  "errorScreen": {
+    "updateTitle": "New version available",
+    "crashTitle": "Spare hit an error",
+    "updateBody": "A new build of Spare is live but your browser is using the old one. Hard refresh to pick it up.",
+    "crashBody": "Something went wrong rendering this page. Your wallet and your round-ups are on Robinhood Chain and are not affected. The error has been logged to the console.",
+    "hardRefresh": "Hard refresh",
+    "reload": "Reload page",
+    "retry": "Retry"
+  },
+  "holo": {
+    "remove": "Remove",
+    "tableEmpty": "Nothing here yet."
+  },
+  "spareUi": {
+    "deploying": {
+      "title": "SPARE Contracts",
+      "badgeChecking": "CHECKING",
+      "badgeRpcError": "RPC ERROR",
+      "badgeDeploying": "DEPLOYING",
+      "checking": "Checking Robinhood Chain for the SPARE contracts…",
+      "checkingAria": "Checking Robinhood Chain",
+      "unreachable": "Could not reach Robinhood Chain.",
+      "headline": "The SPARE contracts are deploying to Robinhood Chain.",
+      "body": "Nothing is live yet, so this window shows no balances, rules or activity. It switches on by itself once SweepExecutor has code at <addr/>."
+    },
+    "connect": {
+      "title": "Connect a wallet",
+      "defaultWhy": "Connect a wallet to see its SPARE account."
+    },
+    "account": {
+      "resolving": "Checking whether this wallet is an account or a linked spending wallet…",
+      "unknown": "Could not check which account this wallet belongs to — showing it as its own account."
+    },
+    "spending": {
+      "title": "Spending Wallet",
+      "readOnly": "READ-ONLY",
+      "body": "This wallet (<me/>) is a linked <b>spending wallet</b> that feeds account <account/>. Its payments round up into that account, so the {{what}} shown here belong to that account and are read-only — connect <account/> to change them."
+    },
+    "chainNote": "Your wallet is on chain {{chain}}. Reads come from Robinhood Chain regardless; any action here asks the wallet to switch to Robinhood Chain ({{target}}) first.",
+    "unknownChain": "unknown",
+    "tx": {
+      "phase": {
+        "switching": "Switching your wallet to Robinhood Chain…",
+        "checking": "Checking the call against the chain…",
+        "wallet": "Confirm in your wallet…",
+        "pending": "Submitted — waiting for Robinhood Chain to include it…",
+        "confirmed": "Confirmed on Robinhood Chain.",
+        "error": "Failed"
+      },
+      "step": " (step {{step}} of {{steps}})",
+      "head": "{{label}}{{step}}: ",
+      "badgeConfirmed": "CONFIRMED",
+      "badgeError": "ERROR",
+      "badgePending": "PENDING",
+      "viewTx": "view tx"
+    }
+  },
+  "errors": {
+    "oracle": {
+      "ok": "OK",
+      "stale": "stale (market closed)",
+      "paused": "paused",
+      "seqDown": "sequencer down",
+      "badAnswer": "bad answer",
+      "unavailable": "unavailable"
+    },
+    "revert": {
+      "badRoundTo": "Round-up must be $1, $5 or $10 (got {{got}}).",
+      "badMultiplier": "Multiplier must be 1× to 5× (got {{got}}).",
+      "alreadyLinked": "{{wallet}} is already linked to account {{account}}. Unlink it there first.",
+      "notLinked": "{{wallet}} is not linked here (only its account, or the wallet itself, can unlink it).",
+      "tooManyWallets": "This account already has the maximum of 8 linked wallets.",
+      "expired": "The signature has expired — sign the link again from the spending wallet.",
+      "badSignature": "The link signature did not verify. It may name a different account, or the wallet's nonce moved since it was signed — sign it again. If the spending wallet is a smart wallet that has never sent a transaction on Robinhood Chain, it is not deployed yet and its signature cannot verify: send one transaction from it first (e.g. Authorize round-ups), then sign again.",
+      "badLegCount": "A mix needs 1 to 6 assets (got {{got}}).",
+      "badTotal": "Weights must total exactly 100% (got {{got}}%).",
+      "zeroLeg": "{{symbol}} has a 0% weight — remove it or give it weight.",
+      "duplicateAsset": "{{symbol}} appears twice in the mix.",
+      "ineligibleAsset": "{{symbol}} is not active in the asset registry, so it cannot be elected.",
+      "unknownAsset": "{{symbol}} is not in the asset registry.",
+      "assetInactive": "{{symbol}} is inactive in the registry.",
+      "oracleNotOk": "The price oracle is {{status}} — try again when it is live.",
+      "outsideBand": "The pool price moved outside the allowed band.",
+      "ruleDisabled": "Round-ups are disabled for this account (rule off or weekly cap 0).",
+      "weeklyCapExceeded": "That would exceed the weekly cap ({{amount}} > {{cap}}).",
+      "cursorNotAdvancing": "That block range was already accrued.",
+      "notFinal": "That block range is not final yet.",
+      "allowanceExpired": "The Permit2 allowance has expired — authorize round-ups again.",
+      "insufficientAllowance": "The Permit2 allowance is too low — authorize round-ups again.",
+      "isPaused": "SPARE is paused by its operator — new activity is halted. Exits and claims still work.",
+      "notKeeper": "Only the SPARE keeper can do that.",
+      "notPauser": "Only the SPARE pauser can do that.",
+      "notExecutor": "Only the SweepExecutor can do that.",
+      "notOwner": "Only the contract owner can do that.",
+      "reentrant": "Re-entrant call rejected.",
+      "transferFailed": "A {{symbol}} transfer failed.",
+      "zeroAddress": "An address argument was zero."
+    },
+    "rejected": "You rejected the request in your wallet — nothing was sent.",
+    "reverted": "Reverted: {{reason}}",
+    "contractRejected": "The contract rejected this call.",
+    "noGas": "Not enough ETH on Robinhood Chain to pay for gas."
+  },
+  "fundErrors": {
+    "tooLittleReceived": "The price moved: this swap would pay you {{got}}, below your minimum of {{min}}. Nothing was swapped — refresh the quote or allow more slippage.",
+    "pastPriceLimit": "The pool price is past the swap's price limit — nothing was swapped.",
+    "deadlinePassed": "The swap's 10-minute deadline passed before it landed — nothing was swapped. Start it again.",
+    "stepFailed": "Step {{step}} of the router call failed — nothing was swapped.",
+    "poolRejected": "The pool rejected the swap — nothing was swapped.",
+    "allowanceExpired": "The Uniswap router has no live Permit2 allowance for your USDG — start the swap again and approve when your wallet asks.",
+    "allowanceLow": "The Permit2 allowance for the Uniswap router is below the swap amount — start the swap again to approve the exact amount.",
+    "nonceUsed": "That Permit2 signature was already used — start the swap again.",
+    "signatureExpired": "The Permit2 signature expired — start the swap again.",
+    "noEth": "The router did not receive the ETH for this swap — nothing was swapped.",
+    "notSettled": "The swap did not settle (balance or allowance too low) — nothing was swapped.",
+    "outsideLimit": "The pool price is outside the swap's limit — nothing was swapped.",
+    "pullFailed": "Permit2 could not pull your USDG — check your USDG balance and try again.",
+    "transferFailed": "The token transfer failed — nothing was swapped.",
+    "panic": "The contract panicked (code {{code}}) — nothing was swapped."
+  },
+  "fundGuard": {
+    "noQuote": "The pool quoted nothing for this amount — swap blocked.",
+    "noProbe": "Could not price a small reference trade in the same pool — swap blocked until it can be checked.",
+    "impact": "This amount moves the pool price {{pct}} against you (vs a tiny trade) — swap blocked to protect you. Try a smaller amount.",
+    "noRef": "Chainlink’s ETH/USD reference price is unavailable, so the pool price cannot be checked — swap blocked until it can be read.",
+    "staleRef": "Chainlink’s ETH/USD price is {{age}} old (it updates at least every {{hours}} h) — swap blocked until it updates.",
+    "belowRef": "The pool pays {{pct}} less than Chainlink’s ETH/USD price — swap blocked to protect you. Try a smaller amount or later.",
+    "age": {
+      "s": "{{n}} s",
+      "min": "{{n}} min",
+      "h": "{{n}} h"
+    },
+    "noUsablePrice": "Chainlink ETH/USD returned no usable price — swap blocked."
+  },
+  "stockBoard": {
+    "ago": {
+      "s": "{{n}}s ago",
+      "m": "{{n}}m ago",
+      "h": "{{n}}h ago",
+      "d": "{{n}}d ago"
+    }
+  },
+  "publicTabs": {
+    "docs": "Docs",
+    "universe": "Universe",
+    "dispatch": "Dispatch",
+    "datalayer": "Data Layer",
+    "devtools": "DevTools",
+    "mcp": "MCP",
+    "roadmap": "Roadmap",
+    "whitepaper": "Whitepaper",
+    "buyback": "Buyback",
+    "flywheel": "Flywheel"
+  },
+  "publicFrame": {
+    "onThisPage": "On this page",
+    "closeAria": "Close — back to Spare",
+    "backTitle": "Back to Spare",
+    "pagesAria": "Spare pages",
+    "openSpare": "Open Spare ▸",
+    "back": "Back",
+    "forward": "Forward",
+    "reload": "Reload",
+    "home": "Spare home",
+    "address": "Address",
+    "done": "Done · Spare",
+    "footer": {
+      "brand": "Spare · Round-ups into tokenized stocks on Robinhood Chain · trysparerh.com",
+      "linksAria": "Spare links",
+      "terms": "Terms",
+      "privacy": "Privacy",
+      "legal": "Tokenized stocks are not offered to US persons and are restricted in other jurisdictions. Nothing here is investment advice. Spare is independent software and is not affiliated with Robinhood Markets, Inc."
+    },
+    "code": {
+      "label": "code",
+      "copyAria": "Copy code"
+    },
+    "contracts": {
+      "checking": "CHECKING",
+      "deployed": "DEPLOYED",
+      "noCode": "NO CODE",
+      "unread": "UNREAD",
+      "unreadTitle": "The Robinhood Chain RPC did not answer. Check the address on Blockscout.",
+      "head": {
+        "contract": "Contract",
+        "address": "Address",
+        "role": "Role",
+        "bytecode": "Bytecode"
+      },
+      "caption": "Addresses link to Robinhood Chain's Blockscout explorer. The bytecode check runs live in your browser."
+    }
+  },
+  "notFound": {
+    "pageTitle": "Not found — Spare",
+    "kicker": "Not found",
+    "subtitle": "This page isn't part of Spare.",
+    "cardTitle": "Page not found",
+    "body": "Older links from before Spare redirect automatically. This one doesn't exist.",
+    "requested": "Requested: <path>{{path}}</path>",
+    "back": "Back to Spare",
+    "readDocs": "Read the docs"
+  },
+  "zoom": {
+    "title": "Zoom the desktop (Ctrl +/− , Ctrl 0 to reset)",
+    "out": "Zoom out",
+    "reset": "Reset zoom",
+    "in": "Zoom in"
+  },
+  "roadmapPage": {
+    "pageTitle": "Roadmap — Spare",
+    "metaDescription": "What's live in Spare and what comes next: round-ups today, private round-ups, boosts and $SPARE, in-flow round-ups.",
+    "kicker": "Roadmap",
+    "subtitle": "Order, not dates. S1 is live on Robinhood Chain; everything after it is planned.",
+    "nav": {
+      "stages": "Stages",
+      "meta": "Meta",
+      "principles": "How we ship",
+      "changelog": "Recent changelog"
+    },
+    "railAria": "Stages in order",
+    "check": "CHECK",
+    "srDone": " (done)",
+    "srNotDone": " (not done yet)",
+    "stats": {
+      "live": "Live",
+      "liveSub": "on mainnet",
+      "inProgress": "In progress",
+      "inProgressSub": "hardening S1",
+      "planned": "Planned"
+    },
+    "s1Check": {
+      "ok": "Checked just now: Spare's SweepExecutor has bytecode on Robinhood Chain mainnet.",
+      "missing": "The live bytecode check did not find SweepExecutor — see the Docs contracts table.",
+      "checking": "Checking Robinhood Chain for the deployed contracts…"
+    },
+    "changelog": {
+      "date": "30 Sep 2026",
+      "dateUniverse": "2 Oct 2026",
+      "deployed": "Spare contracts deployed on Robinhood Chain mainnet (blocks 76,221,503–76,221,683).",
+      "review": "Security-review fixes: keeper-only, quote-limited sweeps; every swap failure defers; rolling 7-day cap; exit pays pending USDG first.",
+      "pools": "At launch: NVDA pinned to the hookless 0.01% pool; QQQ and SGOV registered inactive.",
+      "universe": "The full Robinhood Chain stock universe registered: every tokenized stock with a Chainlink feed. A stock is live while its pinned pool tracks Chainlink and waits on standby otherwise. SPY re-pinned to its 0.05% pool; SGOV live on a hookless pool.",
+      "fund": "Fund Wallet: ETH ↔ USDG with a 0.25% fee."
+    },
+    "cta": {
+      "open": "Open Spare",
+      "whitepaper": "Read the whitepaper"
+    }
+  },
+  "toasts": {
+    "sonnerLabel": "Notifications"
+  },
+  "meta": {
+    "appTitle": "Spare — From payments to stocks"
+  },
+  "mixRules": {
+    "empty": "Add at least one asset.",
+    "tooMany": "A mix can hold at most {{max}} assets.",
+    "zeroWeight": "{{asset}} needs a weight above 0%.",
+    "inactive": "{{asset}} is not active in the registry and cannot be elected.",
+    "twice": "{{asset}} appears twice.",
+    "total": "Weights total {{total}}% — they must total exactly 100%."
+  },
+  "assets": {
+    "kind": {
+      "etf": "ETF or fund",
+      "etfTag": "ETF"
+    },
+    "filter": {
+      "search": "Search ticker or name",
+      "searchAria": "Search the stock universe",
+      "clear": "Clear the search",
+      "sortAria": "Sort by",
+      "sort": {
+        "symbol": "Ticker A–Z",
+        "name": "Name A–Z",
+        "price": "Price, high to low",
+        "change": "~1 day change",
+        "gap": "Biggest gap first"
+      },
+      "kindAria": "Asset type",
+      "all": "All",
+      "stocks": "Stocks",
+      "etfs": "ETFs & funds",
+      "stateAria": "Registry status",
+      "active": "Active",
+      "standby": "Standby",
+      "showing": "{{shown}} of {{total}}",
+      "none": "Nothing matches “{{search}}”.",
+      "noneFiltered": "Nothing matches these filters.",
+      "reset": "Show everything",
+      "more": "Show {{n}} more",
+      "less": "Show fewer"
+    },
+    "standby": {
+      "pool": "On standby: registered, but not active yet, so it can't be picked or bought.",
+      "noQuote": "On standby: its pinned pool returns no quote right now.",
+      "fillOutside": "On standby: $100 through its pinned pool buys {{pct}} fewer tokens than Chainlink's price, outside the {{band}} oracle band.",
+      "fillThin": "On standby: $100 through its pinned pool buys {{pct}} fewer tokens than Chainlink's price, past Spare's {{bar}} activation bar.",
+      "fillOk": "On standby: its pinned pool fills within {{pct}} of Chainlink at $100 right now; turning it on is the owner's call."
+    },
+    "change": {
+      "title": "Move between the latest Chainlink price and the one about a day before it",
+      "span": "over {{h}}h"
+    }
+  }
+}

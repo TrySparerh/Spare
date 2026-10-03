@@ -1,0 +1,702 @@
+{
+  "fundWallet": {
+    "hero": {
+      "kicker": "Step zero",
+      "subtitle": "Empty to ready",
+      "description": "Get a little ETH for gas and the USDG you spend onto Robinhood Chain, then tick off everything SPARE needs to start rounding up."
+    },
+    "features": {
+      "gas": "ETH pays gas",
+      "usdg": "USDG to spend",
+      "readiness": "5-point readiness"
+    },
+    "connectWhy": "No wallet is connected. Connect the wallet you will spend from — or create one in Robinhood Wallet, which supports Robinhood Chain out of the box — and this window walks it from empty to ready-to-round-up. The ways to get ETH and USDG onto Robinhood Chain are below.",
+    "balancesError": "Could not read this wallet's balances: {{error}}",
+    "status": {
+      "reading": "READING",
+      "rpcError": "RPC ERROR",
+      "checking": "CHECKING",
+      "deploying": "DEPLOYING",
+      "noEth": "NO ETH",
+      "low": "LOW",
+      "noUsdg": "NO USDG",
+      "linked": "LINKED",
+      "notLinked": "NOT LINKED",
+      "notAuthorized": "NOT AUTHORIZED",
+      "noRule": "NO RULE",
+      "on": "ON",
+      "off": "OFF"
+    },
+    "checks": {
+      "eth": "ETH for gas",
+      "usdg": "USDG balance",
+      "link": "Linked to SPARE",
+      "consent": "Round-ups authorized",
+      "rule": "Round-up rule on"
+    },
+    "example": {
+      "eth": "Robinhood Chain charges every transaction in ETH; a few dollars is plenty.",
+      "usdg": "What your payments and round-ups draw from.",
+      "link": "One transaction in Link Wallet, so the wallet’s USDG payments round up.",
+      "consent": "Two approvals, both signed by the wallet itself.",
+      "rule": "Round to $1, $5 or $10, a 1× to 5× multiplier and a weekly cap."
+    },
+    "readiness": {
+      "title": "Readiness",
+      "previewIntro": "Once a wallet is connected, this window checks five things live on Robinhood Chain and links each gap to the app that fixes it. An example of a half-ready wallet:",
+      "exampleWallet": "Example wallet",
+      "exampleProgress": "{{ok}} of {{total}} ready",
+      "notLive": {
+        "rpc": "Could not reach Robinhood Chain to check for the SPARE contracts — retrying every 30 s. ({{error}})",
+        "checking": "Checking Robinhood Chain for the SPARE contracts…",
+        "deploying": "The SPARE contracts are not live on Robinhood Chain yet."
+      },
+      "action": {
+        "openLink": "Open Link Wallet",
+        "openRules": "Open Round-Up Rules",
+        "getEth": "How to get ETH",
+        "topUp": "Top up from USDG",
+        "swapToUsdg": "Swap ETH → USDG",
+        "getUsdg": "How to get USDG",
+        "authorize": "Authorize in Link Wallet"
+      },
+      "readingBalance": "reading balance…",
+      "readingRegistry": "reading RuleRegistry…",
+      "eth": {
+        "rpc": "Could not read the ETH balance: {{error}}",
+        "none": "Robinhood Chain charges every transaction in ETH. With none, this wallet cannot approve, link or swap anything — not even USDG → ETH. A few dollars of ETH is plenty.",
+        "gasRpc": "{{eth}} ETH{{usd}} · could not read the gas price ({{error}}), so how far it goes is unknown",
+        "readingGas": "{{eth}} ETH{{usd}} · reading the gas price…",
+        "low": "{{eth}} ETH{{usd}} · pays for ≈ {{count}} SPARE transactions at {{gas}}. Keep at least {{reserve}} ETH (≈ {{txs}} transactions) for gas.",
+        "lowStuck": "{{eth}} ETH{{usd}} · pays for ≈ {{count}} SPARE transactions at {{gas}}. Keep at least {{reserve}} ETH (≈ {{txs}} transactions) for gas. That is too little to pay for a USDG → ETH top-up either (≈ {{need}} ETH for the swap and its approvals, with margin) — you can't swap USDG → ETH without some ETH. A few dollars of ETH is plenty.",
+        "ok": "{{eth}} ETH{{usd}} · pays for ≈ {{count}} SPARE transactions at {{gas}} · up to {{max}} ETH{{maxUsd}} can be swapped to USDG; {{reserve}} ETH stays for gas"
+      },
+      "usdg": {
+        "none": "Payments are USDG transfers and round-ups are pulled in USDG — this wallet needs some.",
+        "ok": "{{amount}} USDG — what your payments and round-ups draw from"
+      },
+      "link": {
+        "notLinked": "Link this wallet so its USDG payments round up. One transaction: it becomes its own SPARE account (or link it to another account).",
+        "spender": "Spending wallet feeding account <addr/>.",
+        "self": "This wallet is its own SPARE account — it spends and invests."
+      },
+      "consentDetail": "{{detail}}. USDG → Permit2, then Permit2 → SweepExecutor — both signed by this wallet.",
+      "rule": {
+        "on": "Round up to ${{roundTo}} · {{multiplier}}× · cap {{cap}} per 7 days.",
+        "onWhose": "Round up to ${{roundTo}} · {{multiplier}}× · cap {{cap}} per 7 days. Set by account <addr/> — connect it to change the rule.",
+        "paused": "The rule is paused or its weekly cap is $0 — nothing accrues.",
+        "pausedWhose": "The rule is paused or its weekly cap is $0 — nothing accrues. Set by account <addr/> — connect it to change the rule.",
+        "none": "No round-up rule on-chain yet — nothing accrues.",
+        "noneWhose": "No round-up rule on-chain yet — nothing accrues. Set by account <addr/> — connect it to change the rule."
+      },
+      "accentReady": "READY TO ROUND UP",
+      "accentProgress": "{{ok}} OF {{total}} READY",
+      "statReady": "Ready",
+      "usdgSub": "to spend + round up",
+      "progress": "{{ok}} of {{total}}",
+      "gasNote": "Gas: ≈{{k}}k gas per SPARE transaction (approve, link, rule, swap) at the live Robinhood Chain gas price — an estimate, not a quote. Row 1 reads LOW at or below {{reserve}} ETH (the larger of 0.0003 ETH and {{txs}} transactions' gas), the same amount every ETH → USDG swap leaves behind. Readiness refreshes every 30 s and after every transaction."
+    },
+    "receive": {
+      "title": "Receive",
+      "eyebrow": "This wallet · send here",
+      "copied": "Copied ✓",
+      "copy": "Copy address",
+      "explorer": "View on Blockscout ↗",
+      "copyBlocked": "Copy blocked by the browser — select the address above and copy it.",
+      "chainOnlyTitle": "Robinhood Chain only",
+      "chainOnly": "Send ONLY on the Robinhood Chain network (chain ID 4663). The same 0x address exists on Ethereum, Base and Arbitrum, but funds sent on those networks stay there — SPARE cannot see or move them.",
+      "needs": "SPARE needs two things here: a little ETH for gas, and USDG to spend and round up. Other tokens are ignored."
+    },
+    "bridge": {
+      "title": "Bridge / Buy",
+      "heading": "Get ETH + USDG onto Robinhood Chain",
+      "quickest": "Quickest if you use the Robinhood app: buy a few dollars of ETH (gas) and the USDG you want to spend, then send both on the <b>Robinhood Chain</b> network to this wallet. Already hold USDG but no ETH? Every transaction — even the swap below — needs a little ETH first.",
+      "buy": "Buy",
+      "buyRight": "fiat → Robinhood Chain",
+      "bridgeFrom": "Bridge from another chain",
+      "bridgeRight": "listed on docs.robinhood.com/chain",
+      "unconfirmed": "Unconfirmed — check before you send",
+      "kucoin": "<b>KuCoin</b> reportedly supports ETH and USDG withdrawals on a “Robinhood” network (seen only in a post snippet) — confirm the network name on KuCoin's withdrawal screen first.",
+      "others": "<b>Coinbase, Kraken (exchange), Binance, OKX, Bybit</b>: no Robinhood Chain deposits or withdrawals found. Withdraw USDC or ETH to Base, Arbitrum or Ethereum, then bridge with Across or Relay.",
+      "docsLink": "Official Robinhood Chain bridging docs ↗",
+      "legend": "LISTED = on Robinhood's official bridging page · PARTNER = announced by the provider. SPARE runs none of these and earns nothing from them.",
+      "newTab": "{{name}} (opens in a new tab)",
+      "tag": {
+        "official": "OFFICIAL",
+        "partner": "PARTNER",
+        "listed": "LISTED",
+        "canonical": "CANONICAL"
+      },
+      "routes": {
+        "robinhoodApp": {
+          "how": "Buy ETH and USDG in Robinhood Crypto, then Send → pick the Robinhood Chain network → paste the address above. No Robinhood send fee; only the network fee.",
+          "caveat": "Transfers not available in New York; buying USDG not offered in NY or TX. Crypto bought with instant or uncleared deposits can be on hold."
+        },
+        "robinhoodWallet": {
+          "gives": "send · receive · swap",
+          "how": "Self-custody wallet with Robinhood Chain built in. Move crypto in from Robinhood Crypto over Robinhood Chain, or connect it here as your SPARE wallet."
+        },
+        "moonpay": {
+          "how": "Card, bank transfer, Apple Pay or Google Pay straight to USDG on Robinhood Chain.",
+          "caveat": "Not in New York or Canada; buy only. Buying ETH on Robinhood Chain via MoonPay is unconfirmed — you still need a little ETH for gas."
+        },
+        "across": {
+          "how": "USDC from 13 chains (Ethereum, Arbitrum, Base, Optimism, Polygon, Solana…) arrives as USDG in seconds; ETH from the major EVM chains."
+        },
+        "relay": {
+          "gives": "ETH · tokens",
+          "how": "Intent-based bridge, settles in seconds.",
+          "caveat": "Which source chains it supports is not independently confirmed — check on the page."
+        },
+        "stargate": {
+          "how": "Moves USDG from the other chains it is issued on (LayerZero OFT)."
+        },
+        "arbitrum": {
+          "name": "Arbitrum canonical bridge",
+          "gives": "ETH · ERC-20s",
+          "how": "Trustless, from Ethereum mainnet only. Deposits take about 10 minutes.",
+          "caveat": "Withdrawing back to Ethereum takes about 7 days plus a final L1 claim."
+        }
+      }
+    },
+    "age": {
+      "s": "{{n}} s",
+      "min": "{{n}} min",
+      "h": "{{n}} h"
+    },
+    "swap": {
+      "title": "Swap",
+      "accentFee": "SPARE FEE {{pct}}",
+      "accentNoFee": "NO SPARE FEE",
+      "dirTopUp": "USDG → ETH · gas top-up",
+      "dirAria": "Swap direction",
+      "hintToUsdg": "Turn ETH into the USDG your payments and round-ups use.",
+      "hintToEth": "Swap a little USDG into ETH so the wallet can pay gas.",
+      "youPay": "You pay",
+      "max": "Max",
+      "balance": "Balance {{amount}}",
+      "maxLeaves": "Max leaves {{reserve}} ETH for gas",
+      "slippage": "Slippage",
+      "slippageHint": "how far below the quote you accept — below that the whole swap reverts",
+      "noQuote": "No quote: {{error}}",
+      "noQuoteStale": "No quote: {{error}} — the last quote below is stale and cannot be swapped until a refresh succeeds.",
+      "err": {
+        "deployRpc": "Could not reach Robinhood Chain to check for SPARE’s FeeVault — retrying every 30 s. ({{error}})",
+        "notDeployed": "Swaps open once SPARE’s FeeVault is live on Robinhood Chain.",
+        "invalidAmount": "Not a valid {{sym}} amount — digits and one dot, up to {{dec}} decimals.",
+        "zero": "Enter an amount above zero.",
+        "ethRead": "Could not read your ETH balance ({{error}}) — swaps wait until it can be checked.",
+        "usdgRead": "Could not read your USDG balance ({{error}}) — swaps wait until it can be checked.",
+        "gasRead": "Could not read the network gas price ({{error}}) — swaps wait until the fee can be checked.",
+        "nothingToSwap": "This wallet holds {{eth}} ETH. Fund Wallet always leaves {{reserve}} ETH (≈ {{txs}} transactions) for gas, so there is nothing to swap yet.",
+        "overMax": "Max is {{max}} ETH — {{reserve}} ETH stays in your wallet for gas.",
+        "overUsdg": "This wallet holds {{amount}} USDG.",
+        "allowRead": "Could not read your USDG approvals ({{error}}) — retrying every 30 s.",
+        "noEth": "This wallet has no ETH, and even this swap needs a little for gas. Get a few dollars of ETH first (Bridge / Buy above).",
+        "lowEthOne": "Not enough ETH for the network fee: ≈ {{fee}} ETH over {{count}} transaction, and wallets want about {{mult}}× that on hand ({{need}} ETH). This wallet has {{eth}} ETH — get a few dollars of ETH first (Bridge / Buy above).",
+        "lowEthMany": "Not enough ETH for the network fee: ≈ {{fee}} ETH over {{count}} transactions, and wallets want about {{mult}}× that on hand ({{need}} ETH). This wallet has {{eth}} ETH — get a few dollars of ETH first (Bridge / Buy above).",
+        "prepLowEth": "Not enough ETH for the network fee: {{count}} transaction(s) need about {{need}} ETH on hand, and this wallet has {{eth}} ETH. Nothing was sent.",
+        "reserveBreached": "Your ETH balance is now {{bal}} ETH — swapping {{amount}} ETH would leave less than the {{reserve}} ETH gas reserve. Nothing was sent.",
+        "blocked": "{{reason}} Nothing was sent."
+      },
+      "wait": {
+        "checking": "Checking Robinhood Chain for SPARE’s FeeVault…",
+        "eth": "Reading your ETH balance…",
+        "usdg": "Reading your USDG balance…",
+        "gas": "Reading the network gas price…",
+        "allow": "Checking your USDG approvals…"
+      },
+      "steps": {
+        "approveSized": "Approve exactly {{amount}} USDG to Permit2 (sized to this swap)",
+        "approveOnce": "Approve USDG to Permit2 (one-time)",
+        "router": "Let the Uniswap router take exactly {{amount}} USDG",
+        "swap": "Swap {{amount}} {{in}} → {{out}}"
+      },
+      "button": {
+        "working": "Working…",
+        "swapSteps": "Swap {{amount}} {{in}} → {{out}} ({{count}} steps)",
+        "enterAmount": "Enter an amount"
+      },
+      "step1": {
+        "sized": "Approve exactly {{amount}} USDG to Permit2 — sized to this swap, not unlimited. Your Permit2 allowance for SPARE’s SweepExecutor is still live, so an unlimited approval would switch round-up pulls back on; this one is used up by the swap.",
+        "sizedKeep": "Approve exactly {{amount}} USDG to Permit2 — sized to this swap, not unlimited. Your Permit2 allowance for SPARE’s SweepExecutor is still live, so an unlimited approval would switch round-up pulls back on; this one is used up by the swap and leaves your round-up allowance where it was.",
+        "once": "Approve USDG to Permit2 — one-time, the same approval round-ups use."
+      },
+      "quoting": "Quoting on Uniswap v4…",
+      "staleBadge": "STALE — REFRESHING",
+      "stale": {
+        "ago": "quoted {{n}} s ago — not swappable until a fresh quote arrives",
+        "agoFailed": "quoted {{n}} s ago · the last refresh failed — not swappable until a fresh quote arrives",
+        "earlier": "quoted earlier — not swappable until a fresh quote arrives",
+        "earlierFailed": "quoted earlier · the last refresh failed — not swappable until a fresh quote arrives"
+      },
+      "line": {
+        "youPay": "YOU PAY",
+        "poolOutput": "POOL OUTPUT",
+        "poolFee": "POOL FEE",
+        "spareFee": "SPARE FEE",
+        "youReceive": "YOU RECEIVE",
+        "minReceived": "MINIMUM RECEIVED",
+        "price": "PRICE",
+        "impact": "PRICE IMPACT",
+        "networkFee": "NETWORK FEE"
+      },
+      "sub": {
+        "payUsd": "≈ {{usd}} at Chainlink ETH/USD",
+        "poolOutput": "live V4Quoter quote · Uniswap v4 ETH/USDG pool",
+        "poolFee": "already inside the pool price — goes to Uniswap liquidity providers",
+        "feeNone": "none",
+        "fee": "of the output, paid to SPARE's FeeVault in the same transaction",
+        "feeWeth": "of the output, paid to SPARE's FeeVault in the same transaction (as WETH)",
+        "receive": "at the quoted price",
+        "minReceived": "at {{pct}} slippage — any less and the whole swap reverts",
+        "priceEdge": "Chainlink ETH/USD {{usd}}, updated {{age}} ago · {{edge}} for you",
+        "priceOld": "Chainlink ETH/USD {{usd}}, updated {{age}} ago · too old to check against",
+        "priceNoRef": "Chainlink reference unavailable — swaps stay blocked until it can be read",
+        "impact": "vs a {{probe}} trade in the same pool · above {{block}} the swap is blocked",
+        "txOne": "{{count}} transaction",
+        "txMany": "{{count}} transactions",
+        "txAtOne": "{{count}} transaction at {{gas}}",
+        "txAtMany": "{{count}} transactions at {{gas}}",
+        "estimated": "estimated",
+        "assumesApprovals": "assumes both approvals until they are read"
+      },
+      "warnEdge": "The pool pays {{pct}} less than Chainlink's price — a smaller amount usually moves the price less.",
+      "warnImpact": "This amount moves the pool price {{pct}} against you — a smaller amount moves it less.",
+      "walletAsks": "What your wallet will ask for",
+      "upToTxs": "up to {{count}} transactions · checking…",
+      "approvedSkipped": "already approved — skipped",
+      "step2": "Permit2: let the Uniswap router take exactly {{amount}} USDG, expiring in {{min}} min.",
+      "allowanceSkipped": "live allowance covers it — skipped",
+      "step3": "The swap itself. ETH arrives in this wallet.",
+      "checking": "checking…",
+      "badge": {
+        "live": "QUOTE LIVE",
+        "inProgress": "IN PROGRESS",
+        "stale": "QUOTE STALE",
+        "notReady": "NOT READY"
+      },
+      "deadline": "Deadline {{min}} min · quote refreshes every 15 s and is re-checked when you click · output goes to the wallet that sends the transaction.",
+      "swapped": "Swapped. Expected ≈ {{expected}} {{sym}}, guaranteed at least {{min}} — balances above refresh on their own.",
+      "footer": {
+        "feeRoute": "SPARE fee: {{pct}} of what the pool pays out, skimmed in the same transaction and sent to SPARE's FeeVault <vault/> — USDG when you buy USDG, WETH when you buy ETH. It pays for running SPARE; swapping elsewhere (e.g. Robinhood Wallet) avoids it. Route: Uniswap v4 ETH/USDG {{poolFee}} pool through the Universal Router <router/>. Guards: Chainlink ETH/USD must be under {{hours}} h old with the pool within {{priceBlock}} of it, and price impact under {{impactBlock}} — otherwise the swap is blocked.",
+        "noFeeRoute": "No SPARE fee on swaps right now. Route: Uniswap v4 ETH/USDG {{poolFee}} pool through the Universal Router <router/>. Guards: Chainlink ETH/USD must be under {{hours}} h old with the pool within {{priceBlock}} of it, and price impact under {{impactBlock}} — otherwise the swap is blocked."
+      }
+    }
+  },
+  "linkWallet": {
+    "hero": {
+      "kicker": "Spare sources",
+      "subtitle": "Wallet native",
+      "description": "Choose the wallets that feed your round-ups. Only wallets you explicitly link count, and unlinking stops new accrual.",
+      "noWallet": "NO WALLET"
+    },
+    "features": {
+      "onlyLinked": "Only linked wallets count",
+      "perWallet": "Consent per wallet",
+      "unlinkAnyTime": "Unlink any time"
+    },
+    "connectWhy": "No wallet is connected. Connect the wallet you invest from — it becomes your SPARE account — then link the wallets you spend from.",
+    "sig": {
+      "undeployed": "This looks like a smart wallet that is not deployed on Robinhood Chain yet, so RuleRegistry cannot check its signature. Send one transaction from it first (e.g. \"Authorize round-ups\" below), then sign the link again — nothing saved.",
+      "mismatch": "The wallet returned a signature that does not verify for this address — nothing saved.",
+      "erc1271": "This wallet's contract (ERC-1271) does not accept the signature on Robinhood Chain, so RuleRegistry would reject it — nothing saved."
+    },
+    "age": {
+      "s": "≈{{n}}s ago",
+      "m": "≈{{n}}m ago",
+      "h": "≈{{n}}h ago",
+      "d": "≈{{n}}d ago"
+    },
+    "never": "never",
+    "thisWalletChip": "THIS WALLET",
+    "thisWalletChipTitle": "The wallet connected right now",
+    "example": {
+      "title": "Wallet map",
+      "intro": "An example setup: spending wallets feeding one investing account. These are illustrations, not real wallets.",
+      "walletA": "Spending wallet A",
+      "walletB": "Spending wallet B",
+      "walletOther": "Any other wallet",
+      "noteA": "linked + authorized",
+      "noteB": "linked, approvals not signed yet",
+      "noteOther": "never linked, never rounds up",
+      "roundUp": "ROUND UP",
+      "account": "Investing account",
+      "accountNote": "Round-ups from authorized wallets land here."
+    },
+    "status": {
+      "authorized": "AUTHORIZED",
+      "notAuthorized": "NOT AUTHORIZED",
+      "notLinked": "NOT LINKED"
+    },
+    "how": {
+      "title": "How linking works",
+      "connect": {
+        "title": "Connect your investing wallet",
+        "body": "It becomes your SPARE account: where round-ups land and where your rule lives."
+      },
+      "link": {
+        "title": "Link spending wallets",
+        "body": "Link the connected wallet in one transaction, or sign on another wallet and submit the link from your account."
+      },
+      "authorize": {
+        "title": "Authorize round-ups",
+        "body": "Each spending wallet signs two approvals itself. The Permit2 allowance has no amount limit; the weekly cap in Round-Up Rules is what bounds every pull."
+      }
+    },
+    "tx": {
+      "approveUsdg": "Approve USDG to Permit2",
+      "allowExecutor": "Allow SweepExecutor via Permit2",
+      "revoke": "Revoke Permit2 pull",
+      "linkSelf": "Link this wallet",
+      "unlink": "Unlink {{addr}}",
+      "link": "Link {{addr}}",
+      "invalidate": "Invalidate my link signatures"
+    },
+    "sign": {
+      "readingNonce": "Reading your link nonce…",
+      "switching": "Switching your wallet to Robinhood Chain…",
+      "alreadyLinked": "This wallet is already linked to {{addr}}. Unlink it first.",
+      "signInWallet": "Sign the link message in your wallet…",
+      "verifying": "Checking the signature the way RuleRegistry will…",
+      "done": "Signed. Now switch your wallet to {{addr}} — this window will show a Submit button there.",
+      "working": "Working"
+    },
+    "cols": {
+      "linkedAt": "Linked at",
+      "scanned": "Scanned through",
+      "consent": "Pull consent",
+      "actions": "Actions"
+    },
+    "confirmUnlink": "Confirm unlink",
+    "unlink": "Unlink",
+    "role": {
+      "reading": "READING",
+      "accountSpender": "ACCOUNT + SPENDER",
+      "spendingWallet": "SPENDING WALLET",
+      "account": "ACCOUNT"
+    },
+    "registryError": "Could not read RuleRegistry: {{error}}",
+    "connected": {
+      "title": "Connected wallet",
+      "thisWallet": "This wallet",
+      "feeding": "Wallets feeding this account",
+      "slotsAria": "{{n}} of {{max}} wallets linked",
+      "spender": "This wallet is a <b>spending wallet</b> feeding account <addr/>. Its payments round up into that account; you can unlink it from here at any time.",
+      "linkSelf": "Link this wallet (spend + invest)",
+      "confirmUnlinkSelf": "Confirm unlink this wallet",
+      "unlinkSelf": "Unlink this wallet",
+      "linkedHint": "linked {{linked}} · payments scanned through {{scanned}}",
+      "linkSelfHint": "linkSelf() makes this wallet both the account and one of its spending wallets.",
+      "consentHead": "This wallet's consent to be pulled",
+      "reauthorize": "Re-authorize round-ups",
+      "authorize": "Authorize round-ups",
+      "revoke": "Revoke",
+      "consentHint": "Two approvals, both from this wallet: USDG → Permit2 (standard approve), then Permit2 → SweepExecutor (unlimited amount, expires in 365 days). What bounds each pull is the rule's weekly cap, counted over the current UTC day and the six before it (so up to twice the cap within any 7 × 24 hours)."
+    },
+    "list": {
+      "count": "{{n}} of {{max}}",
+      "reading": "Reading RuleRegistry…",
+      "empty": "No wallets are linked to this account yet. Until one is, no payment anywhere generates spare change. Link this wallet above, or link another wallet below.",
+      "consentNote": "Consent can only be granted by the wallet itself — connect that wallet to authorize it."
+    },
+    "another": {
+      "title": "Link another wallet",
+      "steps": "2 STEPS",
+      "signedCount": "{{count}} signed",
+      "step2": "Step 2 — submit from this account",
+      "linkedHere": "already linked to this account",
+      "linkedTo": "already linked to {{addr}}",
+      "expired": "signature expired — sign again from that wallet",
+      "stale": "wallet nonce moved since signing — sign again",
+      "signedExpires": "signed · expires in {{min}} min",
+      "submit": "Submit link",
+      "discard": "Discard",
+      "step1": "Step 1 — sign on the spending wallet",
+      "alreadySelf": "This wallet is already linked to itself. To sign a link to a different account, unlink it first.",
+      "alreadyOther": "This wallet is already linked to {{addr}}. To sign a link to a different account, unlink it first.",
+      "howTo": "Connect the wallet you SPEND from, type the address of the account it should feed, and sign. Nothing is sent and no gas is paid. Then switch your wallet to that account (same browser) and submit.",
+      "account": "Account",
+      "placeholder": "0x… investing account",
+      "sign": "Sign link",
+      "invalidAddress": "Not a valid 0x address.",
+      "isMe": "That is this wallet — use “Link this wallet” above instead.",
+      "awaitingHead": "Signed by this wallet, waiting for the account",
+      "forAccount": "for account",
+      "expiredShort": "expired",
+      "expiresIn": "expires in {{min}} min",
+      "invalidate": "Invalidate on-chain",
+      "invalidateHint": "Discard only forgets it in this browser; invalidateNonce() kills every link signature this wallet has handed out."
+    },
+    "meaning": {
+      "title": "What linking means",
+      "payments": "A payment is an outgoing <info>USDG transfer</info> from a linked wallet. Transfers between your own linked wallets, to your account, to SPARE contracts and into the Uniswap v4 PoolManager (plus the few Uniswap contracts the keeper lists) are not spending and never round up. USDG sent anywhere else counts as a payment — including a swap that pays a Uniswap v3 pool directly, or any other DEX or aggregator. <warn>Pause round-ups before a large swap from a linked wallet.</warn> Linking starts at the block it lands in — it never reaches back to payments made before you consented.",
+      "unlink": "<info>Unlink</info> stops new accrual from that wallet immediately (the executor refuses to pull from an unlinked wallet). Spare already collected and stock already bought stay exactly where they are. Either the account or the wallet itself can unlink."
+    }
+  },
+  "roundUpRules": {
+    "multiplier": {
+      "none": "no multiplier",
+      "times": "{{m}}× the round-up"
+    },
+    "connectWhy": "Connect your investing wallet to read and set its round-up rule. The rule lives on-chain, per account.",
+    "hero": {
+      "kicker": "Turbo round-ups",
+      "subtitle": "Round to $1 / $5 / $10",
+      "description": "Each payment from a linked wallet is lifted to the next $1, $5 or $10. The difference, times 1× to 5×, becomes spare change to invest."
+    },
+    "features": {
+      "range": "1× to 5×",
+      "native": "Wallet native",
+      "cap": "Weekly cap on-chain"
+    },
+    "what": "round-up rule and weekly cap",
+    "stairsAria": "{{caption}}: {{steps}}",
+    "ruleTitle": "Round-up rule",
+    "roundUpTo": "Round up to",
+    "multiplierLabel": "Multiplier",
+    "example": {
+      "intro": "Try it: this example applies a rule to one {{payment}} payment. It runs in your browser only, so nothing is read from a wallet and nothing is saved.",
+      "roundAria": "Example: round up to",
+      "multiplierAria": "Example: multiplier",
+      "caption": "Spare from {{payment}} at each multiplier",
+      "next": "→ Next ${{roundTo}}",
+      "roundUp": "= Round-up",
+      "spare": "× {{m}} = Spare",
+      "note": "Example numbers, not an account. With a wallet connected, this window reads and saves your real rule in RuleRegistry on Robinhood Chain, next to a weekly cap that SPARE can never pull past."
+    },
+    "payment": "Payment",
+    "tx": {
+      "save": "Save rule",
+      "pause": "Pause round-ups"
+    },
+    "status": {
+      "reading": "READING",
+      "noRuleYet": "NO RULE YET",
+      "paused": "ROUND-UPS PAUSED"
+    },
+    "readError": "Could not read the rule: {{error}}",
+    "onChain": {
+      "title": "On-chain now",
+      "weeklyCap": "Weekly cap",
+      "perRolling": "per rolling 7 days",
+      "badge": "ON-CHAIN · RuleRegistry",
+      "noWallets": "No linked wallets yet — link one in Link Wallet, or this rule has nothing to read.",
+      "noWalletsSince": "No linked wallets yet — link one in Link Wallet, or this rule has nothing to read. Active since block #{{block}}.",
+      "appliesTo": "Applies to {{count}} linked wallet(s).",
+      "appliesToSince": "Applies to {{count}} linked wallet(s). Active since block #{{block}}."
+    },
+    "noRule": {
+      "readOnly": "Account {{addr}} has no rule on-chain yet, so nothing accrues. Connect that account to set one.",
+      "owner": "This account has no rule on-chain yet, so nothing accrues. Pick a boundary, a multiplier and a weekly cap below, then save — one transaction from this wallet."
+    },
+    "editor": {
+      "boundaryHint": "the next boundary each payment is lifted to",
+      "multiplierHint": "multiplies the round-up, not the payment"
+    },
+    "cap": {
+      "accentOnChain": "ON-CHAIN {{cap}}/7D",
+      "accentNone": "NO CAP = NO ACCRUAL",
+      "label": "Cap per 7 days",
+      "quickSet": "Quick set",
+      "presetsAria": "Weekly cap presets",
+      "invalid": "Not a dollar amount (up to 6 decimals).",
+      "tooBig": "Too large for the contract (uint64 base units).",
+      "missing": "Enter a weekly cap — it bounds what SPARE can pull from your wallets over the current UTC day and the six before it.",
+      "zero": "A $0 cap disables accrual entirely — same as pausing.",
+      "enforced": "Enforced on-chain: a pull that would take the rolling 7 days past this cap reverts.",
+      "pulled": "Pulled last 7 days",
+      "remaining": "Remaining",
+      "used": "Used of the on-chain cap"
+    },
+    "switch": {
+      "title": "Switch",
+      "on": "ON",
+      "label": "Accrue spare change",
+      "detail": "Off stops NEW accrual only. Turning it back on never reaches into the paused window — accrual restarts from the block you re-enable."
+    },
+    "saveBar": {
+      "readOnly": "READ-ONLY",
+      "noRule": "NO RULE ON-CHAIN",
+      "unsaved": "UNSAVED EDITS",
+      "matches": "MATCHES CHAIN",
+      "readOnlyHint": "Account {{addr}}'s rule — only that account can change it. Edits here only feed the worked example.",
+      "revert": "Revert edits",
+      "pauseNow": "Pause now",
+      "save": "Save rule on-chain"
+    },
+    "worked": {
+      "title": "Worked example",
+      "accent": "NOT HISTORY",
+      "hint": "Your numbers, not history: this runs the rule in the editor above, saved or not.",
+      "ifIPay": "If I pay",
+      "anyAmount": "any amount — nothing is sent, nothing is recorded",
+      "enterAmount": "Enter a payment amount (up to 6 decimals) to see what the rule above would capture.",
+      "nextBoundary": "→ Next ${{roundTo}} Boundary",
+      "delta": "= Boundary Delta",
+      "captured": "Spare Captured ({{m}}×)",
+      "caption": "This payment at each multiplier (round up to ${{roundTo}})",
+      "vsThreshold": "One payment vs sweep threshold",
+      "toReach": "To reach it",
+      "noSweep": "no sweep at this rate",
+      "payments": "{{count}} payment(s)",
+      "onBoundary": "{{amount}} sits exactly on the ${{roundTo}} boundary, so the round-up is $0.00 and the multiplier has nothing to multiply.",
+      "paused": "With this rule paused (or capped at $0), the payment would capture nothing.",
+      "overCap": "One payment alone exceeds the {{cap}} weekly cap — the keeper can pull at most the room left in the week.",
+      "formula": "Integer arithmetic in USDG base units, identical to RoundUp.sol: step = roundTo × 1e6, rem = amount mod step, delta = rem = 0 ? 0 : (step − rem) × multiplier. A preview of the rule, not a payment or a holding."
+    }
+  },
+  "stockMix": {
+    "connectWhy": "Connect your investing wallet to elect your own mix. Until you do, sweeps follow the default mix.",
+    "hero": {
+      "kicker": "Your stocks · your weights",
+      "subtitle": "Tokenized stocks",
+      "description": "Pick the tokenized stocks each sweep buys and how your spare is split between them. Weights total exactly 100%.",
+      "badge": "YOUR MIX"
+    },
+    "what": "stock mix",
+    "example": {
+      "title": "Your stock mix",
+      "barAria": "Example mix: Stock A 60%, Stock B 40%",
+      "body": "Example only — at a $5 sweep this mix splits $3.00 to the first stock and $2.00 to the second. Yours is picked from the eligible universe.",
+      "legA": "Stock A {{pct}}%",
+      "legB": "Stock B {{pct}}%"
+    },
+    "price": {
+      "lastTitle": "last Chainlink answer {{when}}",
+      "last": "{{price}} last"
+    },
+    "weightInvalid": "Each weight must be a percentage with at most 2 decimals.",
+    "tx": {
+      "save": "Save mix",
+      "revertDefault": "Revert to default mix"
+    },
+    "registry": {
+      "eligible": "ELIGIBLE",
+      "inactive": "INACTIVE",
+      "inactiveTitle": "INACTIVE in AssetRegistry, so it cannot be elected",
+      "notElectable": "not electable",
+      "inMix": "in mix",
+      "add": "+ add"
+    },
+    "cols": {
+      "asset": "Asset",
+      "oraclePrice": "Oracle price",
+      "oracle": "Oracle",
+      "registry": "Registry"
+    },
+    "universe": {
+      "empty": "No assets registered.",
+      "aria": "Eligible universe",
+      "title": "Eligible Universe · AssetRegistry",
+      "reading": "READING…",
+      "count": "{{eligible}} ELIGIBLE / {{registered}} REGISTERED",
+      "staleNote": "Stock feeds run 24/5. A feed only turns STALE once its last answer is older than its heartbeat + 1 hour — for a daily feed that is ~25h after the last update, so a sweep can still run through Friday evening into Saturday against Friday's close (the oracle band bounds the fill). Once STALE a sweep <warn>waits</warn> — the spare stays parked and is retried next epoch. It is never converted to a USDG payout because a market is shut. INACTIVE assets (e.g. a thin pool) cannot be elected."
+    },
+    "preview": {
+      "title": "Sweep Preview — Not A Trade",
+      "accent": "AT {{threshold}} THRESHOLD",
+      "accentUnread": "THRESHOLD UNREAD",
+      "fixMix": "Fix the mix above to preview a sweep.",
+      "readingThreshold": "Reading the sweep threshold…",
+      "oneSweep": "One sweep",
+      "onChainThreshold": "the on-chain threshold",
+      "splitAria": "Sweep split: {{legs}}",
+      "fee": "(≈ {{fee}} fee)",
+      "note": "Split the way SweepExecutor splits: each leg gets threshold × bps / 10000, the last leg takes the remainder. The {{fee}}% fee applies only to legs that actually convert. Arithmetic, not an order."
+    },
+    "readFailed": "Read failed",
+    "defaultMix": {
+      "title": "Default Mix",
+      "badge": "DEFAULT",
+      "usedWhen": "Used when an account has none.",
+      "reading": "Reading the default mix…",
+      "barAria": "Default mix: {{legs}}",
+      "body": "Every sweep for an account without its own mix splits this way. Connect a wallet to elect yours."
+    },
+    "yourMix": {
+      "title": "Your Mix",
+      "reading": "READING",
+      "own": "OWN MIX",
+      "usingDefault": "USING DEFAULT MIX",
+      "totalWeight": "Total weight",
+      "complete": "exactly 100% — complete",
+      "mustTotal": "must total exactly 100%",
+      "legs": "{{n}}/{{max}} LEGS",
+      "balance": "Balance to 100",
+      "add": "Add",
+      "addTitle": "Add {{sym}} to the mix",
+      "noLegs": "No legs. Add an eligible asset with the chips above or from the universe list below.",
+      "weight": "Weight %",
+      "share": "Share",
+      "atThreshold": "At threshold",
+      "atThresholdInline": "at threshold",
+      "weightAria": "{{sym}} weight in percent",
+      "shareAria": "{{sym}} share",
+      "remove": "Remove",
+      "legsAria": "Mix legs",
+      "barAria": "Mix: {{legs}}",
+      "readOnlyOwn": "Account {{addr}}'s own mix — only that account can change it. Edits here only feed the preview below.",
+      "readOnlyDefault": "Account {{addr}}'s default mix — only that account can change it. Edits here only feed the preview below.",
+      "valid": "Valid — ready to save.",
+      "matches": "Matches your on-chain mix.",
+      "isDefault": "This is the default mix. Edit and save to elect your own.",
+      "revert": "Revert edits",
+      "confirmClear": "Confirm: use default",
+      "clear": "Clear (use default)",
+      "save": "Save mix on-chain",
+      "findPlaceholder": "Find one of {{n}}…",
+      "findAria": "Find a stock to add",
+      "moreToFind": "+{{n}} more — search to find them",
+      "noMatch": "No active stock matches."
+    }
+  },
+  "consent": {
+    "label": {
+      "reading": "READING",
+      "authorized": "AUTHORIZED",
+      "low": "LOW ALLOWANCE",
+      "expired": "EXPIRED",
+      "none": "NOT AUTHORIZED",
+      "partial": "PARTIAL"
+    },
+    "unlimited": "unlimited",
+    "detail": {
+      "reading": "reading allowances…",
+      "authorized": "pull allowed until {{until}}",
+      "authorizedLimited": "pull allowed until {{until}} · USDG→Permit2 approval {{amount}}",
+      "low": "only {{room}} can still be pulled (USDG→Permit2 {{erc20}}, Permit2→SweepExecutor {{p2}}). A larger pull fails and pulls stop once it is used up — re-authorize to lift it.",
+      "lowVsCap": "only {{room}} can still be pulled (USDG→Permit2 {{erc20}}, Permit2→SweepExecutor {{p2}}) — below the {{cap}} weekly cap. A larger pull fails and pulls stop once it is used up — re-authorize to lift it.",
+      "expiring": "Permit2 allowance expires {{until}} — too close for the keeper to pull",
+      "expired": "Permit2 allowance expired {{until}}",
+      "none": "no allowance — nothing can be pulled",
+      "partialNoP2": "USDG approved to Permit2, but no Permit2 allowance for SweepExecutor — nothing can be pulled",
+      "partialNoErc20": "Permit2 allowance for SweepExecutor is still live, but USDG is not approved to Permit2 — nothing can be pulled now, yet any new USDG approval to Permit2 (from any app) re-activates it. Revoke to end it."
+    }
+  },
+  "collection": {
+    "listSep": ", ",
+    "label": {
+      "off": "ROUND-UPS OFF",
+      "on": "ROUND-UPS ON",
+      "noWallet": "ON · NO WALLET",
+      "notAuthorized": "ON · NOT AUTHORIZED",
+      "some": "ON · {{n}}/{{total}} AUTHORIZED",
+      "low": "ON · LOW ALLOWANCE"
+    },
+    "detail": {
+      "off": "The rule is off (or capped at $0): no new round-ups accrue. Parked spare can still sweep.",
+      "checking": "Checking the linked wallets’ pull consent…",
+      "noWallet": "The rule is on, but no wallet is linked — no payment generates a round-up. Link one in Link Wallet.",
+      "checkingN": "{{n}} linked wallet(s) — checking their pull consent…",
+      "notAuthorized": "None of the {{n}} linked wallet(s) has authorized pulls, so nothing is being collected — and round-ups from payments made meanwhile may never be collected. Connect each spending wallet and use Link Wallet → Authorize round-ups.",
+      "some": "Round-ups are collected from {{pullable}} only. Not authorized: {{missing}} — its payments are not being collected.",
+      "low": "{{n}} linked wallet(s) authorized, but {{low}} can be pulled for less than the weekly cap — re-authorize it in Link Wallet.",
+      "on": "{{n}} linked wallet(s), all authorized. New round-ups keep adding to the park."
+    }
+  },
+  "fundTx": {
+    "connectFirst": "Connect a wallet first.",
+    "revertedOnChain": "The transaction reverted on-chain — nothing was swapped or approved; only the network fee was spent."
+  }
+}

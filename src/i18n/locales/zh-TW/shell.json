@@ -1,0 +1,606 @@
+{
+  "common": {
+    "ok": "OK",
+    "live": "運作中",
+    "liveData": "即時",
+    "soon": "即將推出",
+    "online": "線上",
+    "offline": "離線",
+    "standby": "待命",
+    "ready": "就緒",
+    "paused": "已暫停",
+    "connected": "已連接",
+    "notConnected": "未連接",
+    "onChain": "鏈上",
+    "example": "範例",
+    "reading": "讀取中…",
+    "loading": "載入中…",
+    "close": "關閉",
+    "cancel": "取消",
+    "confirm": "確認",
+    "save": "儲存",
+    "copy": "複製",
+    "copied": "已複製",
+    "retry": "重試",
+    "connectWallet": "連接錢包",
+    "wallet": "錢包",
+    "hideWallets": "收合錢包清單",
+    "walletPillHint": "或使用系統匣中的錢包按鈕。",
+    "disconnect": "中斷連線",
+    "spareSoonTooltip": "$SPARE 代幣尚未上線。上線後，我們會在這裡和 X 上公布合約地址。"
+  },
+  "appNames": {
+    "fund-wallet": "錢包儲值",
+    "spare-balance": "Spare 餘額",
+    "link-wallet": "綁定錢包",
+    "roundup-rules": "湊整規則",
+    "stock-mix": "股票組合",
+    "auto-invest": "自動投資",
+    "spare-activity": "帳戶動態",
+    "viewing-key": "檢視金鑰",
+    "stock-desk": "股票看盤",
+    "after-hours": "盤後交易",
+    "portfolio-xray": "持股透視",
+    "docs": "說明文件",
+    "roadmap": "路線圖",
+    "telegram": "Telegram",
+    "x": "X",
+    "recycle-bin": "資源回收筒",
+    "my-spare": "我的 Spare",
+    "about": "關於 Spare",
+    "taskmanager": "工作管理員"
+  },
+  "welcome": {
+    "title": "歡迎來到 Spare",
+    "body": "幫你日常的 USDG 付款湊整，把零錢投入代幣化股票。要現在設定湊整嗎？",
+    "setUp": "設定湊整",
+    "lookAround": "先逛逛",
+    "spareNotLive": "尚未上線",
+    "spareSoonAria": "$SPARE：即將推出。{{tooltip}}"
+  },
+  "taskbar": {
+    "start": "開始"
+  },
+  "startMenu": {
+    "sections": {
+      "programs": "程式集",
+      "markets": "市場",
+      "resources": "資源",
+      "web": "網頁",
+      "system": "系統"
+    },
+    "morePages": "更多頁面",
+    "fewerPages": "收合",
+    "disconnectWallet": "中斷錢包連線",
+    "shutDown": "關機…"
+  },
+  "publicRoutes": {
+    "docs": {
+      "label": "說明文件",
+      "tagline": "Spare 如何運作"
+    },
+    "universe": {
+      "label": "股票池",
+      "tagline": "看看零錢能買哪些股票"
+    },
+    "dispatch": {
+      "label": "即時買進",
+      "tagline": "每一筆湊整與買進，即時呈現"
+    },
+    "datalayer": {
+      "label": "資料層",
+      "tagline": "Chainlink、流動性池與合約的即時資料"
+    },
+    "devtools": {
+      "label": "開發人員工具",
+      "tagline": "合約地址、ABI 與程式碼"
+    },
+    "mcp": {
+      "label": "MCP",
+      "tagline": "將你的 AI 代理接上 Spare"
+    },
+    "flywheel": {
+      "label": "飛輪",
+      "tagline": "從付款到股票，再到 $SPARE"
+    },
+    "buyback": {
+      "label": "回購",
+      "tagline": "Spare 手續費的去向"
+    },
+    "roadmap": {
+      "label": "路線圖",
+      "tagline": "S1 已上線 · S2 隱私 · S3 $SPARE"
+    },
+    "whitepaper": {
+      "label": "白皮書",
+      "tagline": "Spare 的設計理念"
+    },
+    "x": {
+      "label": "X",
+      "tagline": "Spare 官方帳號 @TrySpareRH"
+    },
+    "telegram": {
+      "label": "Telegram",
+      "tagline": "Spare 社群"
+    }
+  },
+  "login": {
+    "title": {
+      "opening": "正在開啟 Spare…",
+      "connected": "錢包已連接",
+      "signIn": "Spare · 使用錢包登入"
+    },
+    "sub": {
+      "loading": "正在載入你的湊整…",
+      "connected": "{{address}} · 按「進入 Spare」繼續",
+      "choose": "選擇要連接的錢包",
+      "prompt": "按 Enter 或點選下方按鈕連接錢包"
+    },
+    "cardAria": "登入 Spare",
+    "tagline": "從付款到股票",
+    "openingAria": "正在開啟 Spare",
+    "connectWallet": "連接錢包",
+    "guest": "以訪客身分繼續",
+    "enter": "進入 Spare ▸",
+    "micro": "Robinhood Chain · 鏈 ID 4663 · 代幣化股票不提供給美國人士。",
+    "linksAria": "Spare 頁面"
+  },
+  "walletPicker": {
+    "title": "選擇錢包",
+    "robinhoodScan": "Robinhood Wallet（掃描 QR Code）",
+    "noRobinhoodChain": "{{name}}：不支援 Robinhood Chain",
+    "openApp": "開啟 App ↗",
+    "install": "安裝 ↗",
+    "connecting": "連接中…",
+    "rejected": "你在錢包中拒絕了連線要求。"
+  },
+  "walletTray": {
+    "title": "錢包已連接",
+    "connectedFallback": "已連接",
+    "chainId": "鏈 ID {{id}}",
+    "copyAddress": "複製地址"
+  },
+  "systemTray": {
+    "ethSource": "ETH/USD 價格來自 Robinhood Chain 上的 Chainlink",
+    "ethUpdated": "更新於 {{time}}",
+    "ethStale": "已過時",
+    "connect": "連接",
+    "addressCopied": "地址已複製",
+    "copied": "已複製"
+  },
+  "ticker": {
+    "chip": {
+      "marketClosed": "休市",
+      "spare": "Spare"
+    },
+    "title": {
+      "open": "Robinhood Chain 上的 Chainlink 股票價格來源正即時更新",
+      "closed": "美股 24/5 交易時段已休市：顯示的是上次收盤價，買進暫緩",
+      "mixed": "部分股票價格來源已更新，部分仍在等待",
+      "reading": "正在從 Robinhood Chain 讀取股票池",
+      "offline": "無法連線至 Robinhood Chain"
+    },
+    "pricesUnavailable": "暫時無法取得股價",
+    "readingPrices": "讀取股價中…",
+    "lastCloseTag": "收盤價",
+    "price": {
+      "live": "Chainlink 即時價格",
+      "lastClose": "上次收盤價",
+      "none": "尚無價格"
+    },
+    "oracle": "預言機 {{status}}",
+    "aria": "{{label}}：{{list}}"
+  },
+  "appWindow": {
+    "menu": {
+      "file": "檔案",
+      "edit": "編輯",
+      "view": "檢視",
+      "tools": "工具",
+      "help": "說明"
+    },
+    "minimize": "最小化",
+    "maximize": "最大化",
+    "restore": "還原",
+    "online": "線上",
+    "resize": "拖曳以調整大小"
+  },
+  "bios": {
+    "cardTitle": "Spare · 開機自我檢測",
+    "cardAria": "Spare 開機檢測",
+    "badge": {
+      "checking": "檢測中",
+      "attention": "注意"
+    },
+    "rows": {
+      "system": "系統",
+      "chain": "鏈",
+      "contracts": "合約",
+      "engine": "引擎",
+      "oracles": "預言機",
+      "universe": "股票池",
+      "park": "暫存",
+      "api": "Spare API",
+      "keeper": "執行器"
+    },
+    "tags": {
+      "ok": "OK",
+      "fail": "失敗",
+      "wait": "等待",
+      "degraded": "降級",
+      "paused": "暫停",
+      "idle": "閒置",
+      "standby": "待命"
+    },
+    "pending": "檢測中",
+    "pressEnter": "[ 按 ENTER 進入 ]",
+    "tapToEnter": "[ 輕觸進入 ]",
+    "spareSoonTitle": "$SPARE 即將推出，目前還沒有合約地址。",
+    "age": {
+      "s": "{{s}} 秒",
+      "m": "{{m}} 分鐘",
+      "hm": "{{h}} 小時 {{m}} 分",
+      "dh": "{{d}} 天 {{h}} 小時"
+    },
+    "ago": "{{age}}前",
+    "system": "Spare {{release}} · 第一季 · Robinhood Chain 主網",
+    "chain": {
+      "ok": "Robinhood Chain · id {{id}} · 區塊 #{{block}}",
+      "wrong": "鏈 ID 不符：{{id}}",
+      "rpcDown": "RPC 無法連線"
+    },
+    "contracts": {
+      "ok": "Spare 已部署 · SweepExecutor {{address}}",
+      "noCode": "SweepExecutor 上沒有位元組碼"
+    },
+    "engine": {
+      "paused": "扣款與買進已暫停，仍可退出",
+      "running": "運作中 · 手續費 {{fee}}% · 滿 ${{threshold}} 買進"
+    },
+    "oracles": {
+      "none": "目前沒有啟用的股票",
+      "live": "{{live}}/{{total}} 股票價格來源正常 · {{symbols}}",
+      "lastClose": "上次收盤 {{ago}}",
+      "lastCloseUnknown": "上次收盤時間不明",
+      "closed": "休市 · {{lastClose}}，買進暫緩",
+      "degraded": "{{live}}/{{total}} 正常 · {{symbol}} {{status}}"
+    },
+    "universe": {
+      "active": "{{count}} 檔啟用",
+      "standby": "{{count}} 檔待命 ({{symbols}})"
+    },
+    "park": {
+      "usdg": "USDG · 隨時可退出",
+      "sgov": "SGOV 美國公債暫存",
+      "adapter": "轉接器 {{address}} · 隨時可退出"
+    },
+    "keeper": {
+      "idle": "上次活動 {{ago}}",
+      "lastRoundUp": "上次湊整 {{ago}}",
+      "noRoundUp": "尚無湊整",
+      "lastSweep": "上次買進 {{ago}}",
+      "noSweep": "尚無買進",
+      "watchingOne": "尚無湊整，正在監控 {{count}} 個已綁定的錢包",
+      "watchingMany": "尚無湊整，正在監控 {{count}} 個已綁定的錢包",
+      "noRoundUps": "尚無湊整",
+      "unavailable": "暫時無法取得狀態"
+    },
+    "api": {
+      "offline": "離線，鏈上功能仍可使用",
+      "offlineShort": "離線",
+      "online": "線上 · Spare MCP {{tools}} 個工具"
+    },
+    "skipped": "已略過：{{reason}}",
+    "reason": {
+      "rpcDown": "RPC 無法連線",
+      "notDeployed": "合約未部署"
+    },
+    "readFailed": "讀取失敗"
+  },
+  "errorScreen": {
+    "updateTitle": "有新版本",
+    "crashTitle": "Spare 發生錯誤",
+    "updateBody": "Spare 已推出新版本，但你的瀏覽器仍在使用舊版。請強制重新整理以更新。",
+    "crashBody": "這個頁面顯示時發生問題。你的錢包和湊整都在 Robinhood Chain 上，不受影響。錯誤詳情已記錄到瀏覽器主控台。",
+    "hardRefresh": "強制重新整理",
+    "reload": "重新載入",
+    "retry": "重試"
+  },
+  "holo": {
+    "remove": "移除",
+    "tableEmpty": "目前沒有內容"
+  },
+  "spareUi": {
+    "deploying": {
+      "title": "Spare 合約",
+      "badgeChecking": "檢測中",
+      "badgeRpcError": "RPC 錯誤",
+      "badgeDeploying": "部署中",
+      "checking": "正在 Robinhood Chain 上檢測 Spare 合約…",
+      "checkingAria": "正在檢測 Robinhood Chain",
+      "unreachable": "無法連線至 Robinhood Chain。",
+      "headline": "Spare 合約正在部署到 Robinhood Chain。",
+      "body": "目前還沒有任何功能上線，所以這個視窗不顯示餘額、規則或動態。SweepExecutor 在 <addr/> 部署程式碼後，視窗會自動啟用。"
+    },
+    "connect": {
+      "title": "連接錢包",
+      "defaultWhy": "連接錢包，查看它的 Spare 帳戶。"
+    },
+    "account": {
+      "resolving": "正在確認這個錢包是投資帳戶，還是已綁定的消費錢包…",
+      "unknown": "無法確認這個錢包屬於哪個帳戶，暫時以獨立帳戶顯示。"
+    },
+    "spending": {
+      "title": "消費錢包",
+      "readOnly": "唯讀",
+      "body": "這個錢包（<me/>）是綁定到帳戶 <account/> 的<b>消費錢包</b>。它的付款會湊整到該帳戶，所以這裡顯示的{{what}}都屬於該帳戶，僅供檢視；如需修改，請連接 <account/>。"
+    },
+    "chainNote": "你的錢包目前在鏈 {{chain}} 上。資料一律從 Robinhood Chain 讀取；在這裡進行任何操作前，都會先請錢包切換到 Robinhood Chain ({{target}})。",
+    "unknownChain": "不明",
+    "tx": {
+      "phase": {
+        "switching": "正在將錢包切換到 Robinhood Chain…",
+        "checking": "正在鏈上預先檢查這筆呼叫…",
+        "wallet": "請在錢包中確認…",
+        "pending": "已送出，等待 Robinhood Chain 打包…",
+        "confirmed": "已在 Robinhood Chain 上確認。",
+        "error": "失敗"
+      },
+      "step": "（第 {{step}} 步，共 {{steps}} 步）",
+      "head": "{{label}}{{step}}：",
+      "badgeConfirmed": "已確認",
+      "badgeError": "錯誤",
+      "badgePending": "待確認",
+      "viewTx": "檢視交易"
+    }
+  },
+  "errors": {
+    "oracle": {
+      "ok": "正常",
+      "stale": "已過時（休市中）",
+      "paused": "已暫停",
+      "seqDown": "排序器停擺",
+      "badAnswer": "回傳資料異常",
+      "unavailable": "無法使用"
+    },
+    "revert": {
+      "badRoundTo": "湊整級距只能是 $1、$5 或 $10（收到的是 {{got}}）。",
+      "badMultiplier": "倍數必須介於 1× 至 5×（收到的是 {{got}}）。",
+      "alreadyLinked": "{{wallet}} 已綁定到帳戶 {{account}}，請先在該帳戶解除綁定。",
+      "notLinked": "{{wallet}} 並未綁定到這裡（只有它所屬的帳戶或該錢包本身才能解除綁定）。",
+      "tooManyWallets": "這個帳戶已綁定 8 個錢包，已達上限。",
+      "expired": "簽章已過期，請用消費錢包重新簽署綁定訊息。",
+      "badSignature": "綁定簽章驗證失敗。簽章中的帳戶可能不一致，或簽署後錢包的 nonce 已變動，請重新簽署。如果消費錢包是從未在 Robinhood Chain 上送出過交易的智慧錢包，它尚未部署，簽章無法驗證：請先用它送出一筆交易（例如授權湊整），再重新簽署。",
+      "badLegCount": "組合需包含 1 至 6 項資產（收到的是 {{got}} 項）。",
+      "badTotal": "權重合計必須剛好是 100%（目前為 {{got}}%）。",
+      "zeroLeg": "{{symbol}} 的權重為 0%，請移除它或為它分配權重。",
+      "duplicateAsset": "{{symbol}} 在組合中出現了兩次。",
+      "ineligibleAsset": "{{symbol}} 在資產註冊表中未啟用，無法選入組合。",
+      "unknownAsset": "{{symbol}} 不在資產註冊表中。",
+      "assetInactive": "{{symbol}} 在註冊表中未啟用。",
+      "oracleNotOk": "價格預言機目前狀態為「{{status}}」，請等它恢復正常後再試。",
+      "outsideBand": "流動性池價格超出允許的區間。",
+      "ruleDisabled": "這個帳戶的湊整已停用（規則已關閉，或每週上限為 0）。",
+      "weeklyCapExceeded": "這會超出每週上限 ({{amount}} > {{cap}})。",
+      "cursorNotAdvancing": "該區塊範圍已經計入過了。",
+      "notFinal": "該區塊範圍尚未最終確認。",
+      "allowanceExpired": "Permit2 授權額度已過期，請重新授權湊整。",
+      "insufficientAllowance": "Permit2 授權額度不足，請重新授權湊整。",
+      "isPaused": "Spare 已被營運方暫停，新的操作已停止。退出和領取仍可正常使用。",
+      "notKeeper": "只有 Spare 執行器可以執行此操作。",
+      "notPauser": "只有 Spare 暫停管理員可以執行此操作。",
+      "notExecutor": "只有 SweepExecutor 可以執行此操作。",
+      "notOwner": "只有合約擁有者可以執行此操作。",
+      "reentrant": "重入呼叫已被拒絕。",
+      "transferFailed": "一筆 {{symbol}} 轉帳失敗。",
+      "zeroAddress": "有一個地址參數是零地址。"
+    },
+    "rejected": "你在錢包中拒絕了請求，未送出任何交易。",
+    "reverted": "交易已回滾：{{reason}}",
+    "contractRejected": "合約拒絕了這次呼叫。",
+    "noGas": "Robinhood Chain 上的 ETH 不足以支付 Gas。"
+  },
+  "fundErrors": {
+    "tooLittleReceived": "價格已變動：這筆兌換只能讓你收到 {{got}}，低於你設定的最少可收到 {{min}}。未兌換任何資產，請重新整理報價或提高滑價容忍度。",
+    "pastPriceLimit": "流動性池價格已超出這筆兌換的價格上限，未兌換任何資產。",
+    "deadlinePassed": "這筆兌換未能在 10 分鐘截止時間內上鏈，未兌換任何資產。請重新開始。",
+    "stepFailed": "路由呼叫的第 {{step}} 步失敗，未兌換任何資產。",
+    "poolRejected": "流動性池拒絕了這筆兌換，未兌換任何資產。",
+    "allowanceExpired": "Uniswap 路由合約沒有你的 USDG 的有效 Permit2 授權。請重新開始兌換，並在錢包提示時核准授權。",
+    "allowanceLow": "Uniswap 路由合約的 Permit2 授權額度低於兌換金額。請重新開始兌換，以授權正確的金額。",
+    "nonceUsed": "這個 Permit2 簽章已被使用過，請重新開始兌換。",
+    "signatureExpired": "Permit2 簽章已過期，請重新開始兌換。",
+    "noEth": "路由合約沒有收到這筆兌換所需的 ETH，未兌換任何資產。",
+    "notSettled": "兌換未能結算（餘額或授權額度不足），未兌換任何資產。",
+    "outsideLimit": "流動性池價格超出這筆兌換的限制，未兌換任何資產。",
+    "pullFailed": "Permit2 無法扣取你的 USDG，請檢查 USDG 餘額後再試一次。",
+    "transferFailed": "代幣轉帳失敗，未兌換任何資產。",
+    "panic": "合約執行異常中止（錯誤碼 {{code}}），未兌換任何資產。"
+  },
+  "fundGuard": {
+    "noQuote": "流動性池對這個金額沒有報價，已阻止兌換。",
+    "noProbe": "無法在同一個流動性池中為一筆小額參考交易報價，核對完成前已阻止兌換。",
+    "impact": "這個金額會讓池內價格往對你不利的方向變動 {{pct}}（相較於一筆極小的交易），為保護你已阻止兌換。請試試較小的金額。",
+    "noRef": "無法取得 Chainlink 的 ETH/USD 參考價格，因此無法核對池內價格，讀取到之前已阻止兌換。",
+    "staleRef": "Chainlink 的 ETH/USD 價格已是 {{age}}前的資料（至少每 {{hours}} 小時更新一次），更新前已阻止兌換。",
+    "belowRef": "池內成交價比 Chainlink 的 ETH/USD 價格低 {{pct}}，為保護你已阻止兌換。請試試較小的金額，或稍後再試。",
+    "age": {
+      "s": "{{n}} 秒",
+      "min": "{{n}} 分鐘",
+      "h": "{{n}} 小時"
+    },
+    "noUsablePrice": "Chainlink 的 ETH/USD 沒有回傳可用的價格，已阻止兌換。"
+  },
+  "stockBoard": {
+    "ago": {
+      "s": "{{n}} 秒前",
+      "m": "{{n}} 分鐘前",
+      "h": "{{n}} 小時前",
+      "d": "{{n}} 天前"
+    }
+  },
+  "publicTabs": {
+    "docs": "說明文件",
+    "universe": "股票池",
+    "dispatch": "即時買進",
+    "datalayer": "資料層",
+    "devtools": "開發人員工具",
+    "mcp": "MCP",
+    "roadmap": "路線圖",
+    "whitepaper": "白皮書",
+    "buyback": "回購",
+    "flywheel": "飛輪"
+  },
+  "publicFrame": {
+    "onThisPage": "本頁內容",
+    "closeAria": "關閉，返回 Spare",
+    "backTitle": "返回 Spare",
+    "pagesAria": "Spare 頁面",
+    "openSpare": "開啟 Spare ▸",
+    "back": "上一頁",
+    "forward": "下一頁",
+    "reload": "重新整理",
+    "home": "Spare 首頁",
+    "address": "網址",
+    "done": "完成 · Spare",
+    "footer": {
+      "brand": "Spare · 把湊整零錢變成 Robinhood Chain 上的代幣化股票 · trysparerh.com",
+      "linksAria": "Spare 連結",
+      "terms": "使用條款",
+      "privacy": "隱私權政策",
+      "legal": "代幣化股票不提供給美國人士，在其他司法管轄區也受到限制。本網站的任何內容均不構成投資建議。Spare 為獨立軟體，與 Robinhood Markets, Inc. 沒有任何關聯。"
+    },
+    "code": {
+      "label": "程式碼",
+      "copyAria": "複製程式碼"
+    },
+    "contracts": {
+      "checking": "檢測中",
+      "deployed": "已部署",
+      "noCode": "無程式碼",
+      "unread": "未讀取",
+      "unreadTitle": "Robinhood Chain 的 RPC 沒有回應。請在 Blockscout 上核對這個地址。",
+      "head": {
+        "contract": "合約",
+        "address": "地址",
+        "role": "用途",
+        "bytecode": "位元組碼"
+      },
+      "caption": "地址連結至 Robinhood Chain 的 Blockscout 區塊鏈瀏覽器。位元組碼檢測會在你的瀏覽器中即時執行。"
+    }
+  },
+  "notFound": {
+    "pageTitle": "找不到頁面 — Spare",
+    "kicker": "找不到頁面",
+    "subtitle": "這個頁面不屬於 Spare。",
+    "cardTitle": "找不到頁面",
+    "body": "Spare 上線前的舊連結會自動轉址，但這個連結並不存在。",
+    "requested": "要求的網址：<path>{{path}}</path>",
+    "back": "返回 Spare",
+    "readDocs": "閱讀說明文件"
+  },
+  "zoom": {
+    "title": "縮放桌面（Ctrl +/−，Ctrl 0 重設）",
+    "out": "縮小",
+    "reset": "重設縮放",
+    "in": "放大"
+  },
+  "roadmapPage": {
+    "pageTitle": "路線圖 — Spare",
+    "metaDescription": "Spare 已上線的功能與接下來的計畫：現在的湊整，之後的隱私湊整、加碼獎勵與 $SPARE，以及付款即湊整。",
+    "kicker": "路線圖",
+    "subtitle": "只排順序，不定日期。S1 已在 Robinhood Chain 上線，之後的階段都還在規劃中。",
+    "nav": {
+      "stages": "階段",
+      "meta": "說明",
+      "principles": "我們如何交付",
+      "changelog": "近期更新紀錄"
+    },
+    "railAria": "依序排列的階段",
+    "check": "待核實",
+    "srDone": "（已完成）",
+    "srNotDone": "（尚未完成）",
+    "stats": {
+      "live": "已上線",
+      "liveSub": "已在主網",
+      "inProgress": "進行中",
+      "inProgressSub": "強化 S1",
+      "planned": "規劃中"
+    },
+    "s1Check": {
+      "ok": "剛剛檢測過：Spare 的 SweepExecutor 在 Robinhood Chain 主網上有位元組碼。",
+      "missing": "即時位元組碼檢測沒有找到 SweepExecutor，請查看說明文件中的合約表。",
+      "checking": "正在 Robinhood Chain 上檢測已部署的合約…"
+    },
+    "changelog": {
+      "date": "2026年9月30日",
+      "dateUniverse": "2026年10月2日",
+      "deployed": "Spare 合約已部署至 Robinhood Chain 主網（區塊 76,221,503–76,221,683）。",
+      "review": "安全審查修正：自動買進只能由執行器發起，並受報價限制；任何兌換失敗都會順延；每週上限改為滾動 7 天計算；退出時優先支付待入帳的 USDG。",
+      "pools": "上線時：NVDA 已指定至無 hook 的 0.01% 流動性池；QQQ 與 SGOV 已註冊，但未啟用。",
+      "universe": "Robinhood Chain 完整股票池已註冊：每檔有 Chainlink 價格來源的代幣化股票都在其中。指定流動性池價格貼近 Chainlink 的股票啟用，其餘待命。SPY 改為指定其 0.05% 流動性池；SGOV 已在無 hook 的流動性池上啟用。",
+      "fund": "錢包儲值：ETH ↔ USDG 兌換，手續費 0.25%。"
+    },
+    "cta": {
+      "open": "開啟 Spare",
+      "whitepaper": "閱讀白皮書"
+    }
+  },
+  "toasts": {
+    "sonnerLabel": "通知"
+  },
+  "meta": {
+    "appTitle": "Spare — 從付款到股票"
+  },
+  "mixRules": {
+    "empty": "請至少新增一項資產。",
+    "tooMany": "一個組合最多只能包含 {{max}} 項資產。",
+    "zeroWeight": "{{asset}} 的權重必須大於 0%。",
+    "inactive": "{{asset}} 在資產註冊表中未啟用，無法選入組合。",
+    "twice": "{{asset}} 重複出現了。",
+    "total": "權重合計 {{total}}%，必須剛好合計 100%。"
+  },
+  "assets": {
+    "kind": {
+      "etf": "ETF 或基金",
+      "etfTag": "基金"
+    },
+    "filter": {
+      "search": "搜尋代號或名稱",
+      "searchAria": "搜尋股票池",
+      "clear": "清除搜尋",
+      "sortAria": "排序方式",
+      "sort": {
+        "symbol": "代號 A–Z",
+        "name": "名稱 A–Z",
+        "price": "價格由高到低",
+        "change": "約 1 日漲跌",
+        "gap": "價差最大優先"
+      },
+      "kindAria": "資產類型",
+      "all": "全部",
+      "stocks": "股票",
+      "etfs": "ETF 與基金",
+      "stateAria": "註冊狀態",
+      "active": "啟用",
+      "standby": "待命",
+      "showing": "{{shown}} / {{total}}",
+      "none": "沒有符合「{{search}}」的資產。",
+      "noneFiltered": "沒有符合篩選條件的資產。",
+      "reset": "顯示全部",
+      "more": "再顯示 {{n}} 檔",
+      "less": "收合"
+    },
+    "standby": {
+      "pool": "待命中：已註冊但尚未啟用，因此暫時不能選入組合或買進。",
+      "noQuote": "待命中：它的指定流動性池目前無法報價。",
+      "fillOutside": "待命中：經指定流動性池買進 $100，取得的代幣比按 Chainlink 價格少 {{pct}}，超出 {{band}} 的預言機價格區間。",
+      "fillThin": "待命中：經指定流動性池買進 $100，取得的代幣比按 Chainlink 價格少 {{pct}}，超過 Spare {{bar}} 的啟用門檻。",
+      "fillOk": "待命中：它的指定流動性池目前以 $100 成交時與 Chainlink 價格相差在 {{pct}} 以內；是否啟用由擁有者決定。"
+    },
+    "change": {
+      "title": "最新 Chainlink 價格與約一天前那次報價之間的漲跌",
+      "span": "{{h}} 小時內"
+    }
+  }
+}

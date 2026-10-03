@@ -1,0 +1,146 @@
+{
+  "_about": "Creation record of the 10 SPARE contracts on Robinhood Chain mainnet, from the Deploy.s.sol broadcast (contracts/broadcast is gitignored). Constructor args are as broadcast; scripts/verify-blockscout.sh check re-encodes them, appends them to the creation bytecode built from this repo, and compares the result byte-for-byte with each creation transaction input read from the chain.",
+  "chainId": 4663,
+  "deployer": "0x56B67D71039365083727b661Dbe9Bdb7f7D15189",
+  "deploySource": "pre-release commit, not in the public history; contracts/src in this repository rebuilds the same bytecode (docs/DEPLOYMENT-4663.md, Verification)",
+  "compiler": {
+    "solc": "0.8.26+commit.8a97fa7a",
+    "evmVersion": "cancun",
+    "viaIR": true,
+    "optimizer": {
+      "enabled": true,
+      "runs": 200
+    },
+    "bytecodeHash": "none",
+    "libraries": "none (every library function is internal)"
+  },
+  "contracts": [
+    {
+      "name": "AssetRegistry",
+      "source": "src/AssetRegistry.sol:AssetRegistry",
+      "address": "0x6dA6e49E2c59b622697a208a83bF266D5268c937",
+      "creationTx": "0x99fe20683951863be2cf28cd61e6d0fe679c56afb67207db4adc21913b93e961",
+      "block": 76221503,
+      "constructor": "constructor(address owner_,address usdg_)",
+      "args": [
+        "0x56B67D71039365083727b661Dbe9Bdb7f7D15189",
+        "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168"
+      ]
+    },
+    {
+      "name": "RuleRegistry",
+      "source": "src/RuleRegistry.sol:RuleRegistry",
+      "address": "0x477504Fdd8929fC75Ac6836C2aa131D765e85f78",
+      "creationTx": "0x4a9ae5f010b9450bfa7339b43711a32163c2935319b533d293c5e019db2335bc",
+      "block": 76221523,
+      "constructor": "constructor()",
+      "args": []
+    },
+    {
+      "name": "ElectionRegistry",
+      "source": "src/ElectionRegistry.sol:ElectionRegistry",
+      "address": "0x05fB5B11B676BC0Fbf893480b4101fB7C8Db0543",
+      "creationTx": "0x7184ee48f6ba3050161229a49a09a9dc1e5e756dab3193f4fbd527e51b4be1da",
+      "block": 76221543,
+      "constructor": "constructor(address owner_,address registry_)",
+      "args": [
+        "0x56B67D71039365083727b661Dbe9Bdb7f7D15189",
+        "0x6dA6e49E2c59b622697a208a83bF266D5268c937"
+      ]
+    },
+    {
+      "name": "ScreeningGate",
+      "source": "src/ScreeningGate.sol:ScreeningGate",
+      "address": "0xC3289C38c53055d58009B2fa9499c753b3dBCED3",
+      "creationTx": "0xcbaec7e74090e90cd0e51f71cd8086029b71c6cd62afde5c66bc8a30ae6a674c",
+      "block": 76221563,
+      "constructor": "constructor(address owner_,address attestor_,bool enforced_)",
+      "args": [
+        "0x56B67D71039365083727b661Dbe9Bdb7f7D15189",
+        "0x56B67D71039365083727b661Dbe9Bdb7f7D15189",
+        "false"
+      ]
+    },
+    {
+      "name": "StockRouter",
+      "source": "src/StockRouter.sol:StockRouter",
+      "address": "0x1Fec3654Fea787a63104a6634C9781B837B5e17E",
+      "creationTx": "0x8991b957ae84ad60a3142cc136dfad1cb8a152f1fe86e6acc054f352270517dd",
+      "block": 76221583,
+      "constructor": "constructor(address owner_,address poolManager_,address registry_)",
+      "args": [
+        "0x56B67D71039365083727b661Dbe9Bdb7f7D15189",
+        "0x8366a39CC670B4001A1121B8F6A443A643e40951",
+        "0x6dA6e49E2c59b622697a208a83bF266D5268c937"
+      ]
+    },
+    {
+      "name": "CashPark",
+      "source": "src/CashPark.sol:CashPark",
+      "address": "0x947538724Ed80BA609B4A1B4bBCb62d7f3Cd6Abb",
+      "creationTx": "0x2b2c51eb1aed8d453e6446d48d1b0bec034a88a0c576d36faa02b5bf31cdc113",
+      "block": 76221603,
+      "constructor": "constructor(address owner_,address usdg_)",
+      "args": [
+        "0x56B67D71039365083727b661Dbe9Bdb7f7D15189",
+        "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168"
+      ]
+    },
+    {
+      "name": "FeeVault",
+      "source": "src/FeeVault.sol:FeeVault",
+      "address": "0xF5B9C500998D122fbBB606f23DBEe91Aa5549add",
+      "creationTx": "0x4a66ab530c60a047dbb7c665c5626b71e2e40ba0ccd6f13fc1d3d87bf93d2c71",
+      "block": 76221623,
+      "constructor": "constructor(address owner_)",
+      "args": [
+        "0x56B67D71039365083727b661Dbe9Bdb7f7D15189"
+      ]
+    },
+    {
+      "name": "SweepExecutor",
+      "source": "src/SweepExecutor.sol:SweepExecutor",
+      "address": "0x908F545d0FB87fAC3b225cbd12E899BCE77147Ab",
+      "creationTx": "0x9071cdbf0ca40ca029b79e3ad4611935d741c96cb50f07a64e8906768fe0a6e3",
+      "block": 76221643,
+      "constructor": "constructor(address owner_,address permit2_,address rules_,address elections_,address screening_,address router_,address cashPark_,address feeVault_)",
+      "args": [
+        "0x56B67D71039365083727b661Dbe9Bdb7f7D15189",
+        "0x000000000022D473030F116dDEE9F6B43aC78BA3",
+        "0x477504Fdd8929fC75Ac6836C2aa131D765e85f78",
+        "0x05fB5B11B676BC0Fbf893480b4101fB7C8Db0543",
+        "0xC3289C38c53055d58009B2fa9499c753b3dBCED3",
+        "0x1Fec3654Fea787a63104a6634C9781B837B5e17E",
+        "0x947538724Ed80BA609B4A1B4bBCb62d7f3Cd6Abb",
+        "0xF5B9C500998D122fbBB606f23DBEe91Aa5549add"
+      ]
+    },
+    {
+      "name": "UsdgParkAdapter",
+      "source": "src/park/UsdgParkAdapter.sol:UsdgParkAdapter",
+      "address": "0x1E29fD4F78cDfabdE3Df605e66aE3d78a8980DD8",
+      "creationTx": "0x342d513934f999e567af4dff2f7867d6f905b56184572b0b0401907449fc64a9",
+      "block": 76221663,
+      "constructor": "constructor(address usdg_,address park_)",
+      "args": [
+        "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
+        "0x947538724Ed80BA609B4A1B4bBCb62d7f3Cd6Abb"
+      ]
+    },
+    {
+      "name": "SgovParkAdapter",
+      "source": "src/park/SgovParkAdapter.sol:SgovParkAdapter",
+      "address": "0x4197a7Eb8e08a35fd55273afA3D0f8Cb3bd98525",
+      "creationTx": "0xafc2a1c332df90578679a3283ecf3bde26b9924f438c7e20d499b58115e96a3a",
+      "block": 76221683,
+      "constructor": "constructor(address usdg_,address sgov_,address park_,address router_,uint16 slippageBps_)",
+      "args": [
+        "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
+        "0x92FD66527192E3e61d4DDd13322Aa222DE86F9B5",
+        "0x947538724Ed80BA609B4A1B4bBCb62d7f3Cd6Abb",
+        "0x1Fec3654Fea787a63104a6634C9781B837B5e17E",
+        "100"
+      ]
+    }
+  ]
+}

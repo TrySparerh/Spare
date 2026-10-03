@@ -1,0 +1,76 @@
+# Dependency update pull requests.
+#
+# Everything below is pinned (exact package versions and lockfiles, action SHAs,
+# image digests, submodule commits), so nothing moves unless a PR moves it, and
+# .github/scripts/check-pins.mjs fails if a bump loosens a pin. The cooldown
+# matches the install-time one (.npmrc min-release-age, engine/bunfig.toml
+# minimumReleaseAge): a release must be 3 days old before it is proposed, so a
+# hijacked release is usually yanked first. Security updates are not delayed.
+version: 2
+
+updates:
+  # The site (Vite + React).
+  - package-ecosystem: npm
+    open-pull-requests-limit: 0
+    directory: /
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 3
+    groups:
+      site-minor-and-patch:
+        update-types: [minor, patch]
+
+  # spare-api.
+  - package-ecosystem: npm
+    open-pull-requests-limit: 0
+    directory: /server
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 3
+
+  # The engine, keeper and monitor (bun.lock).
+  - package-ecosystem: bun
+    open-pull-requests-limit: 0
+    directory: /engine
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 3
+
+  # oven/bun base image of engine/Dockerfile and engine/Dockerfile.keeper (tag + digest).
+  - package-ecosystem: docker
+    open-pull-requests-limit: 0
+    directory: /engine
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 3
+
+  # Local Postgres/Timescale and Redis images (infra/docker-compose.yml, tag + digest).
+  - package-ecosystem: docker-compose
+    open-pull-requests-limit: 0
+    directory: /infra
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 3
+
+  # Workflow actions, pinned by commit SHA with the release in a trailing comment.
+  - package-ecosystem: github-actions
+    open-pull-requests-limit: 0
+    directory: /
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 3
+
+  # contracts/lib: forge-std, v4-core, v4-periphery.
+  - package-ecosystem: gitsubmodule
+    open-pull-requests-limit: 0
+    directory: /
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 3

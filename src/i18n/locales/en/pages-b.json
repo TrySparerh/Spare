@@ -1,0 +1,811 @@
+{
+  "common": {
+    "readingBadge": "READING",
+    "startRoundingUp": "Start rounding up",
+    "devtools": "DevTools",
+    "liveSweeps": "Live sweeps",
+    "tx": "tx",
+    "noneYet": "none yet",
+    "active": "active",
+    "inactive": "inactive",
+    "ago": {
+      "s": "{{n}}s ago",
+      "m": "{{n}}m ago",
+      "h": "{{n}}h ago",
+      "d": "{{n}}d ago"
+    }
+  },
+  "book": {
+    "contracts": {
+      "sweepExecutor": "collects round-ups, runs sweeps, charges the fee",
+      "cashPark": "holds parked spare; exit",
+      "ruleRegistry": "linked wallets and round-up rules",
+      "electionRegistry": "stock mixes",
+      "assetRegistry": "stock universe, feeds, pinned pools",
+      "stockRouter": "swaps through pinned v4 pools with oracle checks",
+      "feeVault": "collects fees",
+      "screeningGate": "eligibility gate (off)",
+      "usdgParkAdapter": "live park: USDG, no yield",
+      "sgovParkAdapter": "standby park: SGOV"
+    },
+    "roleNames": {
+      "owner": "Owner",
+      "pauser": "Pauser",
+      "attestor": "Attestor",
+      "keeper": "Keeper"
+    },
+    "roles": {
+      "owner": "admin: fees within the 1% ceiling, pool pins, feeds, stock activation, keeper, CashPark executor",
+      "pauser": "can pause collections and sweeps (never exits)",
+      "attestor": "signs eligibility clearances for ScreeningGate (enforcement off)",
+      "keeper": "Spare's automated operator: collects round-ups and runs sweeps"
+    },
+    "external": {
+      "usdg": "Global Dollar, 6 decimals: what you pay with and what Spare parks",
+      "permit2": "the allowance the keeper pulls round-ups through: no amount limit, expires after one year; your weekly cap bounds each pull",
+      "poolManager": "holds every v4 pool Spare trades through",
+      "v4Quoter": "same-block quotes that set each sweep limit",
+      "universalRouter": "Fund Wallet ETH ↔ USDG swaps",
+      "weth": "wrapped ETH (Fund Wallet USDG → ETH fees)",
+      "multicall3": "batched reads"
+    },
+    "hours": {
+      "equities": "US equities 24/5",
+      "crypto": "crypto 24/7"
+    },
+    "deployedAt": "30 Sep 2026, 04:14 UTC"
+  },
+  "mcpTools": {
+    "universe": "The stocks Spare can buy, with live Chainlink prices and oracle status.",
+    "account": "An account's rule, linked wallets, mix, parked spare, cap room and sweep status.",
+    "roundupPreview": "What a rule would have collected from given payments, or a wallet's last N days.",
+    "quote": "A live Uniswap v4 quote for converting USDG into a stock, vs Chainlink.",
+    "activity": "Collections, sweeps, deferrals and exits, for one account or everyone.",
+    "contracts": "Every Spare address, role and pinned pool.",
+    "fees": "Fee rates, FeeVault balances and all-time conversion fees."
+  },
+  "mcp": {
+    "meta": {
+      "title": "MCP — Spare",
+      "description": "Connect any MCP client to Spare: seven read-only tools for round-ups, stocks, quotes, activity and fees on Robinhood Chain."
+    },
+    "banner": "SPARE MCP · READ-ONLY",
+    "readOnly": "READ-ONLY",
+    "hero": {
+      "title": "Ask your AI about your spare change.",
+      "description": "Spare MCP gives any MCP-compatible agent read-only access to Spare on Robinhood Chain: your rule, your parked spare, the stock universe, live quotes, sweeps and fees. It can't sign, move funds or see anything that isn't already public on-chain."
+    },
+    "status": {
+      "checking": "checking…",
+      "online": "online",
+      "offline": "offline",
+      "tools": "{{n}} tools"
+    },
+    "offline": {
+      "title": "Spare MCP isn't answering right now",
+      "body": "The setup below works as soon as it is. The Spare app doesn't depend on it: it reads Robinhood Chain directly."
+    },
+    "oneLiner": {
+      "title": "The one-liner",
+      "copy": "Copy endpoint",
+      "note": "One URL, Streamable HTTP. No login and no API key."
+    },
+    "connect": {
+      "title": "Connect",
+      "intro": "Spare MCP works with any MCP client. Add it to your client's MCP server config: most read a JSON file with an <mono>mcpServers</mono> map, and the client's own docs name the file.",
+      "httpTitle": "Streamable HTTP clients",
+      "httpNote": "For a client that connects to remote servers. Some name the transport field differently or infer it from the URL; the endpoint is all Spare needs.",
+      "stdioTitle": "stdio-only clients",
+      "stdioNote": "For a client that only starts local servers: the mcp-remote bridge (needs Node) forwards to the endpoint.",
+      "anyTitle": "Any other client",
+      "anyBody": "Point it at the endpoint above over Streamable HTTP. No key or header is needed.",
+      "anyRpc": "It speaks JSON-RPC <mono>initialize</mono>, <mono>tools/list</mono> and <mono>tools/call</mono>."
+    },
+    "tools": {
+      "title": "The tools",
+      "accentLive": "{{n}} LIVE",
+      "introOnline": "The seven Spare tools, as documented. Each badge shows whether the live server lists it.",
+      "introOffline": "The seven Spare tools, as documented. Live status shows here when Spare MCP answers.",
+      "args": "args: {{args}}",
+      "footer": "Every tool reads Robinhood Chain and returns JSON. None can sign, move funds or hold keys."
+    },
+    "tool": {
+      "live": "live",
+      "offline": "offline",
+      "notListed": "not listed"
+    },
+    "tryAsking": {
+      "title": "Try asking",
+      "quoted": "“{{q}}”",
+      "q1": "What would a $1 rule at 3× have collected from my wallet last week?",
+      "q2": "Is NVDA buyable right now, and what would $20 get me?",
+      "q3": "When is my next sweep?",
+      "q4": "What has Spare charged in fees so far?"
+    },
+    "safe": {
+      "title": "Safe by design",
+      "readOnly": "Read-only. No private keys, no signing, no transactions.",
+      "publicData": "Public data only — the same data anyone can read from Robinhood Chain.",
+      "noLogin": "No login and no API key."
+    }
+  },
+  "flywheel": {
+    "meta": {
+      "title": "Flywheel — Spare",
+      "description": "How Spare compounds: payments become round-ups, round-ups become stocks, conversions fund the protocol, and in S3 the fees reach $SPARE."
+    },
+    "exeTitle": "Spare — Flywheel.exe",
+    "banner": "SPARE · FLYWHEEL · LIVE",
+    "hero": {
+      "kicker": "The Spare flywheel",
+      "title": "Spend. Round up. Own.",
+      "description": "Every payment you already make can build a portfolio. Here's the loop — and which parts of it are live."
+    },
+    "fourOfSix": "4 OF 6 LIVE",
+    "live": "LIVE",
+    "value": {
+      "reading": "reading…",
+      "unavailable": "unavailable",
+      "notLive": "S3 — not live"
+    },
+    "steps": {
+      "pay": {
+        "title": "Pay",
+        "body": "You pay in USDG from a linked wallet.",
+        "valueOne": "{{n}} wallet linked",
+        "valueMany": "{{n}} wallets linked"
+      },
+      "roundUp": {
+        "title": "Round up",
+        "body": "Each payment rounds up by your rule and parks.",
+        "value": "{{amount}} collected"
+      },
+      "invest": {
+        "title": "Invest",
+        "body": "At $5 the keeper sweeps it into your stocks.",
+        "value": "{{amount}} converted"
+      },
+      "fee": {
+        "title": "Fee",
+        "body": "0.25% of each conversion goes to FeeVault.",
+        "value": "{{amount}} in FeeVault"
+      },
+      "spare": {
+        "body": "Fees fund $SPARE buybacks and stakers."
+      },
+      "boost": {
+        "title": "Boost",
+        "body": "Partner rebates and match sponsors add to your round-ups."
+      }
+    },
+    "ring": {
+      "core": "Spend · Round up · Own",
+      "aria": "The Spare loop",
+      "back": "↺ back to Pay"
+    },
+    "loop": {
+      "title": "The loop",
+      "accent": "LIVE · S3",
+      "legendLive": "Live on Robinhood Chain",
+      "legendPlanned": "S3 — planned, not live",
+      "hint": "Live numbers are read from Spare's contracts on Robinhood Chain: linked wallets from RuleRegistry, round-ups collected and USDG converted from SweepExecutor events, and FeeVault's USDG balance.",
+      "hintBlock": "Live numbers are read from Spare's contracts on Robinhood Chain: linked wallets from RuleRegistry, round-ups collected and USDG converted from SweepExecutor events, and FeeVault's USDG balance — up to block {{block}}."
+    },
+    "roles": {
+      "title": "Who does what",
+      "cols": {
+        "participant": "Participant",
+        "does": "Does",
+        "gets": "Gets",
+        "status": "Status"
+      },
+      "saver": {
+        "who": "Saver",
+        "does": "Links a wallet, sets a rule",
+        "gets": "A portfolio that builds itself from spending"
+      },
+      "sponsor": {
+        "who": "Sponsor",
+        "does": "Matches a saver's round-ups (family, employer), capped",
+        "gets": "A perk they control"
+      },
+      "boostPartner": {
+        "who": "Boost partner",
+        "does": "Routes rebates into users' round-ups",
+        "gets": "Distribution"
+      },
+      "staker": {
+        "who": "$SPARE staker",
+        "does": "Backs protocol parameters and the stock registry",
+        "gets": "A share of fees"
+      }
+    },
+    "notice": {
+      "title": "What we don't promise",
+      "body": "No price, no supply, no yield, no tiers. The loop only turns if people save with Spare; the numbers above measure exactly that."
+    },
+    "cta": {
+      "feesGo": "Where fees go"
+    }
+  },
+  "buyback": {
+    "meta": {
+      "title": "Buyback — Spare",
+      "description": "Where Spare's fees go: live FeeVault balances today, $SPARE buybacks when the token launches."
+    },
+    "exeTitle": "Spare — Fees.exe",
+    "banner": "SPARE · FEES · LIVE",
+    "hero": {
+      "kicker": "Where Spare's fees go",
+      "title": "Fees in. Buybacks later. Every cent on-chain.",
+      "description": "Spare earns 0.25% when your spare change converts into stock, and 0.25% on Fund Wallet swaps. It all lands in one contract you can check."
+    },
+    "unavailableBadge": "UNAVAILABLE",
+    "readingChain": "Reading Robinhood Chain…",
+    "unavailableNow": "unavailable right now",
+    "vault": {
+      "title": "In FeeVault",
+      "usdg": "USDG in FeeVault",
+      "usdgSub": "USDG · conversion + Fund Wallet fees",
+      "weth": "WETH in FeeVault",
+      "wethSub": "WETH · from USDG → ETH swaps"
+    },
+    "totals": {
+      "fees": "Conversion fees all-time",
+      "feesSub": "0.25% of each conversion",
+      "converted": "Converted all-time",
+      "convertedSub": "spare change turned into stock",
+      "buys": "Stock buys",
+      "buysSub": "one per stock per netted sweep"
+    },
+    "notices": {
+      "zeroTitle": "$0.00 — no spare change has converted yet.",
+      "zeroBody": "The first sweep will show up here the moment it lands on-chain.",
+      "unavailableTitle": "All-time totals unavailable",
+      "unavailableBody": "Robinhood Chain didn't answer the event scan. The totals show again once it does."
+    },
+    "hint": {
+      "vault": "FeeVault: <addr/>. All-time totals add up SweepExecutor's AssetSwept events since block {{start}} (30 Sep 2026).",
+      "vaultRead": "FeeVault: <addr/>. All-time totals add up SweepExecutor's AssetSwept events since block {{start}} (30 Sep 2026), read to block {{block}}."
+    },
+    "rates": {
+      "title": "Fee rates",
+      "conversion": "Conversion fee",
+      "conversionHint": "of the USDG actually converted into stock — only on stocks actually bought",
+      "ceiling": "On-chain ceiling",
+      "ceilingHint": "written into SweepExecutor: the conversion fee can't be raised above it",
+      "fundSwap": "Fund Wallet swap",
+      "fundSwapHint": "of the swap output",
+      "deferred": "Deferred or safe-settled legs",
+      "other": "Subscription, account, withdrawal, exit",
+      "none": "none"
+    },
+    "flow": {
+      "title": "The flow",
+      "aria": "Conversion fees and Fund Wallet fees go to FeeVault. The owner can withdraw; in S3, fees fund $SPARE buybacks and stakers.",
+      "converts": "Spare change converts",
+      "convertsNote": "A sweep buys your stocks.",
+      "swapNote": "ETH ↔ USDG, in the app.",
+      "vaultNote": "One contract, public on Robinhood Chain.",
+      "owner": "owner",
+      "withdrawals": "Withdrawals",
+      "withdrawalsNote": "Owner only. Every one is a public Withdrawn event, listed below.",
+      "buybacks": "$SPARE buybacks + stakers",
+      "buybacksNote": "Planned for S3. Not live.",
+      "steps": {
+        "convert": "Your spare change converts into stock → 0.25% of the USDG converted goes to FeeVault.",
+        "swap": "You swap in Fund Wallet → 0.25% of the output goes to FeeVault (USDG, or WETH for USDG → ETH swaps).",
+        "hold": "FeeVault holds it. Only the owner can withdraw, and every withdrawal is a public <code>Withdrawn</code> event, listed below.",
+        "s3": "S3: when $SPARE launches, conversion fees and boost-partner fees fund $SPARE buybacks and a share for stakers."
+      }
+    },
+    "spare": {
+      "soon": "COMING SOON",
+      "address": "Contract address",
+      "addressHint": "No address has been published.",
+      "body": "No contract address yet. We'll publish it here and on X (@TrySpareRH) when the token is real. Until then, any token calling itself $SPARE isn't ours. Supply, allocation and whether bought-back tokens are burned have not been decided or published.",
+      "follow": "Follow @TrySpareRH"
+    },
+    "withdrawals": {
+      "title": "Withdrawals",
+      "aria": "FeeVault withdrawals",
+      "unavailable": "Withdrawals unavailable right now — Robinhood Chain did not answer.",
+      "none": "No withdrawals.",
+      "hint": "FeeVault's WETH balance can include ETH that others stranded on the Universal Router, so Fund Wallet income is counted per swap receipt, not from the balance.",
+      "cols": {
+        "time": "Time",
+        "token": "Token",
+        "amount": "Amount",
+        "to": "To",
+        "tx": "Tx"
+      }
+    },
+    "cta": {
+      "flywheel": "See the flywheel"
+    }
+  },
+  "dispatch": {
+    "meta": {
+      "title": "Dispatch — Spare",
+      "description": "Every round-up collected and every sweep Spare runs, live from Robinhood Chain."
+    },
+    "exeTitle": "Spare — Dispatch.exe",
+    "banner": "DISPATCH · LIVE",
+    "bannerRight": "SPARE · ROBINHOOD CHAIN",
+    "hero": {
+      "kicker": "Dispatch · Live",
+      "title": "Every round-up. Every sweep. Live.",
+      "description": "Straight from Spare's contracts on Robinhood Chain. Each row links to its transaction."
+    },
+    "stats": {
+      "collected": "Round-ups collected",
+      "collectedSub": "count · USDG, since deployment",
+      "converted": "Converted to stock",
+      "convertedSub": "Σ USDG swept into stocks",
+      "fees": "Fees to FeeVault",
+      "feesSub": "0.25% of USDG converted",
+      "lastAction": "Last keeper action",
+      "lastActionSub": "newest keeper transaction"
+    },
+    "keeper": {
+      "title": "Keeper",
+      "running": "RUNNING",
+      "standingBy": "STANDING BY",
+      "gas": "gas {{value}}",
+      "statusRunning": "Running",
+      "statusStandbyOne": "Standing by — watching {{n}} linked wallet",
+      "statusStandbyMany": "Standing by — watching {{n}} linked wallets",
+      "note": "Running while a collection or sweep is under 24 hours old. The keeper collects round-ups about every minute and checks for sweeps every 10 minutes."
+    },
+    "feed": {
+      "title": "Live feed",
+      "refresh": "REFRESH {{n}}S",
+      "progress": "Reading Robinhood Chain",
+      "progressAria": "Reading Spare's events from Robinhood Chain",
+      "scanning": "Scanning Spare's contracts, newest blocks first.",
+      "errorTitle": "Robinhood Chain didn't answer",
+      "errorBody": "The public RPC is busy or unreachable. The feed loads as soon as it answers.",
+      "emptyAll": "Standing by. No round-ups have been collected yet. The keeper checks linked wallets every minute; the first collection and the first sweep will appear here.",
+      "emptyWeek": "Nothing in the last 7 days. Load older to page back.",
+      "listAria": "Spare activity, newest first",
+      "loadOlder": "Load older",
+      "coveredAll": "Everything since Spare's contracts were deployed (block {{block}}).",
+      "showing": "Showing blocks {{from}} – {{to}}.",
+      "olderError": "Couldn't load older blocks. Try again."
+    },
+    "row": {
+      "block": "block {{n}}"
+    },
+    "tags": {
+      "roundUp": "ROUND-UP",
+      "bought": "BOUGHT",
+      "swept": "SWEPT",
+      "deferred": "DEFERRED",
+      "returned": "RETURNED",
+      "held": "HELD",
+      "exit": "EXIT"
+    },
+    "outcomes": {
+      "title": "What the outcomes mean",
+      "bought": "<b>Bought</b> — tokens delivered to your wallet, fee taken.",
+      "deferred": "<b>Deferred</b> — market closed, stale or paused price, a quote or pool problem. Your USDG goes back to the park, untouched, and is retried next time. No fee.",
+      "safeSettled": "<b>Safe-settled</b> — only if Spare deactivates a stock that's in your mix: that part is sent to you as USDG, with a notice. No fee."
+    },
+    "cta": {
+      "howSweeps": "How sweeps work"
+    }
+  },
+  "dataLayer": {
+    "meta": {
+      "title": "Data Layer — Spare",
+      "description": "Live receipts for the data Spare runs on: Robinhood Chain, Chainlink stock feeds, pinned Uniswap v4 pools and the deployed contracts."
+    },
+    "exeTitle": "Spare — Data Layer.exe",
+    "banner": "SPARE · DATA LAYER",
+    "openSpareBar": "OPEN SPARE →",
+    "hero": {
+      "kicker": "Data Layer · Robinhood Chain 4663",
+      "title": "The data Spare runs on.",
+      "description": "Every number on this page is read live from Robinhood Chain, not from a third-party data feed.",
+      "open": "Open Spare →"
+    },
+    "stats": {
+      "head": "Chain head",
+      "feeds": "Stock feeds live",
+      "feedsSub": "Chainlink, oracle status OK",
+      "pools": "Pools pinned",
+      "poolsSub": "registered · {{n}} active",
+      "poolsSubPending": "registered",
+      "contracts": "Contracts deployed",
+      "contractsSub": "bytecode on-chain"
+    },
+    "boot": {
+      "title": "Boot",
+      "accent": "LIVE PROBES",
+      "rows": {
+        "chain": "Chain",
+        "contracts": "Contracts",
+        "engine": "Engine",
+        "oracles": "Oracles",
+        "universe": "Universe",
+        "park": "Park",
+        "keeper": "Keeper"
+      },
+      "chainOk": "Robinhood Chain · id 4663 · block #{{block}}",
+      "chainWrong": "[FAIL] wrong chain {{id}}",
+      "rpcDown": "[FAIL] RPC unreachable",
+      "contractsOk": "[OK] Spare deployed · SweepExecutor {{addr}}",
+      "contractsFail": "[FAIL] no bytecode at SweepExecutor",
+      "enginePaused": "[PAUSED] collections and sweeps paused — exits open",
+      "engineOk": "[OK] running · fee {{fee}}% · sweep at {{threshold}}",
+      "engineFail": "[FAIL] engine unreadable",
+      "oraclesOk": "[OK] {{live}}/{{n}} stock feeds live · {{symbols}}",
+      "oraclesClosed": "[WAIT] market closed · last close {{ago}} — sweeps wait",
+      "oraclesDegraded": "[DEGRADED] {{live}}/{{n}} live · {{symbol}} {{status}}",
+      "oraclesNone": "[DEGRADED] no active stocks",
+      "universe": "{{n}} active · {{standby}} standby",
+      "universeList": "{{n}} active · {{standby}} standby ({{list}})",
+      "registryFail": "[FAIL] registry unreadable",
+      "parkSgov": "SGOV treasury park",
+      "parkUsdg": "USDG · exit always open",
+      "parkFail": "[FAIL] park unreadable",
+      "apiOk": "[OK] online · Spare MCP {{n}} tools",
+      "apiDown": "[DEGRADED] offline — on-chain app still works",
+      "keeperStandbyOne": "[STANDBY] no round-ups yet — watching {{n}} linked wallet",
+      "keeperStandbyMany": "[STANDBY] no round-ups yet — watching {{n}} linked wallets",
+      "keeperIdle": "[IDLE] last activity {{ago}}",
+      "keeperOk": "[OK] last round-up {{ago}} · last sweep {{sweep}}",
+      "keeperOkNoSweep": "[OK] last round-up {{ago}} · last sweep none yet",
+      "keeperFail": "[DEGRADED] keeper activity unreadable",
+      "codeOk": "[OK] bytecode · {{addr}}",
+      "codeFail": "[FAIL] no bytecode · {{addr}}"
+    },
+    "chain": {
+      "network": "Network",
+      "mainnet": "Robinhood Chain mainnet · chain ID 4663",
+      "unexpected": "unexpected chain {{id}}",
+      "head": "Head",
+      "headHint": "eth_blockNumber, every 15 s",
+      "blockTime": "Block time",
+      "blockTimeHint": "average over the last 100 blocks",
+      "gas": "Gas price",
+      "gasHint": "eth_gasPrice · gas is paid in ETH",
+      "rpcHint": "public endpoint this page reads"
+    },
+    "feeds": {
+      "title": "Chainlink feeds",
+      "accent": "{{n}} FEEDS",
+      "cols": {
+        "feed": "Feed",
+        "proxy": "Proxy",
+        "hours": "Hours",
+        "answer": "Last answer",
+        "updated": "Updated",
+        "status": "Status"
+      },
+      "fresh": "FRESH",
+      "stale": "STALE",
+      "note": "All feeds: 8 decimals, 24-hour heartbeat, 0.5% deviation threshold — an age of several hours is normal. Stock feeds are per token and already include the token's multiplier. Robinhood Chain publishes no sequencer-uptime feed yet, so that check is off."
+    },
+    "pools": {
+      "title": "Pinned pools (Uniswap v4)",
+      "accent": "LIVE QUOTES",
+      "cols": {
+        "stock": "Stock",
+        "status": "Status",
+        "fee": "Pool fee",
+        "tick": "Tick spacing",
+        "hook": "Hook",
+        "q5": "$5 fill vs Chainlink",
+        "q100": "$100 fill vs Chainlink"
+      },
+      "none": "none",
+      "registryFail": "Couldn't read the asset registry right now.",
+      "aria": "Pinned pools",
+      "note": "Pinned by exact PoolKey, hook included. About a thousand v4 pools touch these tokens; most are junk. Fills are same-block V4Quoter quotes for USDG in, compared with the Chainlink answer (positive = paying above Chainlink)."
+    },
+    "noStocks": "No stocks registered.",
+    "deploy": {
+      "title": "Deployments",
+      "accent": "{{n}}/10 SPARE",
+      "checking": "CHECKING",
+      "external": "external"
+    },
+    "tokens": {
+      "title": "Stock tokens",
+      "intro": "Beacon proxies (beacon <addr/>) implementing ERC-8056 scaled UI amounts: <mono>uiMultiplier()</mono>, <mono>oraclePaused()</mono>, <mono>paused()</mono>, ERC-2612 permit. Balances are raw and never rebase. Issuer: Robinhood Assets (Jersey) Limited.",
+      "cols": {
+        "token": "Token",
+        "address": "Address"
+      },
+      "yes": "yes",
+      "no": "no",
+      "fail": "Couldn't read the stock tokens right now."
+    },
+    "check": {
+      "title": "Check it yourself",
+      "body": "Don't take this page's word for it. With Foundry installed:"
+    },
+    "cta": {
+      "stocks": "See the stocks"
+    }
+  },
+  "devtools": {
+    "meta": {
+      "title": "DevTools — Spare",
+      "description": "Spare contract addresses, ABIs, events and code for Robinhood Chain; the keeper; a local mainnet fork; and the Spare MCP."
+    },
+    "nav": {
+      "start": "Start",
+      "code": "Code",
+      "run": "Run",
+      "agents": "Agents",
+      "overview": "Overview",
+      "addresses": "Addresses",
+      "abis": "ABIs",
+      "read": "Read state",
+      "write": "Write calls",
+      "events": "Events",
+      "errors": "Errors",
+      "keeper": "The keeper",
+      "localFork": "Local mainnet fork"
+    },
+    "hero": {
+      "kicker": "DevTools · Robinhood Chain 4663",
+      "title": "Build on Spare",
+      "subtitle": "Everything Spare does is a contract call on Robinhood Chain. Addresses, ABIs, events and working snippets."
+    },
+    "overview": {
+      "body": "Spare S1 is eight core contracts plus two park adapters on Robinhood Chain mainnet. Everything a user does — link, rule, mix, exit — is a direct call from their wallet. Collection and sweeps are keeper calls. All state is public.",
+      "contracts": "Contracts",
+      "contractsSub": "8 core + 2 park adapters",
+      "deployed": "Deployed",
+      "deployedSub": "block · {{at}}",
+      "chain": "Chain",
+      "chainSub": "Robinhood Chain mainnet",
+      "liveStocks": "Live stocks",
+      "liveStocksSub": "active in AssetRegistry"
+    },
+    "addresses": {
+      "body": "Every address links to Robinhood Chain's Blockscout explorer. The code column checks for deployed bytecode, live.",
+      "spareContracts": "Spare contracts",
+      "roles": "Roles",
+      "ownerKeyTitle": "One owner key",
+      "ownerKeyBody": "Owner, pauser and attestor are the same single wallet at launch: no multisig and no timelock. What it can and can't do is spelled out in Docs · Risks.",
+      "external": "External contracts",
+      "stockTokens": "Stock tokens",
+      "feeds": "Chainlink feeds",
+      "feedsAccent": "8 DP · 24H HEARTBEAT",
+      "feedCell": "feed <addr/>",
+      "download": "Download addresses/4663.json",
+      "recordNote": "The deployment record: contracts, roles, stock tokens, park adapters. Source for all of this: <mono>spare_contracts</mono> in Spare MCP."
+    },
+    "abis": {
+      "body": "ABIs are generated from the Foundry build (<mono>contracts/out-deploy</mono>) by <mono>scripts/gen-spare-abis.mjs</mono> into <mono>src/lib/spare-chain/abis.ts</mono>. Each download below is that exact JSON.",
+      "download": "Download",
+      "counts": "{{functions}} functions · {{events}} events · {{errors}} errors",
+      "downloadAria": "Download the {{name}} ABI",
+      "downloadAll": "Download all (spare-abis-4663.json)",
+      "notes": {
+        "permit2": "the parts Spare calls",
+        "aggregator": "Chainlink feed reads"
+      }
+    },
+    "read": {
+      "body": "Reads need no wallet: any viem client pointed at the public RPC.",
+      "snippetTitle": "viem · read an account",
+      "mathIntro": "Round-up math (matches the contract and keeper exactly):",
+      "mathTitle": "round-up math"
+    },
+    "write": {
+      "body": "Every user action is one call from the user's own wallet. Set up a wallet client once; the calls below use <mono>wallet</mono>, <mono>account</mono> (the Spare account) and, for pull approvals, <mono>spenderWallet</mono> / <mono>spender</mono> (the spending wallet).",
+      "walletTitle": "viem · wallet client",
+      "keeperOnly": "<mono>accrue*</mono>, <mono>sweep</mono> and <mono>park</mono> are keeper-only.",
+      "what": {
+        "linkSelf": "Link the account's own wallet as a spending wallet. One transaction.",
+        "linkWallet": "Link another wallet. The spending wallet signs EIP-712 first — domain \"SPARE RuleRegistry\" v1, type Link(address account,address wallet,uint256 nonce,uint256 deadline) — then the account submits.",
+        "setRule": "Round to $1, $5 or $10, a 1×–5× multiplier and a weekly cap in USDG base units (0 turns collection off).",
+        "unlink": "Stop collecting from a wallet. The account or the wallet itself can call it.",
+        "setMix": "Up to 6 active stocks, weights summing to exactly 10,000 bps.",
+        "clearMix": "Drop your mix; the default mix (60% SPY / 40% NVDA) applies.",
+        "exit": "Withdraw all parked spare as USDG. Not pausable.",
+        "claim": "Claim tokens held for you after a refused delivery.",
+        "permit2": "The pull approval, from each spending wallet: USDG to Permit2 once, then a Permit2 allowance for SweepExecutor. Your weekly cap bounds every pull."
+      }
+    },
+    "events": {
+      "body": "Every state change emits an event. Index them from the deploy block ({{block}}).",
+      "aria": "{{contract}} events",
+      "meaning": {
+        "accrued": "A linked wallet's round-ups for a block range were pulled and credited to the account.",
+        "accrualSkipped": "One collection in a keeper batch was skipped (cap, allowance, balance or window); reason holds the revert data.",
+        "accountSwept": "An account's parked spare went into this epoch's sweep.",
+        "assetSwept": "One netted swap for a stock: USDG in, the fee sent to FeeVault, the tokens bought.",
+        "delivered": "Bought tokens (or safe-settled USDG) were sent to the account.",
+        "deliveryHeld": "A transfer to the account was refused; the amount is held for it to claim.",
+        "deferred": "A leg waited (status is the oracle status); the account's USDG went back to the park.",
+        "safeSettled": "A deactivated stock's leg was paid to the account as USDG.",
+        "swapDeferred": "A stock's netted swap did not run (limit, quote, pool or oracle band); the USDG went back to the park.",
+        "claimed": "Held tokens were claimed.",
+        "paramsSet": "The owner set the finality buffer, threshold, fee, slippage and epoch length.",
+        "credited": "Collected USDG was credited to the account as pending spare.",
+        "parked": "Pending USDG moved into the park adapter.",
+        "withdrawnForSweep": "An account's spare left the park for a sweep.",
+        "returned": "A deferred leg's USDG came back to the account in the park.",
+        "exited": "The account withdrew all its parked spare.",
+        "exitUnitsKept": "Park units that couldn't be redeemed or handed over stay booked to the account; exit again later.",
+        "ruleSet": "The account set its round-to, multiplier, weekly cap and on/off.",
+        "linked": "A spending wallet was linked to the account.",
+        "unlinked": "A spending wallet was unlinked.",
+        "nonceInvalidated": "A wallet cancelled its outstanding link signatures.",
+        "mixSet": "The account set its stock mix.",
+        "mixCleared": "The account cleared its mix; the default applies.",
+        "defaultMixSet": "The owner set the default mix.",
+        "assetSet": "A stock's feed, heartbeat, oracle band and pinned pool were set.",
+        "assetActive": "A stock was activated or deactivated.",
+        "bought": "USDG was swapped into a stock through its pinned pool (with the oracle price the band was checked against).",
+        "sold": "A stock was swapped back into USDG through its pinned pool.",
+        "withdrawn": "The owner withdrew fees: token, recipient, amount.",
+        "cleared": "An account received an eligibility clearance, valid until a time.",
+        "revoked": "An account's clearance was revoked.",
+        "enforcedSet": "Eligibility enforcement was switched on or off."
+      }
+    },
+    "errors": {
+      "body": "Custom errors, decoded against every Spare ABI plus Permit2, and the sentence the Spare app shows for each (example arguments).",
+      "title": "Custom errors",
+      "other": "Other errors (admin paths and library internals) show as their name and arguments: {{list}}."
+    },
+    "keeper": {
+      "body": "The keeper (<mono>engine/src/keeper</mono>, <mono>bun run keeper</mono>) is stateless: cursors live on-chain. Collect every 60 s: find accounts from <mono>Linked</mono> events, scan each wallet's outgoing USDG transfers in its window, apply the exclusions, clamp to cap/allowance/balance, send one <mono>accrueBatch</mono>. Sweep every 10 min: accounts over threshold, not swept this epoch, eligible, mix oracle-OK, inside market hours → net per stock → V4Quoter → <mono>sweep(accounts, limits)</mono>.",
+      "cardTitle": "Keeper, live",
+      "accent": "ROBINHOOD CHAIN",
+      "keeper": "Keeper",
+      "gas": "Gas balance",
+      "gasHint": "ETH the keeper pays collections and sweeps with",
+      "lastRoundUp": "Last round-up collected",
+      "lastRoundUpHint": "newest Accrued event",
+      "lastBuy": "Last stock bought",
+      "lastBuyHint": "newest AssetSwept event",
+      "watched": "Linked wallets watched",
+      "watchedHint": "Linked − Unlinked since deployment",
+      "partial": "Some reads didn't answer; a value may be missing until the next refresh.",
+      "log": "Live sweep log"
+    },
+    "fork": {
+      "body": "Run Spare against a local fork of Robinhood Chain mainnet (real USDG, Permit2, Uniswap v4 pools, Chainlink feeds and stock tokens):",
+      "codeTitle": "bash · local fork",
+      "foundry": "Requires Foundry (anvil, forge) and Bun.",
+      "state": "The public RPC keeps only ~10–13 minutes of state, so fork near the head.",
+      "private": "The scripts live in Spare's source repository, which isn't public yet."
+    },
+    "mcp": {
+      "cardTitle": "Seven read-only tools for AI agents",
+      "body": "They read Robinhood Chain and can't sign, move funds or hold keys.",
+      "guide": "Connect guide"
+    }
+  },
+  "feed": {
+    "row": {
+      "accrued": "Round-up collected · {{amount}}",
+      "assetSwept": "Bought {{qty}} {{sym}} for {{usdg}} · fee {{fee}}",
+      "accountSwept": "Account swept · {{usdg}} · epoch {{epoch}}",
+      "deferred": "{{sym}} leg deferred · {{usdg}} · {{reason}}",
+      "swapDeferred": "{{sym}} swap deferred · {{usdg}}",
+      "safeSettled": "{{sym}} leg returned as USDG · {{usdg}}",
+      "deliveryHeld": "Delivery held for claim · {{qty}} {{sym}}",
+      "exited": "Spare change withdrawn · {{usdg}}"
+    },
+    "defer": {
+      "live": "price live",
+      "closed": "market closed",
+      "paused": "token paused",
+      "seqDown": "sequencer down",
+      "badAnswer": "bad oracle answer",
+      "unavailable": "oracle unavailable"
+    },
+    "chainNoAnswer": "Robinhood Chain did not answer."
+  },
+  "atoms": {
+    "copyFailed": "Copy failed",
+    "code": {
+      "checking": "Checking bytecode",
+      "ok": "✓ code",
+      "okTitle": "Bytecode present on Robinhood Chain",
+      "none": "✗ none",
+      "noneTitle": "No bytecode at this address"
+    }
+  },
+  "universe": {
+    "meta": {
+      "title": "Stock Universe — Spare",
+      "description": "The tokenized stocks Spare can buy on Robinhood Chain, with live Chainlink prices, oracle status and the Uniswap v4 pool each one trades through."
+    },
+    "exeTitle": "Spare — Stock Universe.exe",
+    "banner": "SPARE · STOCK UNIVERSE · LIVE",
+    "hero": {
+      "kicker": "Stock universe",
+      "title": "The stocks your spare change can buy.",
+      "description": "Live from Spare's asset registry and Chainlink on Robinhood Chain. Only active stocks can go in a mix."
+    },
+    "pool": {
+      "noHook": "no hook",
+      "hooked": "hooked",
+      "dynamic": "dynamic fee"
+    },
+    "copyAria": "Copy {{address}}",
+    "copy": "copy",
+    "copied": "copied",
+    "status": {
+      "active": "ACTIVE",
+      "inactive": "INACTIVE"
+    },
+    "lastClose": "last close",
+    "details": {
+      "addToWallet": "Add to your wallet",
+      "decimals": "<addr>{{token}}</addr> (18 decimals)",
+      "multiplier": "UI multiplier",
+      "multiplierHint": "the token's live uiMultiplier (ERC-8056); balances never rebase",
+      "feed": "Chainlink feed",
+      "heartbeat": "heartbeat {{h}}h",
+      "oracle": "Oracle",
+      "band": "Oracle band",
+      "bandHint": "a fill must land within this distance of Chainlink",
+      "pool": "Pinned pool",
+      "tickSpacing": "tick spacing {{n}}",
+      "standby": "Why standby"
+    },
+    "cols": {
+      "stock": "Stock",
+      "status": "Status",
+      "price": "Price",
+      "updated": "Updated",
+      "oracle": "Oracle",
+      "pool": "Pool",
+      "mix": "Default mix",
+      "token": "Token"
+    },
+    "market": {
+      "reading": "reading…",
+      "unavailable": "unavailable",
+      "open": "OPEN",
+      "openSub": "every stock feed is fresh",
+      "closed": "CLOSED",
+      "closedSub": "last close shown · sweeps wait",
+      "mixed": "MIXED"
+    },
+    "fallback": {
+      "title": "Live registry unavailable",
+      "body": "Robinhood Chain didn't answer, so the registry can't be listed right now. Try again in a moment."
+    },
+    "registry": {
+      "title": "Registry",
+      "active": "Active",
+      "activeSub": "can go in a mix",
+      "registered": "Registered",
+      "registeredSub": "in AssetRegistry",
+      "market": "Market",
+      "mixSub": "until you set your own"
+    },
+    "stocks": {
+      "title": "Stocks",
+      "reading": "Reading the asset registry…",
+      "lastClose": "Last close",
+      "details": "Details",
+      "hideDetails": "Hide details",
+      "tableAria": "Stock universe",
+      "empty": "No stocks registered.",
+      "detailsTitle": "{{symbol}} details",
+      "closeDetails": "Close details",
+      "selectHint": "Select a row for the full token address, its live UI multiplier, the Chainlink feed and the pinned pool."
+    },
+    "about": {
+      "title": "About these tokens",
+      "body": "Stock tokens are ERC-20 tokens issued by Robinhood Assets (Jersey) Limited that track the underlying. They are not shares. Prices here are per token and already include the token's multiplier. Chainlink updates stock prices during the US-equities 24/5 session; outside it, the last close is shown and sweeps wait. Not offered to US persons."
+    },
+    "cta": {
+      "build": "Build your mix",
+      "detail": "Pools and feeds, in detail"
+    }
+  }
+}

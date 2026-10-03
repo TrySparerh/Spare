@@ -1,0 +1,89 @@
+[
+  {
+    "filename": "../src/SweepExecutor.sol",
+    "sourceroot": "..",
+    "outdir": "gambit_out/SweepExecutor",
+    "solc": "solc",
+    "solc_evm_version": "cancun",
+    "solc_remappings": [
+      "forge-std/=../lib/forge-std/src/",
+      "@uniswap/v4-core/=../lib/v4-core/",
+      "@uniswap/v4-periphery/=../lib/v4-periphery/",
+      "v4-core/=../lib/v4-core/",
+      "v4-periphery/=../lib/v4-periphery/",
+      "permit2/=../lib/v4-periphery/lib/permit2/",
+      "@openzeppelin/contracts/=../lib/v4-core/lib/openzeppelin-contracts/contracts/",
+      "solmate/=../lib/v4-core/lib/solmate/"
+    ],
+    "mutations": [
+      "assignment-mutation",
+      "binary-op-mutation",
+      "delete-expression-mutation",
+      "elim-delegate-mutation",
+      "function-call-mutation",
+      "if-statement-mutation",
+      "require-mutation",
+      "swap-arguments-function-mutation",
+      "swap-arguments-operator-mutation",
+      "unary-operator-mutation"
+    ]
+  },
+  {
+    "filename": "../src/CashPark.sol",
+    "sourceroot": "..",
+    "outdir": "gambit_out/CashPark",
+    "solc": "solc",
+    "solc_evm_version": "cancun",
+    "solc_remappings": [
+      "forge-std/=../lib/forge-std/src/",
+      "@uniswap/v4-core/=../lib/v4-core/",
+      "@uniswap/v4-periphery/=../lib/v4-periphery/",
+      "v4-core/=../lib/v4-core/",
+      "v4-periphery/=../lib/v4-periphery/",
+      "permit2/=../lib/v4-periphery/lib/permit2/",
+      "@openzeppelin/contracts/=../lib/v4-core/lib/openzeppelin-contracts/contracts/",
+      "solmate/=../lib/v4-core/lib/solmate/"
+    ],
+    "mutations": [
+      "assignment-mutation",
+      "binary-op-mutation",
+      "delete-expression-mutation",
+      "elim-delegate-mutation",
+      "function-call-mutation",
+      "if-statement-mutation",
+      "require-mutation",
+      "swap-arguments-function-mutation",
+      "swap-arguments-operator-mutation",
+      "unary-operator-mutation"
+    ]
+  },
+  {
+    "filename": "../src/StockRouter.sol",
+    "sourceroot": "..",
+    "outdir": "gambit_out/StockRouter",
+    "solc": "solc",
+    "solc_evm_version": "cancun",
+    "solc_remappings": [
+      "forge-std/=../lib/forge-std/src/",
+      "@uniswap/v4-core/=../lib/v4-core/",
+      "@uniswap/v4-periphery/=../lib/v4-periphery/",
+      "v4-core/=../lib/v4-core/",
+      "v4-periphery/=../lib/v4-periphery/",
+      "permit2/=../lib/v4-periphery/lib/permit2/",
+      "@openzeppelin/contracts/=../lib/v4-core/lib/openzeppelin-contracts/contracts/",
+      "solmate/=../lib/v4-core/lib/solmate/"
+    ],
+    "mutations": [
+      "assignment-mutation",
+      "binary-op-mutation",
+      "delete-expression-mutation",
+      "elim-delegate-mutation",
+      "function-call-mutation",
+      "if-statement-mutation",
+      "require-mutation",
+      "swap-arguments-function-mutation",
+      "swap-arguments-operator-mutation",
+      "unary-operator-mutation"
+    ]
+  }
+]

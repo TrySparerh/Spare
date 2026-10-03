@@ -1,0 +1,59 @@
+{
+  "version": "1.0",
+  "chainId": "4663",
+  "meta": {
+    "name": "SPARE pauser: pause all 7",
+    "description": "Emergency stop. pause() on SweepExecutor and CashPark halts accrue, accrueBatch, sweep and park at once; the other five set the flag for monitors (none of their functions read it). CashPark.exit and SweepExecutor.claim stay open. Unpausing is owner-only, i.e. a 48 h timelock operation. docs/GOVERNANCE.md"
+  },
+  "transactions": [
+    {
+      "to": "0x908F545d0FB87fAC3b225cbd12E899BCE77147Ab",
+      "value": "0",
+      "data": "0x8456cb59",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x947538724Ed80BA609B4A1B4bBCb62d7f3Cd6Abb",
+      "value": "0",
+      "data": "0x8456cb59",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x6dA6e49E2c59b622697a208a83bF266D5268c937",
+      "value": "0",
+      "data": "0x8456cb59",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x05fB5B11B676BC0Fbf893480b4101fB7C8Db0543",
+      "value": "0",
+      "data": "0x8456cb59",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0xC3289C38c53055d58009B2fa9499c753b3dBCED3",
+      "value": "0",
+      "data": "0x8456cb59",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x1Fec3654Fea787a63104a6634C9781B837B5e17E",
+      "value": "0",
+      "data": "0x8456cb59",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0xF5B9C500998D122fbBB606f23DBEe91Aa5549add",
+      "value": "0",
+      "data": "0x8456cb59",
+      "contractMethod": null,
+      "contractInputsValues": null
+    }
+  ]
+}

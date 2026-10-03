@@ -1,0 +1,153 @@
+id,operator,location,original,mutated,status,killed_by
+1,DeleteExpressionMutation,src/CashPark.sol:49:9,usdg = usdg_,assert(true),killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+2,IfStatementMutation,src/CashPark.sol:53:13,msg.sender != executor,true,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+3,IfStatementMutation,src/CashPark.sol:53:13,msg.sender != executor,false,killed,test/unit/CashPark.t.sol:CashParkTest.test_returnFromSweep_onlyExecutor
+4,DeleteExpressionMutation,src/CashPark.sol:58:9,executor = executor_,assert(true),killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+5,IfStatementMutation,src/CashPark.sol:65:13,totalUnits != 0,true,killed,test/unit/AssetRegistry.t.sol:AssetRegistryTest.setUp
+6,IfStatementMutation,src/CashPark.sol:65:13,totalUnits != 0,false,killed,test/unit/CashPark.t.sol:CashParkTest.test_setAdapter_blockedWhileUnitsOpen
+7,DeleteExpressionMutation,src/CashPark.sol:66:9,adapter = adapter_,assert(true),killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+8,IfStatementMutation,src/CashPark.sol:74:13,amount == 0,true,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+9,IfStatementMutation,src/CashPark.sol:74:13,amount == 0,false,killed,test/unit/CashPark.t.sol:CashParkTest.test_credit_zeroIsNoop
+10,DeleteExpressionMutation,src/CashPark.sol:75:9,"usdg.safeTransferFrom(msg.sender, address(this), amount)",assert(true),killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+11,DeleteExpressionMutation,src/CashPark.sol:76:9,pending[account] += amount,assert(true),killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+12,AssignmentMutation,src/CashPark.sol:76:29,amount,0,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+13,AssignmentMutation,src/CashPark.sol:76:29,amount,1,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+14,DeleteExpressionMutation,src/CashPark.sol:77:9,totalPending += amount,assert(true),killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+15,AssignmentMutation,src/CashPark.sol:77:25,amount,0,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+16,AssignmentMutation,src/CashPark.sol:77:25,amount,1,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+17,IfStatementMutation,src/CashPark.sol:92:13,p != 0,true,killed,test/unit/CashPark.t.sol:CashParkTest.test_withdrawForSweep_touchesOnlyWhatIsHeld
+18,IfStatementMutation,src/CashPark.sol:92:13,p != 0,false,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+19,DeleteExpressionMutation,src/CashPark.sol:93:13,pending[account] = 0,assert(true),killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+20,AssignmentMutation,src/CashPark.sol:93:32,0,1,killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+21,DeleteExpressionMutation,src/CashPark.sol:94:13,totalPending -= p,assert(true),killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+22,AssignmentMutation,src/CashPark.sol:94:29,p,0,killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+23,AssignmentMutation,src/CashPark.sol:94:29,p,1,killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+24,DeleteExpressionMutation,src/CashPark.sol:95:13,"usdg.safeTransfer(msg.sender, p)",assert(true),killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+25,DeleteExpressionMutation,src/CashPark.sol:96:13,usdgOut = p,assert(true),killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+26,AssignmentMutation,src/CashPark.sol:96:23,p,0,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+27,AssignmentMutation,src/CashPark.sol:96:23,p,1,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+28,IfStatementMutation,src/CashPark.sol:99:13,u != 0,true,killed,test/unit/CashPark.t.sol:CashParkTest.test_withdrawForSweep_touchesOnlyWhatIsHeld
+29,IfStatementMutation,src/CashPark.sol:99:13,u != 0,false,killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+30,DeleteExpressionMutation,src/CashPark.sol:101:17,units[account] = 0,assert(true),killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+31,AssignmentMutation,src/CashPark.sol:101:34,0,1,killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+32,DeleteExpressionMutation,src/CashPark.sol:102:17,totalUnits -= u,assert(true),killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+33,AssignmentMutation,src/CashPark.sol:102:31,u,0,killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+34,AssignmentMutation,src/CashPark.sol:102:31,u,1,killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+35,DeleteExpressionMutation,src/CashPark.sol:103:17,usdgOut += got,assert(true),killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+36,AssignmentMutation,src/CashPark.sol:103:28,got,0,killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+37,AssignmentMutation,src/CashPark.sol:103:28,got,1,killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+38,DeleteExpressionMutation,src/CashPark.sol:105:17,unitsLeft = u,assert(true),killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+39,AssignmentMutation,src/CashPark.sol:105:29,u,0,killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+40,AssignmentMutation,src/CashPark.sol:105:29,u,1,killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+41,IfStatementMutation,src/CashPark.sol:113:13,amount == 0,true,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_defaultMixDriftsIntoSpyWhileTheWhaleBlocksNvda
+42,IfStatementMutation,src/CashPark.sol:113:13,amount == 0,false,killed,test/unit/CashPark.t.sol:CashParkTest.test_returnFromSweep_zeroIsNoop
+43,DeleteExpressionMutation,src/CashPark.sol:114:9,"usdg.safeTransferFrom(msg.sender, address(this), amount)",assert(true),killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_defaultMixDriftsIntoSpyWhileTheWhaleBlocksNvda
+44,DeleteExpressionMutation,src/CashPark.sol:115:9,pending[account] += amount,assert(true),killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+45,AssignmentMutation,src/CashPark.sol:115:29,amount,0,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_defaultMixDriftsIntoSpyWhileTheWhaleBlocksNvda
+46,AssignmentMutation,src/CashPark.sol:115:29,amount,1,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_defaultMixDriftsIntoSpyWhileTheWhaleBlocksNvda
+47,DeleteExpressionMutation,src/CashPark.sol:116:9,totalPending += amount,assert(true),killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+48,AssignmentMutation,src/CashPark.sol:116:25,amount,0,killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+49,AssignmentMutation,src/CashPark.sol:116:25,amount,1,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_defaultMixDriftsIntoSpyWhileTheWhaleBlocksNvda
+50,IfStatementMutation,src/CashPark.sol:125:13,!adapter.isFresh(),true,killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+51,IfStatementMutation,src/CashPark.sol:125:13,!adapter.isFresh(),false,killed,test/unit/CashPark.t.sol:CashParkTest.test_park_noopWhenStale
+52,IfStatementMutation,src/CashPark.sol:133:17,p == 0,true,killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+53,IfStatementMutation,src/CashPark.sol:133:17,p == 0,false,survived,
+54,DeleteExpressionMutation,src/CashPark.sol:134:13,amt[i] = p,assert(true),killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+55,AssignmentMutation,src/CashPark.sol:134:22,p,0,killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+56,AssignmentMutation,src/CashPark.sol:134:22,p,1,killed,test/unit/CashPark.t.sol:CashParkTest.test_exit_onlyTouchesTheCaller
+57,DeleteExpressionMutation,src/CashPark.sol:135:13,pending[accounts[i]] = 0,assert(true),killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+58,AssignmentMutation,src/CashPark.sol:135:36,0,1,killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+59,DeleteExpressionMutation,src/CashPark.sol:136:13,total += p,assert(true),killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+60,AssignmentMutation,src/CashPark.sol:136:22,p,0,killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+61,AssignmentMutation,src/CashPark.sol:136:22,p,1,killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+62,SwapArgumentsOperatorMutation,src/CashPark.sol:130:25,i < n,n < i,killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+63,DeleteExpressionMutation,src/CashPark.sol:130:32,++i,assert(true),killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+64,UnaryOperatorMutation,src/CashPark.sol:130:32,++,--,killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+65,UnaryOperatorMutation,src/CashPark.sol:130:32,++,~,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+66,IfStatementMutation,src/CashPark.sol:138:13,total == 0,true,killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+67,IfStatementMutation,src/CashPark.sol:138:13,total == 0,false,killed,test/unit/CashPark.t.sol:CashParkTest.test_park_noopWhenNothingPending
+68,DeleteExpressionMutation,src/CashPark.sol:139:9,totalPending -= total,assert(true),killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+69,AssignmentMutation,src/CashPark.sol:139:25,total,0,killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+70,AssignmentMutation,src/CashPark.sol:139:25,total,1,killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+71,DeleteExpressionMutation,src/CashPark.sol:141:9,"usdg.safeTransfer(address(adapter), total)",assert(true),killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+72,DeleteExpressionMutation,src/CashPark.sol:143:9,totalUnits += out,assert(true),killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+73,AssignmentMutation,src/CashPark.sol:143:23,out,0,killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+74,AssignmentMutation,src/CashPark.sol:143:23,out,1,killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+75,IfStatementMutation,src/CashPark.sol:150:17,amt[i] == 0,true,killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+76,IfStatementMutation,src/CashPark.sol:150:17,amt[i] == 0,false,killed,test/unit/CashPark.t.sol:CashParkTest.test_park_dustWithTrailingDuplicate
+77,BinaryOpMutation,src/CashPark.sol:151:43, / ,+,killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+78,BinaryOpMutation,src/CashPark.sol:151:43, / ,-,killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+79,BinaryOpMutation,src/CashPark.sol:151:43, / ,*,killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+80,BinaryOpMutation,src/CashPark.sol:151:43, / ,%,killed,test/unit/CashPark.t.sol:CashParkTest.test_exit_onlyTouchesTheCaller
+81,BinaryOpMutation,src/CashPark.sol:151:43, / ,**,killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+82,SwapArgumentsOperatorMutation,src/CashPark.sol:151:29,(out * amt[i]) / total,total / (out * amt[i]),killed,test/unit/CashPark.t.sol:CashParkTest.test_exit_onlyTouchesTheCaller
+83,BinaryOpMutation,src/CashPark.sol:151:33, * ,+,killed,test/unit/CashPark.t.sol:CashParkTest.test_exit_onlyTouchesTheCaller
+84,BinaryOpMutation,src/CashPark.sol:151:33, * ,-,killed,test/unit/CashPark.t.sol:CashParkTest.test_exit_onlyTouchesTheCaller
+85,BinaryOpMutation,src/CashPark.sol:151:33, * ,/,killed,test/unit/CashPark.t.sol:CashParkTest.test_exit_onlyTouchesTheCaller
+86,BinaryOpMutation,src/CashPark.sol:151:33, * ,%,killed,test/unit/CashPark.t.sol:CashParkTest.test_exit_onlyTouchesTheCaller
+87,BinaryOpMutation,src/CashPark.sol:151:33, * ,**,killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+88,DeleteExpressionMutation,src/CashPark.sol:152:13,units[accounts[i]] += share,assert(true),killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+89,AssignmentMutation,src/CashPark.sol:152:35,share,0,killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+90,AssignmentMutation,src/CashPark.sol:152:35,share,1,killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+91,DeleteExpressionMutation,src/CashPark.sol:153:13,assigned += share,assert(true),killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+92,AssignmentMutation,src/CashPark.sol:153:25,share,0,killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+93,AssignmentMutation,src/CashPark.sol:153:25,share,1,killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+94,DeleteExpressionMutation,src/CashPark.sol:154:13,last = i,assert(true),killed,test/unit/CashPark.t.sol:CashParkTest.test_park_dustGoesToTheLastRecipient
+95,AssignmentMutation,src/CashPark.sol:154:20,i,0,killed,test/unit/CashPark.t.sol:CashParkTest.test_park_dustGoesToTheLastRecipient
+96,AssignmentMutation,src/CashPark.sol:154:20,i,1,killed,test/unit/CashPark.t.sol:CashParkTest.test_park_dustGoesToTheLastRecipient
+97,SwapArgumentsOperatorMutation,src/CashPark.sol:149:25,i < n,n < i,killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+98,DeleteExpressionMutation,src/CashPark.sol:149:32,++i,assert(true),killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+99,UnaryOperatorMutation,src/CashPark.sol:149:32,++,--,killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+100,UnaryOperatorMutation,src/CashPark.sol:149:32,++,~,killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+101,IfStatementMutation,src/CashPark.sol:156:13,assigned < out,true,survived,
+102,IfStatementMutation,src/CashPark.sol:156:13,assigned < out,false,killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_parkConservesUnits
+103,SwapArgumentsOperatorMutation,src/CashPark.sol:156:13,assigned < out,out < assigned,killed,test/unit/CashPark.t.sol:CashParkTest.test_park_dustGoesToTheLastRecipient
+104,DeleteExpressionMutation,src/CashPark.sol:156:29,units[accounts[last]] += out - assigned,assert(true),killed,test/unit/CashPark.t.sol:CashParkTest.test_park_dustGoesToTheLastRecipient
+105,AssignmentMutation,src/CashPark.sol:156:54,out - assigned,0,killed,test/unit/CashPark.t.sol:CashParkTest.test_park_dustGoesToTheLastRecipient
+106,AssignmentMutation,src/CashPark.sol:156:54,out - assigned,1,killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_parkConservesUnits
+107,BinaryOpMutation,src/CashPark.sol:156:57, - ,+,killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_parkConservesUnits
+108,BinaryOpMutation,src/CashPark.sol:156:57, - ,*,killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_parkConservesUnits
+109,BinaryOpMutation,src/CashPark.sol:156:57, - ,/,killed,test/unit/CashPark.t.sol:CashParkTest.test_park_dustGoesToTheLastRecipient
+110,BinaryOpMutation,src/CashPark.sol:156:57, - ,%,killed,test/unit/CashPark.t.sol:CashParkTest.test_park_everyShareFloorsToZero_lastContributorTakesAll
+111,BinaryOpMutation,src/CashPark.sol:156:57, - ,**,killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_parkConservesUnits
+112,SwapArgumentsOperatorMutation,src/CashPark.sol:156:54,out - assigned,assigned - out,killed,test/unit/CashPark.t.sol:CashParkTest.test_park_dustGoesToTheLastRecipient
+113,IfStatementMutation,src/CashPark.sol:171:13,p != 0,true,killed,test/unit/CashPark.t.sol:CashParkTest.test_exit_touchesOnlyWhatIsHeld
+114,IfStatementMutation,src/CashPark.sol:171:13,p != 0,false,killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+115,DeleteExpressionMutation,src/CashPark.sol:172:13,pending[account] = 0,assert(true),killed,test/unit/CashPark.t.sol:CashParkTest.test_exit_pendingNotHostageToStuckUnits
+116,AssignmentMutation,src/CashPark.sol:172:32,0,1,killed,test/unit/CashPark.t.sol:CashParkTest.test_exit_pendingNotHostageToStuckUnits
+117,DeleteExpressionMutation,src/CashPark.sol:173:13,totalPending -= p,assert(true),killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+118,AssignmentMutation,src/CashPark.sol:173:29,p,0,killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+119,AssignmentMutation,src/CashPark.sol:173:29,p,1,killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+120,DeleteExpressionMutation,src/CashPark.sol:174:13,"usdg.safeTransfer(account, p)",assert(true),killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+121,DeleteExpressionMutation,src/CashPark.sol:175:13,usdgOut = p,assert(true),killed,test/unit/CashPark.t.sol:CashParkTest.test_exit_inKindFallbackWhenRedeemFails
+122,AssignmentMutation,src/CashPark.sol:175:23,p,0,killed,test/unit/CashPark.t.sol:CashParkTest.test_exit_inKindFallbackWhenRedeemFails
+123,AssignmentMutation,src/CashPark.sol:175:23,p,1,killed,test/unit/CashPark.t.sol:CashParkTest.test_exit_inKindFallbackWhenRedeemFails
+124,IfStatementMutation,src/CashPark.sol:180:13,u != 0,true,killed,test/unit/CashPark.t.sol:CashParkTest.test_exit_touchesOnlyWhatIsHeld
+125,IfStatementMutation,src/CashPark.sol:180:13,u != 0,false,killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+126,DeleteExpressionMutation,src/CashPark.sol:181:13,units[account] = 0,assert(true),killed,test/unit/CashPark.t.sol:CashParkTest.test_exit_inKindFallbackWhenRedeemFails
+127,AssignmentMutation,src/CashPark.sol:181:30,0,1,killed,test/unit/CashPark.t.sol:CashParkTest.test_exit_inKindFallbackWhenRedeemFails
+128,DeleteExpressionMutation,src/CashPark.sol:182:13,totalUnits -= u,assert(true),killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+129,AssignmentMutation,src/CashPark.sol:182:27,u,0,killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+130,AssignmentMutation,src/CashPark.sol:182:27,u,1,killed,test/unit/CashPark.t.sol:CashParkTest.testFuzz_flowsConserveAccounting
+131,DeleteExpressionMutation,src/CashPark.sol:184:17,usdgOut += got,assert(true),killed,test/unit/CashPark.t.sol:CashParkTest.test_exit_redeemsEverythingToUsdg
+132,AssignmentMutation,src/CashPark.sol:184:28,got,0,killed,test/unit/CashPark.t.sol:CashParkTest.test_exit_redeemsEverythingToUsdg
+133,AssignmentMutation,src/CashPark.sol:184:28,got,1,killed,test/unit/CashPark.t.sol:CashParkTest.test_exit_redeemsEverythingToUsdg
+134,DeleteExpressionMutation,src/CashPark.sol:187:21,unitsInKind = u,assert(true),killed,test/unit/CashPark.t.sol:CashParkTest.test_exit_inKindFallbackWhenRedeemFails
+135,AssignmentMutation,src/CashPark.sol:187:35,u,0,killed,test/unit/CashPark.t.sol:CashParkTest.test_exit_inKindFallbackWhenRedeemFails
+136,AssignmentMutation,src/CashPark.sol:187:35,u,1,killed,test/unit/CashPark.t.sol:CashParkTest.test_exit_inKindFallbackWhenRedeemFails
+137,DeleteExpressionMutation,src/CashPark.sol:189:21,units[account] = u,assert(true),killed,test/unit/CashPark.t.sol:CashParkTest.test_exit_pendingNotHostageToStuckUnits
+138,AssignmentMutation,src/CashPark.sol:189:38,u,0,killed,test/unit/CashPark.t.sol:CashParkTest.test_exit_pendingNotHostageToStuckUnits
+139,AssignmentMutation,src/CashPark.sol:189:38,u,1,killed,test/unit/CashPark.t.sol:CashParkTest.test_exit_pendingNotHostageToStuckUnits
+140,DeleteExpressionMutation,src/CashPark.sol:190:21,totalUnits += u,assert(true),killed,test/unit/CashPark.t.sol:CashParkTest.test_exit_pendingNotHostageToStuckUnits
+141,AssignmentMutation,src/CashPark.sol:190:35,u,0,killed,test/unit/CashPark.t.sol:CashParkTest.test_exit_pendingNotHostageToStuckUnits
+142,AssignmentMutation,src/CashPark.sol:190:35,u,1,killed,test/unit/CashPark.t.sol:CashParkTest.test_exit_pendingNotHostageToStuckUnits
+143,DeleteExpressionMutation,src/CashPark.sol:191:21,kept = u,assert(true),killed,test/unit/CashPark.t.sol:CashParkTest.test_exit_pendingNotHostageToStuckUnits
+144,AssignmentMutation,src/CashPark.sol:191:28,u,0,killed,test/unit/CashPark.t.sol:CashParkTest.test_exit_pendingNotHostageToStuckUnits
+145,AssignmentMutation,src/CashPark.sol:191:28,u,1,killed,test/unit/CashPark.t.sol:CashParkTest.test_exit_pendingNotHostageToStuckUnits
+146,IfStatementMutation,src/CashPark.sol:196:13,kept != 0,true,killed,test/unit/CashPark.t.sol:CashParkTest.test_exit_touchesOnlyWhatIsHeld
+147,IfStatementMutation,src/CashPark.sol:196:13,kept != 0,false,killed,test/unit/CashPark.t.sol:CashParkTest.test_exit_pendingNotHostageToStuckUnits
+148,BinaryOpMutation,src/CashPark.sol:204:32, + ,-,killed,test/unit/CashPark.t.sol:CashParkTest.test_exit_onlyTouchesTheCaller
+149,BinaryOpMutation,src/CashPark.sol:204:32, + ,*,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+150,BinaryOpMutation,src/CashPark.sol:204:32, + ,/,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+151,BinaryOpMutation,src/CashPark.sol:204:32, + ,%,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+152,BinaryOpMutation,src/CashPark.sol:204:32, + ,**,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable

@@ -1,0 +1,22 @@
+# Line endings. Text is stored with LF; a checkout converts it as the local
+# core.autocrlf says, except for files that must keep LF to run.
+* text=auto
+
+# Shell scripts always check out with LF: bash stops at the \r of a CRLF line,
+# so on a Windows clone with core.autocrlf=true they would otherwise fail.
+*.sh text eol=lf
+
+# Binary: never converted, never diffed as text.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.webp binary
+*.mp4 binary
+*.otf binary
+*.ttf binary
+*.woff binary
+*.woff2 binary
+*.pdf binary
+*.splinecode binary

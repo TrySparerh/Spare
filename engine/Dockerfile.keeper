@@ -1,0 +1,20 @@
+# SPARE keeper — standalone, stateless (all cursors live on-chain).
+# Also runs the read-only monitor: start command bun run src/monitor/run.ts (no key).
+# Env: KEEPER_PK, ADDRESSES_JSON, RPC_URL, CHAIN_ID=4663, KEEPER_BROADCAST=1, PORT.
+# Optional: HOST (/health's listen address, default "::" = dual-stack, which
+# an IPv6 private network needs; 0.0.0.0 would be IPv4 only).
+# oven/bun 1.3.14-slim, pinned by digest (multi-arch index). Keep the tag in step
+# with package.json `packageManager`; bump both together and re-resolve the digest.
+FROM oven/bun:1.3.14-slim@sha256:d56a2534ffd262e92c12fd3249d3924d296d97086da773f821d7d0477435ea04
+WORKDIR /app
+COPY package.json bun.lock bunfig.toml ./
+# --ignore-scripts: no dependency lifecycle script runs in the image, including
+# those on Bun's default-trusted list (msgpackr-extract's native build). msgpackr
+# then uses its prebuilt platform package, or its pure-JS codec without one.
+RUN bun install --frozen-lockfile --production --ignore-scripts
+COPY . .
+ENV NODE_ENV=production
+# The image's unprivileged `bun` user (uid 1000): the process that holds the hot
+# key cannot rewrite its own code or node_modules (both stay root-owned).
+USER bun
+CMD ["bun", "run", "src/keeper/run.ts"]

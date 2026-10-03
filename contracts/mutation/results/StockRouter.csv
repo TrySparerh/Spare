@@ -1,0 +1,121 @@
+id,operator,location,original,mutated,status,killed_by
+1,DeleteExpressionMutation,src/StockRouter.sol:73:9,poolManager = poolManager_,assert(true),killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+2,DeleteExpressionMutation,src/StockRouter.sol:74:9,registry = registry_,assert(true),killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_defaultMixDriftsIntoSpyWhileTheWhaleBlocksNvda
+3,DeleteExpressionMutation,src/StockRouter.sol:75:9,usdg = registry_.usdg(),assert(true),killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.setUp
+4,IfStatementMutation,src/StockRouter.sol:79:13,!isCaller[msg.sender],true,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+5,IfStatementMutation,src/StockRouter.sol:79:13,!isCaller[msg.sender],false,killed,test/unit/StockRouter.t.sol:StockRouterTest.test_buy_notCaller
+6,DeleteExpressionMutation,src/StockRouter.sol:84:9,isCaller[caller] = enabled,assert(true),killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+7,AssignmentMutation,src/StockRouter.sol:84:28,enabled,true,killed,test/unit/StockRouter.t.sol:StockRouterTest.test_setCaller_revokes
+8,AssignmentMutation,src/StockRouter.sol:84:28,enabled,false,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+9,DeleteExpressionMutation,src/StockRouter.sol:89:9,sequencerFeed = feed,assert(true),killed,test/unit/StockRouter.t.sol:StockRouterTest.test_buy_sequencerDown
+10,BinaryOpMutation,src/StockRouter.sol:104:38, / ,+,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+11,BinaryOpMutation,src/StockRouter.sol:104:38, / ,-,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+12,BinaryOpMutation,src/StockRouter.sol:104:38, / ,*,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+13,BinaryOpMutation,src/StockRouter.sol:104:38, / ,%,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_defaultMixDriftsIntoSpyWhileTheWhaleBlocksNvda
+14,BinaryOpMutation,src/StockRouter.sol:104:38, / ,**,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_defaultMixDriftsIntoSpyWhileTheWhaleBlocksNvda
+15,SwapArgumentsOperatorMutation,src/StockRouter.sol:104:16,(usdgIn * 1e12 * 1e18) / price1e18,price1e18 / (usdgIn * 1e12 * 1e18),killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_defaultMixDriftsIntoSpyWhileTheWhaleBlocksNvda
+16,BinaryOpMutation,src/StockRouter.sol:104:30, * ,+,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_defaultMixDriftsIntoSpyWhileTheWhaleBlocksNvda
+17,BinaryOpMutation,src/StockRouter.sol:104:30, * ,-,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_defaultMixDriftsIntoSpyWhileTheWhaleBlocksNvda
+18,BinaryOpMutation,src/StockRouter.sol:104:30, * ,/,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_defaultMixDriftsIntoSpyWhileTheWhaleBlocksNvda
+19,BinaryOpMutation,src/StockRouter.sol:104:30, * ,%,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_defaultMixDriftsIntoSpyWhileTheWhaleBlocksNvda
+20,BinaryOpMutation,src/StockRouter.sol:104:23, * ,+,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_defaultMixDriftsIntoSpyWhileTheWhaleBlocksNvda
+21,BinaryOpMutation,src/StockRouter.sol:104:23, * ,-,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_defaultMixDriftsIntoSpyWhileTheWhaleBlocksNvda
+22,BinaryOpMutation,src/StockRouter.sol:104:23, * ,/,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_defaultMixDriftsIntoSpyWhileTheWhaleBlocksNvda
+23,BinaryOpMutation,src/StockRouter.sol:104:23, * ,%,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_defaultMixDriftsIntoSpyWhileTheWhaleBlocksNvda
+24,BinaryOpMutation,src/StockRouter.sol:104:23, * ,**,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_defaultMixDriftsIntoSpyWhileTheWhaleBlocksNvda
+25,BinaryOpMutation,src/StockRouter.sol:109:45, / ,+,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+26,BinaryOpMutation,src/StockRouter.sol:109:45, / ,-,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+27,BinaryOpMutation,src/StockRouter.sol:109:45, / ,*,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+28,BinaryOpMutation,src/StockRouter.sol:109:45, / ,%,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+29,SwapArgumentsOperatorMutation,src/StockRouter.sol:109:16,(tokensIn * price1e18) / 1e18 / 1e12,1e12 / (tokensIn * price1e18) / 1e18,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+30,BinaryOpMutation,src/StockRouter.sol:109:38, / ,+,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+31,BinaryOpMutation,src/StockRouter.sol:109:38, / ,-,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+32,BinaryOpMutation,src/StockRouter.sol:109:38, / ,*,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+33,BinaryOpMutation,src/StockRouter.sol:109:38, / ,%,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+34,BinaryOpMutation,src/StockRouter.sol:109:38, / ,**,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+35,SwapArgumentsOperatorMutation,src/StockRouter.sol:109:16,(tokensIn * price1e18) / 1e18,1e18 / (tokensIn * price1e18),killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+36,BinaryOpMutation,src/StockRouter.sol:109:25, * ,+,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+37,BinaryOpMutation,src/StockRouter.sol:109:25, * ,-,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+38,BinaryOpMutation,src/StockRouter.sol:109:25, * ,/,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+39,BinaryOpMutation,src/StockRouter.sol:109:25, * ,%,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+40,BinaryOpMutation,src/StockRouter.sol:109:25, * ,**,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+41,IfStatementMutation,src/StockRouter.sol:125:13,!a.active,true,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+42,IfStatementMutation,src/StockRouter.sol:125:13,!a.active,false,killed,test/unit/StockRouter.t.sol:StockRouterTest.test_buy_inactiveAsset
+43,IfStatementMutation,src/StockRouter.sol:128:13,status != OracleGuard.Status.OK,true,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+44,IfStatementMutation,src/StockRouter.sol:128:13,status != OracleGuard.Status.OK,false,killed,test/unit/StockRouter.t.sol:StockRouterTest.test_buy_pausedToken
+45,DeleteExpressionMutation,src/StockRouter.sol:130:9,"IERC20(usdg).safeTransferFrom(msg.sender, address(this), usdgIn)",assert(true),killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+46,DeleteExpressionMutation,src/StockRouter.sol:132:9,"(paid, out) = _swap(a.poolKey, usdg, token, usdgIn, recipient)",assert(true),killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+47,IfStatementMutation,src/StockRouter.sol:134:13,out < minOut,true,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+48,IfStatementMutation,src/StockRouter.sol:134:13,out < minOut,false,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_whaleBeyondTheBandDefersEveryCoBatchedLegEveryEpoch
+49,SwapArgumentsOperatorMutation,src/StockRouter.sol:134:13,out < minOut,minOut < out,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+50,BinaryOpMutation,src/StockRouter.sol:135:78, / ,+,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+51,BinaryOpMutation,src/StockRouter.sol:135:78, / ,-,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+52,BinaryOpMutation,src/StockRouter.sol:135:78, / ,*,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+53,BinaryOpMutation,src/StockRouter.sol:135:78, / ,%,killed,test/unit/StockRouter.t.sol:StockRouterTest.test_buy_outsideOracleBandEvenWithZeroMinOut
+54,BinaryOpMutation,src/StockRouter.sol:135:78, / ,**,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+55,SwapArgumentsOperatorMutation,src/StockRouter.sol:135:25,"(oracleTokensFor(paid, price) * (10_000 - a.bandBps)) / 10_000","10_000 / (oracleTokensFor(paid, price) * (10_000 - a.bandBps))",killed,test/unit/StockRouter.t.sol:StockRouterTest.test_buy_outsideOracleBandEvenWithZeroMinOut
+56,BinaryOpMutation,src/StockRouter.sol:135:54, * ,+,killed,test/unit/StockRouter.t.sol:StockRouterTest.test_buy_outsideOracleBandEvenWithZeroMinOut
+57,BinaryOpMutation,src/StockRouter.sol:135:54, * ,-,killed,test/unit/StockRouter.t.sol:StockRouterTest.test_buy_outsideOracleBandEvenWithZeroMinOut
+58,BinaryOpMutation,src/StockRouter.sol:135:54, * ,/,killed,test/unit/StockRouter.t.sol:StockRouterTest.test_buy_outsideOracleBandEvenWithZeroMinOut
+59,BinaryOpMutation,src/StockRouter.sol:135:54, * ,%,killed,test/unit/StockRouter.t.sol:StockRouterTest.test_buy_outsideOracleBandEvenWithZeroMinOut
+60,BinaryOpMutation,src/StockRouter.sol:135:54, * ,**,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+61,BinaryOpMutation,src/StockRouter.sol:135:64, - ,+,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+62,BinaryOpMutation,src/StockRouter.sol:135:64, - ,*,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+63,BinaryOpMutation,src/StockRouter.sol:135:64, - ,/,killed,test/unit/StockRouter.t.sol:StockRouterTest.test_buy_outsideOracleBandEvenWithZeroMinOut
+64,BinaryOpMutation,src/StockRouter.sol:135:64, - ,%,killed,test/unit/StockRouter.t.sol:StockRouterTest.test_buy_outsideOracleBandEvenWithZeroMinOut
+65,BinaryOpMutation,src/StockRouter.sol:135:64, - ,**,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+66,SwapArgumentsOperatorMutation,src/StockRouter.sol:135:58,10_000 - a.bandBps,a.bandBps - 10_000,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+67,IfStatementMutation,src/StockRouter.sol:136:13,out < floor,true,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+68,IfStatementMutation,src/StockRouter.sol:136:13,out < floor,false,killed,test/unit/StockRouter.t.sol:StockRouterTest.test_buy_outsideOracleBandEvenWithZeroMinOut
+69,SwapArgumentsOperatorMutation,src/StockRouter.sol:136:13,out < floor,floor < out,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+70,IfStatementMutation,src/StockRouter.sol:151:13,status != OracleGuard.Status.OK,true,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+71,IfStatementMutation,src/StockRouter.sol:151:13,status != OracleGuard.Status.OK,false,killed,test/unit/SgovParkAdapter.t.sol:SgovParkAdapterTest.test_cashPark_exitWhileStalePaysInKind
+72,DeleteExpressionMutation,src/StockRouter.sol:153:9,"IERC20(token).safeTransferFrom(msg.sender, address(this), tokensIn)",assert(true),killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+73,DeleteExpressionMutation,src/StockRouter.sol:155:9,"(paid, out) = _swap(a.poolKey, token, usdg, tokensIn, recipient)",assert(true),killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+74,IfStatementMutation,src/StockRouter.sol:157:13,out < minOut,true,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+75,IfStatementMutation,src/StockRouter.sol:157:13,out < minOut,false,killed,test/unit/SgovParkAdapter.t.sol:SgovParkAdapterTest.test_redeem_minOutIsTheOracleLessTheAdaptersSlippage
+76,SwapArgumentsOperatorMutation,src/StockRouter.sol:157:13,out < minOut,minOut < out,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+77,BinaryOpMutation,src/StockRouter.sol:158:76, / ,+,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+78,BinaryOpMutation,src/StockRouter.sol:158:76, / ,-,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+79,BinaryOpMutation,src/StockRouter.sol:158:76, / ,*,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+80,BinaryOpMutation,src/StockRouter.sol:158:76, / ,%,killed,test/unit/StockRouter.t.sol:StockRouterTest.test_sell_outsideBand
+81,BinaryOpMutation,src/StockRouter.sol:158:76, / ,**,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+82,SwapArgumentsOperatorMutation,src/StockRouter.sol:158:25,"(oracleUsdgFor(paid, price) * (10_000 - a.bandBps)) / 10_000","10_000 / (oracleUsdgFor(paid, price) * (10_000 - a.bandBps))",killed,test/unit/StockRouter.t.sol:StockRouterTest.test_sell_outsideBand
+83,BinaryOpMutation,src/StockRouter.sol:158:52, * ,+,killed,test/unit/StockRouter.t.sol:StockRouterTest.test_sell_outsideBand
+84,BinaryOpMutation,src/StockRouter.sol:158:52, * ,-,killed,test/unit/StockRouter.t.sol:StockRouterTest.test_sell_outsideBand
+85,BinaryOpMutation,src/StockRouter.sol:158:52, * ,/,killed,test/unit/StockRouter.t.sol:StockRouterTest.test_sell_outsideBand
+86,BinaryOpMutation,src/StockRouter.sol:158:52, * ,%,killed,test/unit/StockRouter.t.sol:StockRouterTest.test_sell_outsideBand
+87,BinaryOpMutation,src/StockRouter.sol:158:52, * ,**,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+88,BinaryOpMutation,src/StockRouter.sol:158:62, - ,+,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+89,BinaryOpMutation,src/StockRouter.sol:158:62, - ,*,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+90,BinaryOpMutation,src/StockRouter.sol:158:62, - ,/,killed,test/unit/StockRouter.t.sol:StockRouterTest.test_sell_outsideBand
+91,BinaryOpMutation,src/StockRouter.sol:158:62, - ,%,killed,test/unit/StockRouter.t.sol:StockRouterTest.test_sell_outsideBand
+92,BinaryOpMutation,src/StockRouter.sol:158:62, - ,**,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+93,SwapArgumentsOperatorMutation,src/StockRouter.sol:158:56,10_000 - a.bandBps,a.bandBps - 10_000,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+94,IfStatementMutation,src/StockRouter.sol:159:13,out < floor,true,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+95,IfStatementMutation,src/StockRouter.sol:159:13,out < floor,false,killed,test/unit/StockRouter.t.sol:StockRouterTest.test_sell_outsideBand
+96,SwapArgumentsOperatorMutation,src/StockRouter.sol:159:13,out < floor,floor < out,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+97,DeleteExpressionMutation,src/StockRouter.sol:174:9,"(paid, received) = abi.decode(ret, (uint256, uint256))",assert(true),killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+98,IfStatementMutation,src/StockRouter.sol:179:13,msg.sender != address(poolManager),true,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+99,IfStatementMutation,src/StockRouter.sol:179:13,msg.sender != address(poolManager),false,killed,test/unit/StockRouter.t.sol:StockRouterTest.test_unlockCallback_onlyPoolManager
+100,UnaryOperatorMutation,src/StockRouter.sol:187:34,-,~,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+101,BinaryOpMutation,src/StockRouter.sol:188:104, - ,+,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+102,BinaryOpMutation,src/StockRouter.sol:188:104, - ,*,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+103,BinaryOpMutation,src/StockRouter.sol:188:104, - ,/,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+104,BinaryOpMutation,src/StockRouter.sol:188:104, - ,%,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+105,BinaryOpMutation,src/StockRouter.sol:188:104, - ,**,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+106,SwapArgumentsOperatorMutation,src/StockRouter.sol:188:81,TickMath.MAX_SQRT_PRICE - 1,1 - TickMath.MAX_SQRT_PRICE,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+107,BinaryOpMutation,src/StockRouter.sol:188:74, + ,-,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+108,BinaryOpMutation,src/StockRouter.sol:188:74, + ,*,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+109,BinaryOpMutation,src/StockRouter.sol:188:74, + ,/,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+110,BinaryOpMutation,src/StockRouter.sol:188:74, + ,%,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+111,BinaryOpMutation,src/StockRouter.sol:188:74, + ,**,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+112,UnaryOperatorMutation,src/StockRouter.sol:196:40,-,++,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+113,UnaryOperatorMutation,src/StockRouter.sol:196:40,-,--,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+114,UnaryOperatorMutation,src/StockRouter.sol:196:40,-,~,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+115,IfStatementMutation,src/StockRouter.sol:201:13,paid != s.amountIn,true,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+116,IfStatementMutation,src/StockRouter.sol:201:13,paid != s.amountIn,false,killed,test/unit/StockRouter.t.sol:StockRouterTest.test_buy_partialFillReverts
+117,DeleteExpressionMutation,src/StockRouter.sol:204:9,poolManager.sync(cin),assert(true),killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+118,DeleteExpressionMutation,src/StockRouter.sol:205:9,"IERC20(s.tokenIn).safeTransfer(address(poolManager), paid)",assert(true),killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+119,DeleteExpressionMutation,src/StockRouter.sol:206:9,poolManager.settle(),assert(true),killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+120,DeleteExpressionMutation,src/StockRouter.sol:207:9,"poolManager.take(Currency.wrap(s.tokenOut), s.recipient, received)",assert(true),killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch

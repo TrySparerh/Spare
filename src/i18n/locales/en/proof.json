@@ -1,0 +1,358 @@
+{
+  "meta": {
+    "pageTitle": "Proof — Spare",
+    "description": "Check Spare yourself: what it built on Robinhood Chain, its 10 contracts with live source verification, who controls them, the on-chain safety limits, live system status and how to replay the money path on a local fork.",
+    "kicker": "Proof · Spare S1",
+    "title": "Proof",
+    "subtitle": "What Spare built on Robinhood Chain, who controls it and how to check each claim yourself. Values marked LIVE are read in your browser from the chain, Sourcify or the Spare API when the page loads."
+  },
+  "hero": {
+    "verified": "{{n}}/{{total}} SOURCE VERIFIED",
+    "verifying": "CHECKING SOURCE…",
+    "ownerEoa": "OWNER: SINGLE KEY",
+    "ownerTimelock": "OWNER: {{delay}} TIMELOCK",
+    "ownerSafe": "OWNER: SAFE {{threshold}}/{{owners}}",
+    "ownerContract": "OWNER: CONTRACT",
+    "ownerChecking": "READING OWNER…",
+    "exit": "EXIT: NEVER PAUSED",
+    "noHumanAudit": "NO HUMAN AUDIT YET"
+  },
+  "nav": {
+    "group": {
+      "built": "What was built",
+      "trust": "Control & limits",
+      "check": "Check it yourself"
+    },
+    "architecture": "Architecture",
+    "contracts": "Contracts",
+    "control": "Who controls what",
+    "rails": "Safety rails",
+    "status": "System status",
+    "run": "Run it yourself",
+    "audit": "Audit & tests"
+  },
+  "tag": {
+    "live": "LIVE",
+    "liveTitle": "Read live when this page loaded",
+    "record": "RECORD",
+    "recordTitle": "From a file committed in Spare's repository",
+    "code": "IN CODE",
+    "codeTitle": "A rule in the verified contract source, not a stored setting"
+  },
+  "legend": {
+    "title": "How to read this page",
+    "live": "<b>LIVE</b>: read when this page loads, from Robinhood Chain (public RPC), Sourcify or the Spare API. If a source does not answer you see “—”.",
+    "record": "<b>RECORD</b>: from files committed in Spare's repository (the deployment record, the audit report).",
+    "code": "<b>IN CODE</b>: a rule written into the verified contract source, not a setting anyone can change."
+  },
+  "arch": {
+    "kicker": "What was built",
+    "intro": "Spare rounds up your USDG payments on Robinhood Chain and puts the spare change into tokenized stocks. Ten contracts hold the rules and the money. An off-chain keeper does the routine work inside limits those contracts enforce. A read-only API and MCP server report what the chain says.",
+    "pathTitle": "The money path",
+    "onchainTitle": "On chain · 10 contracts",
+    "onchainAccent": "IMMUTABLE",
+    "onchainNote": "No proxies and no upgrade path: changing a contract means a new deployment.",
+    "offchainTitle": "Off chain",
+    "keeperName": "Keeper",
+    "apiName": "Spare API · MCP",
+    "parts": {
+      "ruleRegistry": "Which wallets feed which account, and each account's round-up rule: round to $1, $5 or $10, a 1× to 5× multiplier and a weekly cap. It has no owner: only the account can change these.",
+      "sweepExecutor": "Collects round-ups through a capped Permit2 pull, runs a sweep at most once per epoch, charges the conversion fee only on USDG that converts, and delivers the stock.",
+      "cashPark": "Holds collected USDG between collection and sweep. <c>exit()</c> hands everything back at any time.",
+      "parkAdapters": "How parked USDG is held. Live: UsdgParkAdapter keeps it as plain USDG. Standby: SgovParkAdapter would hold it as SGOV and is not switched on. Neither has an owner.",
+      "stockRouter": "Swaps USDG for a stock only through the Uniswap v4 pool pinned in AssetRegistry, and rejects a fill too far below the Chainlink price.",
+      "assetRegistry": "The stock universe: each token's Chainlink feed, heartbeat, oracle band, pinned pool and active flag.",
+      "electionRegistry": "Each account's stock mix (weights total 100%, active stocks only) and the default mix.",
+      "screeningGate": "Eligibility gate for buying tokenized stocks. Deployed, switched off at launch.",
+      "feeVault": "Receives the conversion fee and the Fund Wallet swap fee.",
+      "keeper": "Spare's automated operator, a hot key. It collects round-ups and runs sweeps. It cannot withdraw, redirect a delivery, change a setting or block an exit.",
+      "api": "Read-only HTTP and MCP endpoints for people and AI agents (<c>/health</c>, <c>/api/spare/*</c>, <c>/mcp</c>). They report what the chain says."
+    }
+  },
+  "path": {
+    "aria": "How a payment becomes stock",
+    "s1": {
+      "title": "Payment",
+      "body": "You pay in USDG from a wallet you linked."
+    },
+    "s2": {
+      "title": "Round-up collected",
+      "body": "The keeper pulls the round-up through Permit2, capped on chain by your weekly cap."
+    },
+    "s3": {
+      "title": "Parked",
+      "body": "The USDG waits in CashPark."
+    },
+    "s4": {
+      "title": "Swept",
+      "body": "Once per epoch, above the sweep threshold, it buys your mix through pinned Uniswap v4 pools, each fill checked against Chainlink."
+    },
+    "s5": {
+      "title": "Delivered",
+      "body": "The stock tokens land in your wallet."
+    },
+    "fromStep": "from step {{n}}",
+    "exitTitle": "Exit, any time",
+    "exitBody": "<c>CashPark.exit()</c> hands back everything parked. A pause never blocks it.",
+    "deferTitle": "Price check fails",
+    "deferBody": "That stock's share is deferred: its USDG stays parked and is retried next epoch."
+  },
+  "sourcify": {
+    "checking": "CHECKING",
+    "exact": "EXACT MATCH",
+    "match": "MATCH",
+    "none": "NOT VERIFIED",
+    "unknown": "NO ANSWER",
+    "unknownTitle": "Sourcify did not answer. Reload to try again, or open the address on Sourcify.",
+    "verifiedTitle": "Verified on Sourcify {{date}}",
+    "open": "Open this address on Sourcify"
+  },
+  "code": {
+    "checking": "CHECKING",
+    "deployed": "DEPLOYED",
+    "none": "NO CODE",
+    "unread": "UNREAD",
+    "unreadTitle": "The Robinhood Chain RPC did not answer. Check the address on Blockscout."
+  },
+  "dur": {
+    "h": "{{h}} h",
+    "hm": "{{h}} h {{m}} min",
+    "s": "{{s}} s"
+  },
+  "contracts": {
+    "kicker": "Verify the code",
+    "intro": "The ten contracts Spare deployed on Robinhood Chain (chain 4663) on {{date}}, from block {{block}}. Each address opens Blockscout. The source badge asks Sourcify, live, whether published source code compiles to the bytecode at that address.",
+    "summary": "{{n}}/{{total}} VERIFIED ON SOURCIFY",
+    "head": {
+      "contract": "Contract",
+      "address": "Address",
+      "deployed": "Deploy block",
+      "bytecode": "Bytecode",
+      "source": "Source (Sourcify)"
+    },
+    "tx": "creation tx",
+    "verifiedAs": "matches {{name}} · solc {{version}}",
+    "nameMismatch": "matched {{name}}, expected {{expected}}",
+    "caption": "Deploy blocks and creation transactions: RECORD, from contracts/deployments/4663-contracts.json. Bytecode and source: LIVE.",
+    "compiler": "Built with solc {{solc}}, via-IR, optimizer {{runs}} runs (the creation record).",
+    "matchNote": "“Match” means the published source and compiler settings rebuild the bytecode at the address; “exact match” means the embedded metadata matches too. Either way, the code running on chain is built from the source Sourcify shows.",
+    "reproduce": "Reproduce it yourself: <c>contracts/scripts/verify-blockscout.sh check</c> rebuilds every contract from source and compares the result byte for byte with its creation transaction on chain.",
+    "reproduceLink": "the script",
+    "recordLink": "the creation record"
+  },
+  "control": {
+    "kicker": "Who can change what",
+    "intro": "{{n}} of the 10 contracts have an owner (OpenZeppelin Ownable2Step) and a pauser. Every value below is read live from the contracts themselves.",
+    "readFailed": "Robinhood Chain's public RPC did not answer, so the roles below could not be read. Reload to try again, or read them on Blockscout.",
+    "badge": {
+      "eoa": "SINGLE KEY",
+      "timelock": "TIMELOCK",
+      "safe": "MULTISIG",
+      "contract": "CONTRACT",
+      "unknown": "UNREAD"
+    },
+    "kind": {
+      "eoa": "An EOA: one private key, no contract code at this address.",
+      "eoaDelegated": "An EOA with an EIP-7702 delegation: still one private key.",
+      "timelock": "A TimelockController: every owner action waits at least {{delay}} on chain before it can run.",
+      "safe": "A Safe multisig: {{threshold}} of {{owners}} signers must approve.",
+      "contract": "A contract that answers neither as a timelock nor as a Safe.",
+      "unknown": "Could not read the code at this address."
+    },
+    "ownerTitle": "Owner",
+    "pauserTitle": "Pauser",
+    "keeperTitle": "Keeper",
+    "screeningTitle": "Screening",
+    "noOwnerTitle": "No owner at all",
+    "wiringTitle": "CashPark wiring",
+    "address": "Address",
+    "what": "What it is",
+    "scope": "Owns",
+    "ownerOf": "{{n}} of {{total}} owned contracts",
+    "ownerMixed": "differs by contract (see the table)",
+    "pauserMixed": "differs by contract (see the table)",
+    "pendingLabel": "Pending owner",
+    "pendingCount": "set on {{n}} contracts",
+    "none": "none",
+    "ownerEoaNote": "Single key today. A hand-over to a 2-of-3 Safe behind a 48 h timelock is prepared and rehearsed on a mainnet fork, but not executed. Until it is, this key can change settings within their on-chain ceilings, rotate the keeper and pauser and, through <c>CashPark.setExecutor</c>, withdraw all parked USDG in one transaction. It cannot move delivered stock, change an account's rule, cap, links or mix, or block <c>exit()</c>. Treat parked balances as trusting this key.",
+    "ownerTimelockNote": "Every owner action is scheduled on chain and is public for the whole delay before it can run.",
+    "pending": "Ownership hand-over started: pendingOwner() is {{addr}} on {{n}} contracts. Ownership moves only when that address accepts.",
+    "governanceDoc": "Hand-over runbook",
+    "rolesDoc": "Every privileged function",
+    "sameAsOwner": "the same key as the owner",
+    "pausedNow": "Paused now",
+    "pausedNone": "none of the {{total}}",
+    "pauserBody": "Can pause new collections, parks and sweeps at once. Cannot block <c>exit()</c> or <c>claim()</c>, and cannot unpause: only the owner can.",
+    "keeperOnLabel": "Keeper on",
+    "keeperNone": "no contract",
+    "keeperBody": "Spare's automated operator, a hot key used only by the keeper service. The contracts let it collect up to each account's weekly cap and Permit2 allowance into that account's own park, and buy only through pinned pools inside the oracle band. It cannot withdraw, redirect a delivery, change a setting or block an exit.",
+    "keeperSource": "Address from the deployment record; the contracts it holds the keeper role on are read live.",
+    "screeningOn": "On: only accounts the attestor has cleared are swept.",
+    "screeningOff": "Off at launch. Checking whether you may hold tokenized stocks where you live is on you.",
+    "noOwnerYes": "NO OWNER",
+    "noOwnerNo": "HAS AN OWNER",
+    "noOwnerBody": "<c>owner()</c> is called on each one, live, and reverts: these contracts have no admin function. RuleRegistry changes only through each account's own calls; the park adapters answer only to CashPark.",
+    "executorOk": "is SweepExecutor",
+    "executorBad": "NOT SweepExecutor",
+    "adapterUsdg": "UsdgParkAdapter: parked USDG stays plain USDG",
+    "adapterSgov": "SgovParkAdapter: parked USDG is held as SGOV",
+    "adapterOther": "an address that is not a Spare park adapter",
+    "wiringBody": "CashPark releases parked USDG for a sweep only to <c>executor()</c>. If it ever pointed anywhere but SweepExecutor, this check would show it.",
+    "head": {
+      "contract": "Contract"
+    },
+    "tableCaption": "Read live from each contract. pendingOwner() “none” means no hand-over is in progress."
+  },
+  "hooks": {
+    "title": "Third-party hooks on pinned pools",
+    "none": "None of the pinned pools runs a hook.",
+    "intro": "{{n}} pinned pools run a Uniswap v4 hook that Spare does not control. A v4 hook's permissions are fixed in its address, so they are decoded from the address itself.",
+    "head": {
+      "stock": "Stock",
+      "hook": "Hook contract",
+      "verified": "Source (Sourcify)",
+      "permissions": "Permissions (from the address)"
+    },
+    "noDelta": "No return-delta permission: it cannot change swap amounts. It can set the pool fee or make a swap revert; StockRouter's oracle band turns a bad fill into a deferral.",
+    "delta": "Has a return-delta permission: it can change swap amounts. StockRouter's oracle band still rejects a fill outside the band.",
+    "authorityHint": "authority() is the access manager that decides who may call the hook's restricted functions (OpenZeppelin AccessManaged); “—” means the hook does not answer it.",
+    "configLink": "Spare's notes on each pinned pool"
+  },
+  "rails": {
+    "kicker": "Limits the contracts enforce",
+    "intro": "Each value is read live from the contracts. Where the code fixes a ceiling, no one, the owner included, can set a value above it.",
+    "pctBps": "{{pct}} ({{bps}} bps)",
+    "ceiling": "hard ceiling {{max}}",
+    "fee": {
+      "name": "Conversion fee",
+      "body": "Taken only on USDG that actually converts into stock, never on a leg that is deferred or safe-settled."
+    },
+    "band": {
+      "name": "Oracle band",
+      "group": "{{pct}} on {{n}} of {{total}} active stocks",
+      "body": "StockRouter reverts any buy that returns fewer tokens than the Chainlink price minus the band; that stock's share is deferred."
+    },
+    "slippage": {
+      "name": "Slippage backstop",
+      "body": "Each leg's minimum out is the higher of the keeper's same-block quote limit and the Chainlink price minus this."
+    },
+    "pinned": {
+      "name": "Pinned pools",
+      "value": "{{n}} of {{total}} active stocks",
+      "body": "Each stock trades through one exact Uniswap v4 pool (PoolKey, hook included) stored in AssetRegistry. StockRouter swaps nowhere else."
+    },
+    "threshold": {
+      "name": "Sweep threshold",
+      "body": "An account is swept only once it holds at least this much."
+    },
+    "epoch": {
+      "name": "Once per epoch",
+      "value": "one sweep per account every {{dur}}",
+      "body": "An account can be swept at most once per epoch."
+    },
+    "cap": {
+      "name": "Weekly cap",
+      "value": "set by each account",
+      "body": "Each account sets its own cap in RuleRegistry; no admin can change it. A collection that would pass it reverts (<c>WeeklyCapExceeded</c>), and a cap of 0 turns collection off. The window is 7 daily buckets, so up to 2× the cap can be collected within 6 days and 1 second (audit finding A-L1, accepted: the USDG lands in the account's own park, where <c>exit()</c> returns it)."
+    },
+    "finality": {
+      "name": "Finality buffer",
+      "value": "{{n}} blocks",
+      "body": "A collection can only cover blocks at least this far behind the chain head, and never the same blocks twice."
+    },
+    "exit": {
+      "name": "Exit is never paused",
+      "body": "<c>CashPark.exit()</c> has no <c>whenNotPaused</c> modifier: a pause stops new collections, parks and sweeps, never an exit. Pending USDG is paid first, unconditionally."
+    },
+    "paused": {
+      "name": "Collections and sweeps",
+      "running": "running (not paused)",
+      "paused": "paused",
+      "body": "A pause stops new collections and sweeps at once. Exits and claims stay open."
+    },
+    "sequencer": {
+      "name": "Sequencer check",
+      "off": "skipped: no feed",
+      "bodyOff": "Robinhood Chain publishes no L2 sequencer-uptime feed yet, so this is the zero address and the check is skipped.",
+      "bodyOn": "While the L2 sequencer-uptime feed reports down, every leg defers."
+    },
+    "legs": {
+      "name": "Mix size",
+      "value": "up to {{n}} stocks",
+      "body": "A mix holds at most this many stocks, weights total 100%, active stocks only."
+    }
+  },
+  "common": {
+    "source": "source"
+  },
+  "status": {
+    "kicker": "Is it running",
+    "intro": "Liveness only, read live when this page loads. Usage, every collection and sweep with totals since deployment, is on the Dispatch page (/dispatch).",
+    "api": "Spare API",
+    "online": "ONLINE",
+    "offline": "NO ANSWER",
+    "apiSub": "sees block {{block}} · RPC {{rpc}}",
+    "rpcOk": "OK",
+    "rpcDown": "down",
+    "apiHost": "no answer from {{host}}",
+    "head": "Chain head",
+    "headSub": "Robinhood Chain, from your browser",
+    "feeds": "Chainlink feeds",
+    "feedsSub": "active stocks LIVE in OracleGuard",
+    "universe": "Active · standby",
+    "universeSub": "stocks in AssetRegistry",
+    "sessionOpen": "US-EQUITIES SESSION OPEN",
+    "sessionClosed": "US-EQUITIES SESSION CLOSED",
+    "activeTitle": "Active stocks ({{n}})",
+    "standbyTitle": "Standby stocks ({{n}})",
+    "oracleNote": "LIVE means OracleGuard accepts the feed's last answer (within its heartbeat). Outside the US-equities 24/5 session the keeper waits even when a feed reads LIVE.",
+    "standbyNote": "Standby stocks are registered but cannot be elected or bought until the owner activates them."
+  },
+  "run": {
+    "kicker": "Don't trust: replay",
+    "intro": "Replay the whole money path on your own machine: a local fork of Robinhood Chain mainnet with Spare's deployed contracts at their real addresses, the real pools and Chainlink feeds, and the real keeper code. No wallet and no money needed; nothing is sent to mainnet.",
+    "needs": "Needs Git, Node, Bun and Foundry, and an internet connection: it forks the public RPC at its current block. A run takes about three minutes.",
+    "noRepo": "The repository link is not on this page yet. The commands below run from a clone of it.",
+    "codeTitle": "terminal",
+    "checksTitle": "What it checks",
+    "checks": {
+      "accrual": "Round-up math: for every payment, RoundUp.sol itself (run on the fork), the keeper's copy and an independent reference agree, and the keeper collects exactly that, after the finality buffer and within the weekly cap.",
+      "buys": "A buy for every active stock through its pinned pool, inside the oracle band and at or above the keeper's quote limit. A stock the keeper holds back (its pool too far from the oracle, a hook fee above its ceiling) is listed with the keeper's reason, which the run measures again itself.",
+      "delivery": "Delivery: the stock tokens reach each account, pro rata when accounts share one swap.",
+      "claim": "Claim: nothing is left waiting in claimable(); a delivery that could not be pushed would be claimed and checked.",
+      "exit": "Exit: everything still parked comes back, pending USDG and park-adapter units alike."
+    },
+    "output": "It prints PASS or FAIL for each check and a table per stock, and exits non-zero on any failure."
+  },
+  "audit": {
+    "kicker": "Reviews",
+    "aiTitle": "AI-assisted audit · 2026-10-02",
+    "p1": "An AI-assisted audit reviewed the contracts, the keeper and the API on 2026-10-02, before the public release, and graded the code {{grade}}.",
+    "contractsLabel": "Contracts",
+    "contractsValue": "0 Critical · 0 High · 1 Medium · 2 Low",
+    "contractsHint": "The report's summary: no outside attacker can steal funds, and exit stays open even when paused.",
+    "offchainLabel": "API and keeper",
+    "offchainValue": "5 Medium · 8 Low",
+    "offchainHint": "Legacy API routes, error leaks, unbounded scans and rate-limit gaps.",
+    "governanceLabel": "Governance",
+    "governanceValue": "scored 2.5 / 10",
+    "governanceHint": "One owner key and no timelock: the largest deduction, scored apart from the findings.",
+    "fixed": "In response, every API and keeper finding was fixed, and the keeper now sweeps on its own any account whose share would move the netted price (A-M1). A-L1, A-L2 and the single-key owner are accepted risks, listed in <c>SECURITY.md</c>. No contract was redeployed.",
+    "where": "The report and what changed are committed in the repository: <c>docs/audits/2026-10-02-ai-audit-grade.md</c> and <c>CHANGELOG.md</c>.",
+    "openReport": "Read the report",
+    "openChangelog": "Changelog",
+    "openSecurity": "Security policy",
+    "tests": {
+      "foundry": "Foundry tests passed",
+      "foundrySub": "0 failed · at audit time",
+      "invariants": "Invariants held",
+      "invariantsSub": "102,400 calls each",
+      "coverage": "Contract line coverage",
+      "coverageSub": "of contracts/src",
+      "note": "These numbers are a RECORD: what the audit ran on the pre-release code, not a live result."
+    },
+    "humanTitle": "Third-party human audit",
+    "humanBadge": "NONE YET",
+    "human": "There is no third-party human audit yet. The AI-assisted audit above is a pre-audit signal, not a substitute for one."
+  }
+}

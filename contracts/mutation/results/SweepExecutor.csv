@@ -1,0 +1,358 @@
+id,operator,location,original,mutated,status,killed_by
+1,DeleteExpressionMutation,src/SweepExecutor.sol:147:9,permit2 = permit2_,assert(true),killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+2,DeleteExpressionMutation,src/SweepExecutor.sol:148:9,rules = rules_,assert(true),killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+3,DeleteExpressionMutation,src/SweepExecutor.sol:149:9,elections = elections_,assert(true),killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+4,DeleteExpressionMutation,src/SweepExecutor.sol:150:9,registry = elections_.registry(),assert(true),killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+5,DeleteExpressionMutation,src/SweepExecutor.sol:151:9,screening = screening_,assert(true),killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+6,DeleteExpressionMutation,src/SweepExecutor.sol:152:9,router = router_,assert(true),killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+7,DeleteExpressionMutation,src/SweepExecutor.sol:153:9,cashPark = cashPark_,assert(true),killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+8,DeleteExpressionMutation,src/SweepExecutor.sol:154:9,feeVault = feeVault_,assert(true),killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+9,DeleteExpressionMutation,src/SweepExecutor.sol:155:9,usdg = IERC20(router_.usdg()),assert(true),killed,test/unit/RuleRegistry.t.sol:RuleRegistryTest.setUp
+10,DeleteExpressionMutation,src/SweepExecutor.sol:156:9,"usdg.forceApprove(address(router_), type(uint256).max)",assert(true),killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+11,DeleteExpressionMutation,src/SweepExecutor.sol:157:9,"usdg.forceApprove(address(cashPark_), type(uint256).max)",assert(true),killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+12,IfStatementMutation,src/SweepExecutor.sol:167:13,feeBps_ > MAX_FEE_BPS || slippageBps_ > MAX_SLIPPAGE_BPS,true,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_setParams_validation
+13,IfStatementMutation,src/SweepExecutor.sol:167:13,feeBps_ > MAX_FEE_BPS || slippageBps_ > MAX_SLIPPAGE_BPS,false,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_setParams_validation
+14,SwapArgumentsOperatorMutation,src/SweepExecutor.sol:167:13,feeBps_ > MAX_FEE_BPS,MAX_FEE_BPS > feeBps_,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_setParams_validation
+15,SwapArgumentsOperatorMutation,src/SweepExecutor.sol:167:38,slippageBps_ > MAX_SLIPPAGE_BPS,MAX_SLIPPAGE_BPS > slippageBps_,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_setParams_validation
+16,IfStatementMutation,src/SweepExecutor.sol:168:13,threshold_ < 1_000_000 || epochLength_ < 1 hours,true,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_setParams_validation
+17,IfStatementMutation,src/SweepExecutor.sol:168:13,threshold_ < 1_000_000 || epochLength_ < 1 hours,false,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_setParams_validation
+18,SwapArgumentsOperatorMutation,src/SweepExecutor.sol:168:13,threshold_ < 1_000_000,1_000_000 < threshold_,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_setParams_validation
+19,SwapArgumentsOperatorMutation,src/SweepExecutor.sol:168:39,epochLength_ < 1 hours,1 hours < epochLength_,killed,test/unit/SweepExecutorSweep.t.sol:SweepExecutorSweepTest.test_net_everyShareFloorsToZero_lastContributorTakesAll
+20,DeleteExpressionMutation,src/SweepExecutor.sol:169:9,finalityBuffer = finalityBuffer_,assert(true),killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_setParams_validation
+21,AssignmentMutation,src/SweepExecutor.sol:169:26,finalityBuffer_,0,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_setParams_validation
+22,AssignmentMutation,src/SweepExecutor.sol:169:26,finalityBuffer_,1,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_setParams_validation
+23,DeleteExpressionMutation,src/SweepExecutor.sol:170:9,threshold = threshold_,assert(true),killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_setParams_validation
+24,AssignmentMutation,src/SweepExecutor.sol:170:21,threshold_,0,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_setParams_validation
+25,AssignmentMutation,src/SweepExecutor.sol:170:21,threshold_,1,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_setParams_validation
+26,DeleteExpressionMutation,src/SweepExecutor.sol:171:9,feeBps = feeBps_,assert(true),killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_setParams_validation
+27,AssignmentMutation,src/SweepExecutor.sol:171:18,feeBps_,0,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_setParams_validation
+28,AssignmentMutation,src/SweepExecutor.sol:171:18,feeBps_,1,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_setParams_validation
+29,DeleteExpressionMutation,src/SweepExecutor.sol:172:9,slippageBps = slippageBps_,assert(true),killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_setParams_validation
+30,AssignmentMutation,src/SweepExecutor.sol:172:23,slippageBps_,0,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_setParams_validation
+31,AssignmentMutation,src/SweepExecutor.sol:172:23,slippageBps_,1,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_setParams_validation
+32,DeleteExpressionMutation,src/SweepExecutor.sol:173:9,epochLength = epochLength_,assert(true),killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_setParams_validation
+33,AssignmentMutation,src/SweepExecutor.sol:173:23,epochLength_,0,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_setParams_validation
+34,AssignmentMutation,src/SweepExecutor.sol:173:23,epochLength_,1,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_setParams_validation
+35,DeleteExpressionMutation,src/SweepExecutor.sol:185:9,"_accrue(account, wallet, amount, toBlock)",assert(true),killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+36,IfStatementMutation,src/SweepExecutor.sol:198:13,batch.length > MAX_BATCH,true,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_accrueBatch_revokedPermit2Skipped
+37,IfStatementMutation,src/SweepExecutor.sol:198:13,batch.length > MAX_BATCH,false,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_accrueBatch_tooLarge
+38,SwapArgumentsOperatorMutation,src/SweepExecutor.sol:198:13,batch.length > MAX_BATCH,MAX_BATCH > batch.length,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_accrueBatch_revokedPermit2Skipped
+39,DeleteExpressionMutation,src/SweepExecutor.sol:202:17,++accrued,assert(true),killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_accrueBatch_capIsCumulative
+40,UnaryOperatorMutation,src/SweepExecutor.sol:202:17,++,--,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_accrueBatch_revokedPermit2Skipped
+41,UnaryOperatorMutation,src/SweepExecutor.sol:202:17,++,~,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_accrueBatch_revokedPermit2Skipped
+42,SwapArgumentsOperatorMutation,src/SweepExecutor.sol:199:25,i < batch.length,batch.length < i,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_accrueBatch_revokedPermit2Skipped
+43,DeleteExpressionMutation,src/SweepExecutor.sol:199:43,++i,assert(true),killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_accrueBatch_revokedPermit2Skipped
+44,UnaryOperatorMutation,src/SweepExecutor.sol:199:43,++,--,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_accrueBatch_revokedPermit2Skipped
+45,UnaryOperatorMutation,src/SweepExecutor.sol:199:43,++,~,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_accrueBatch_capIsCumulative
+46,IfStatementMutation,src/SweepExecutor.sol:212:13,msg.sender != address(this),true,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_accrueBatch_revokedPermit2Skipped
+47,IfStatementMutation,src/SweepExecutor.sol:212:13,msg.sender != address(this),false,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_accrueSelf_onlyFromTheExecutorItself
+48,DeleteExpressionMutation,src/SweepExecutor.sol:213:9,"_accrue(account, wallet, amount, toBlock)",assert(true),killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_accrueBatch_revokedPermit2Skipped
+49,IfStatementMutation,src/SweepExecutor.sol:217:13,"!rules.isLinked(account, wallet)",true,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+50,IfStatementMutation,src/SweepExecutor.sol:217:13,"!rules.isLinked(account, wallet)",false,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_accrueBatch_skipsBadEntry
+51,IfStatementMutation,src/SweepExecutor.sol:219:13,!r.enabled || r.weeklyCap == 0,true,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+52,IfStatementMutation,src/SweepExecutor.sol:219:13,!r.enabled || r.weeklyCap == 0,false,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_accrue_activeSinceBlocksTheDisabledWindow
+53,IfStatementMutation,src/SweepExecutor.sol:225:13,linked > from,true,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_accrueBatch_sequentialRangesForOneWallet
+54,IfStatementMutation,src/SweepExecutor.sol:225:13,linked > from,false,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_accrue_relinkFloorBeatsOldCursor
+55,SwapArgumentsOperatorMutation,src/SweepExecutor.sol:225:13,linked > from,from > linked,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_accrueBatch_sequentialRangesForOneWallet
+56,DeleteExpressionMutation,src/SweepExecutor.sol:225:28,from = linked,assert(true),killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_accrue_relinkFloorBeatsOldCursor
+57,AssignmentMutation,src/SweepExecutor.sol:225:35,linked,0,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_accrue_relinkFloorBeatsOldCursor
+58,AssignmentMutation,src/SweepExecutor.sol:225:35,linked,1,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_accrue_relinkFloorBeatsOldCursor
+59,IfStatementMutation,src/SweepExecutor.sol:227:13,active > from,true,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_accrueBatch_sequentialRangesForOneWallet
+60,IfStatementMutation,src/SweepExecutor.sol:227:13,active > from,false,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_accrue_activeSinceAlsoMovesWhenTheCapIsRestored
+61,SwapArgumentsOperatorMutation,src/SweepExecutor.sol:227:13,active > from,from > active,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_accrueBatch_sequentialRangesForOneWallet
+62,DeleteExpressionMutation,src/SweepExecutor.sol:227:28,from = active,assert(true),killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_accrue_activeSinceAlsoMovesWhenTheCapIsRestored
+63,AssignmentMutation,src/SweepExecutor.sol:227:35,active,0,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_accrue_activeSinceAlsoMovesWhenTheCapIsRestored
+64,AssignmentMutation,src/SweepExecutor.sol:227:35,active,1,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_accrue_activeSinceAlsoMovesWhenTheCapIsRestored
+65,IfStatementMutation,src/SweepExecutor.sol:228:13,toBlock <= from,true,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_defaultMixDriftsIntoSpyWhileTheWhaleBlocksNvda
+66,IfStatementMutation,src/SweepExecutor.sol:228:13,toBlock <= from,false,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_accrueBatch_sequentialRangesForOneWallet
+67,SwapArgumentsOperatorMutation,src/SweepExecutor.sol:228:13,toBlock <= from,from <= toBlock,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+68,IfStatementMutation,src/SweepExecutor.sol:230:13,toBlock + finalityBuffer > head,true,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+69,IfStatementMutation,src/SweepExecutor.sol:230:13,toBlock + finalityBuffer > head,false,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_accrue_finalityBoundary
+70,SwapArgumentsOperatorMutation,src/SweepExecutor.sol:230:13,toBlock + finalityBuffer > head,head > toBlock + finalityBuffer,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+71,BinaryOpMutation,src/SweepExecutor.sol:230:20, + ,-,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_accrue_finalityBoundary
+72,BinaryOpMutation,src/SweepExecutor.sol:230:20, + ,*,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+73,BinaryOpMutation,src/SweepExecutor.sol:230:20, + ,/,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_accrue_finalityBoundary
+74,BinaryOpMutation,src/SweepExecutor.sol:230:20, + ,%,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_accrue_finalityBoundary
+75,BinaryOpMutation,src/SweepExecutor.sol:230:20, + ,**,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+76,DeleteExpressionMutation,src/SweepExecutor.sol:231:9,lastAccruedBlock[wallet] = toBlock,assert(true),killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_accrueBatch_capIsCumulative
+77,AssignmentMutation,src/SweepExecutor.sol:231:36,toBlock,0,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_accrueBatch_sequentialRangesForOneWallet
+78,AssignmentMutation,src/SweepExecutor.sol:231:36,toBlock,1,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_accrueBatch_sequentialRangesForOneWallet
+79,IfStatementMutation,src/SweepExecutor.sol:233:13,amount != 0,true,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_accrue_zeroAmountNeverTouchesPermit2
+80,IfStatementMutation,src/SweepExecutor.sol:233:13,amount != 0,false,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+81,IfStatementMutation,src/SweepExecutor.sol:234:17,amount > type(uint160).max,true,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+82,IfStatementMutation,src/SweepExecutor.sol:234:17,amount > type(uint160).max,false,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_accrue_amountTooLarge
+83,SwapArgumentsOperatorMutation,src/SweepExecutor.sol:234:17,amount > type(uint160).max,type(uint160).max > amount,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+84,BinaryOpMutation,src/SweepExecutor.sol:237:44, / ,+,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.testFuzz_accrue_neverExceedsCapInTheWindow
+85,BinaryOpMutation,src/SweepExecutor.sol:237:44, / ,-,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.testFuzz_accrue_neverExceedsCapInTheWindow
+86,BinaryOpMutation,src/SweepExecutor.sol:237:44, / ,*,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.testFuzz_accrue_neverExceedsCapInTheWindow
+87,BinaryOpMutation,src/SweepExecutor.sol:237:44, / ,%,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.testFuzz_accrue_neverExceedsCapInTheWindow
+88,BinaryOpMutation,src/SweepExecutor.sol:237:44, / ,**,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+89,SwapArgumentsOperatorMutation,src/SweepExecutor.sol:237:29,block.timestamp / 1 days,1 days / block.timestamp,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+90,BinaryOpMutation,src/SweepExecutor.sol:238:55, + ,-,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+91,BinaryOpMutation,src/SweepExecutor.sol:238:55, + ,*,killed,test/unit/SgovParkAdapter.t.sol:SgovParkAdapterTest.test_cashPark_exitWhileStalePaysInKind
+92,BinaryOpMutation,src/SweepExecutor.sol:238:55, + ,/,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.testFuzz_accrue_neverExceedsCapInTheWindow
+93,BinaryOpMutation,src/SweepExecutor.sol:238:55, + ,%,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.testFuzz_accrue_neverExceedsCapInTheWindow
+94,BinaryOpMutation,src/SweepExecutor.sol:238:55, + ,**,killed,test/unit/SgovParkAdapter.t.sol:SgovParkAdapterTest.test_cashPark_exitWhileStalePaysInKind
+95,IfStatementMutation,src/SweepExecutor.sol:239:17,pulled > r.weeklyCap,true,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+96,IfStatementMutation,src/SweepExecutor.sol:239:17,pulled > r.weeklyCap,false,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.testFuzz_accrue_neverExceedsCapInTheWindow
+97,SwapArgumentsOperatorMutation,src/SweepExecutor.sol:239:17,pulled > r.weeklyCap,r.weeklyCap > pulled,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+98,DeleteExpressionMutation,src/SweepExecutor.sol:240:13,dayPulled[account][today] += amount,assert(true),killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.testFuzz_accrue_neverExceedsCapInTheWindow
+99,AssignmentMutation,src/SweepExecutor.sol:240:42,amount,0,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.testFuzz_accrue_neverExceedsCapInTheWindow
+100,AssignmentMutation,src/SweepExecutor.sol:240:42,amount,1,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.testFuzz_accrue_neverExceedsCapInTheWindow
+101,DeleteExpressionMutation,src/SweepExecutor.sol:243:13,"permit2.transferFrom(wallet, address(this), uint160(amount), address(usdg))",assert(true),killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+102,DeleteExpressionMutation,src/SweepExecutor.sol:244:13,"cashPark.credit(account, amount)",assert(true),killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+103,IfStatementMutation,src/SweepExecutor.sol:274:13,n > MAX_BATCH,true,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+104,IfStatementMutation,src/SweepExecutor.sol:274:13,n > MAX_BATCH,false,killed,test/unit/SweepExecutorSweep.t.sol:SweepExecutorSweepTest.test_batchTooLarge
+105,SwapArgumentsOperatorMutation,src/SweepExecutor.sol:274:13,n > MAX_BATCH,MAX_BATCH > n,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+106,BinaryOpMutation,src/SweepExecutor.sol:275:24, * ,+,killed,test/unit/SweepExecutorSweep.t.sol:SweepExecutorSweepTest.test_fullBatchOfFullMixes_settlesEveryLeg
+107,BinaryOpMutation,src/SweepExecutor.sol:275:24, * ,-,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+108,BinaryOpMutation,src/SweepExecutor.sol:275:24, * ,/,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+109,BinaryOpMutation,src/SweepExecutor.sol:275:24, * ,%,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+110,BinaryOpMutation,src/SweepExecutor.sol:275:24, * ,**,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+111,BinaryOpMutation,src/SweepExecutor.sol:282:49, + ,-,killed,test/unit/SweepExecutorSweep.t.sol:SweepExecutorSweepTest.test_swap_buysMixAtOracleAndChargesFee
+112,BinaryOpMutation,src/SweepExecutor.sol:282:49, + ,*,killed,test/unit/SweepExecutorSweep.t.sol:SweepExecutorSweepTest.test_defer_assetMissingFromLimits
+113,BinaryOpMutation,src/SweepExecutor.sol:282:49, + ,/,killed,test/unit/SweepExecutorSweep.t.sol:SweepExecutorSweepTest.test_defer_assetMissingFromLimits
+114,BinaryOpMutation,src/SweepExecutor.sol:282:49, + ,%,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+115,BinaryOpMutation,src/SweepExecutor.sol:282:49, + ,**,killed,test/unit/SweepExecutorSweep.t.sol:SweepExecutorSweepTest.test_defer_assetMissingFromLimits
+116,BinaryOpMutation,src/SweepExecutor.sol:282:35, / ,+,killed,test/unit/SweepExecutorSweep.t.sol:SweepExecutorSweepTest.test_swap_buysMixAtOracleAndChargesFee
+117,BinaryOpMutation,src/SweepExecutor.sol:282:35, / ,-,killed,test/unit/SweepExecutorSweep.t.sol:SweepExecutorSweepTest.test_defer_assetMissingFromLimits
+118,BinaryOpMutation,src/SweepExecutor.sol:282:35, / ,*,killed,test/unit/SweepExecutorSweep.t.sol:SweepExecutorSweepTest.test_defer_assetMissingFromLimits
+119,BinaryOpMutation,src/SweepExecutor.sol:282:35, / ,%,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+120,BinaryOpMutation,src/SweepExecutor.sol:282:35, / ,**,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+121,SwapArgumentsOperatorMutation,src/SweepExecutor.sol:282:20,block.timestamp / epochLength,epochLength / block.timestamp,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+122,IfStatementMutation,src/SweepExecutor.sol:286:17,"_collect(b, accounts[i])",true,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+123,IfStatementMutation,src/SweepExecutor.sol:286:17,"_collect(b, accounts[i])",false,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+124,DeleteExpressionMutation,src/SweepExecutor.sol:286:43,++sweptCount,assert(true),killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+125,UnaryOperatorMutation,src/SweepExecutor.sol:286:43,++,--,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+126,UnaryOperatorMutation,src/SweepExecutor.sol:286:43,++,~,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+127,SwapArgumentsOperatorMutation,src/SweepExecutor.sol:285:25,i < n,n < i,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+128,DeleteExpressionMutation,src/SweepExecutor.sol:285:32,++i,assert(true),killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_defaultMixDriftsIntoSpyWhileTheWhaleBlocksNvda
+129,UnaryOperatorMutation,src/SweepExecutor.sol:285:32,++,--,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+130,UnaryOperatorMutation,src/SweepExecutor.sol:285:32,++,~,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+131,DeleteExpressionMutation,src/SweepExecutor.sol:289:13,"_settleAsset(b.assets[k], b.totals[k], _limitOf(limits, b.assets[k]), b.c, b.nc)",assert(true),killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+132,SwapArgumentsOperatorMutation,src/SweepExecutor.sol:288:25,k < b.na,b.na < k,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+133,DeleteExpressionMutation,src/SweepExecutor.sol:288:35,++k,assert(true),killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+134,UnaryOperatorMutation,src/SweepExecutor.sol:288:35,++,--,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+135,UnaryOperatorMutation,src/SweepExecutor.sol:288:35,++,~,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+136,IfStatementMutation,src/SweepExecutor.sol:295:17,limits[i].asset == asset,true,killed,test/unit/SweepExecutorSweep.t.sol:SweepExecutorSweepTest.test_defer_assetMissingFromLimits
+137,IfStatementMutation,src/SweepExecutor.sol:295:17,limits[i].asset == asset,false,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+138,SwapArgumentsOperatorMutation,src/SweepExecutor.sol:294:25,i < limits.length,limits.length < i,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+139,DeleteExpressionMutation,src/SweepExecutor.sol:294:44,++i,assert(true),killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+140,UnaryOperatorMutation,src/SweepExecutor.sol:294:44,++,--,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+141,UnaryOperatorMutation,src/SweepExecutor.sol:294:44,++,~,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_defaultMixDriftsIntoSpyWhileTheWhaleBlocksNvda
+142,IfStatementMutation,src/SweepExecutor.sol:303:13,sweptEpoch[a] == b.epoch,true,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+143,IfStatementMutation,src/SweepExecutor.sol:303:13,sweptEpoch[a] == b.epoch,false,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_whaleBeyondTheBandDefersEveryCoBatchedLegEveryEpoch
+144,IfStatementMutation,src/SweepExecutor.sol:304:13,cashPark.valueOf(a) < threshold,true,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+145,IfStatementMutation,src/SweepExecutor.sol:304:13,cashPark.valueOf(a) < threshold,false,killed,test/unit/SgovParkAdapter.t.sol:SgovParkAdapterTest.test_valueOf_revertingFeedRevertsEverySweepThatTouchesParkedUnits
+146,SwapArgumentsOperatorMutation,src/SweepExecutor.sol:304:13,cashPark.valueOf(a) < threshold,threshold < cashPark.valueOf(a),killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+147,IfStatementMutation,src/SweepExecutor.sol:305:13,!screening.isEligible(a),true,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+148,IfStatementMutation,src/SweepExecutor.sol:305:13,!screening.isEligible(a),false,killed,test/unit/SweepExecutorSweep.t.sol:SweepExecutorSweepTest.test_unscreenedAccountSkipped
+149,IfStatementMutation,src/SweepExecutor.sol:307:13,mix.length == 0,true,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+150,IfStatementMutation,src/SweepExecutor.sol:307:13,mix.length == 0,false,killed,test/unit/SweepExecutorSweep.t.sol:SweepExecutorSweepTest.test_noMixAtAll_notSweptAndNothingLeavesThePark
+151,IfStatementMutation,src/SweepExecutor.sol:312:13,got < threshold,true,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+152,IfStatementMutation,src/SweepExecutor.sol:312:13,got < threshold,false,killed,test/unit/SweepExecutorSweep.t.sol:SweepExecutorSweepTest.test_unredeemableUnitsBelowThreshold_returnedAndRetryable
+153,SwapArgumentsOperatorMutation,src/SweepExecutor.sol:312:13,got < threshold,threshold < got,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+154,DeleteExpressionMutation,src/SweepExecutor.sol:313:13,"cashPark.returnFromSweep(a, got)",assert(true),killed,test/unit/SweepExecutorSweep.t.sol:SweepExecutorSweepTest.test_unredeemableUnitsBelowThreshold_returnedAndRetryable
+155,DeleteExpressionMutation,src/SweepExecutor.sol:316:9,sweptEpoch[a] = b.epoch,assert(true),killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_whaleBeyondTheBandDefersEveryCoBatchedLegEveryEpoch
+156,AssignmentMutation,src/SweepExecutor.sol:316:25,b.epoch,0,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_whaleBeyondTheBandDefersEveryCoBatchedLegEveryEpoch
+157,AssignmentMutation,src/SweepExecutor.sol:316:25,b.epoch,1,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_whaleBeyondTheBandDefersEveryCoBatchedLegEveryEpoch
+158,BinaryOpMutation,src/SweepExecutor.sol:321:42, - ,+,killed,test/unit/SweepExecutorSweep.t.sol:SweepExecutorSweepTest.testFuzz_netDistributionConservesExactly
+159,BinaryOpMutation,src/SweepExecutor.sol:321:42, - ,*,killed,test/unit/SweepExecutorSweep.t.sol:SweepExecutorSweepTest.testFuzz_netDistributionConservesExactly
+160,BinaryOpMutation,src/SweepExecutor.sol:321:42, - ,/,killed,test/unit/SweepExecutorSweep.t.sol:SweepExecutorSweepTest.testFuzz_netDistributionConservesExactly
+161,BinaryOpMutation,src/SweepExecutor.sol:321:42, - ,%,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+162,BinaryOpMutation,src/SweepExecutor.sol:321:42, - ,**,killed,test/unit/SweepExecutorSweep.t.sol:SweepExecutorSweepTest.testFuzz_netDistributionConservesExactly
+163,SwapArgumentsOperatorMutation,src/SweepExecutor.sol:321:32,mix.length - 1,1 - mix.length,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+164,BinaryOpMutation,src/SweepExecutor.sol:321:74, / ,+,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+165,BinaryOpMutation,src/SweepExecutor.sol:321:74, / ,-,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+166,BinaryOpMutation,src/SweepExecutor.sol:321:74, / ,*,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+167,BinaryOpMutation,src/SweepExecutor.sol:321:74, / ,%,killed,test/unit/SgovParkAdapter.t.sol:SgovParkAdapterTest.test_cashPark_parkThenSweepRedeemsAndBuysTheMix
+168,BinaryOpMutation,src/SweepExecutor.sol:321:74, / ,**,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+169,SwapArgumentsOperatorMutation,src/SweepExecutor.sol:321:56,(got * mix[l].bps) / 10_000,10_000 / (got * mix[l].bps),killed,test/unit/SgovParkAdapter.t.sol:SgovParkAdapterTest.test_cashPark_parkThenSweepRedeemsAndBuysTheMix
+170,BinaryOpMutation,src/SweepExecutor.sol:321:60, * ,+,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+171,BinaryOpMutation,src/SweepExecutor.sol:321:60, * ,-,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+172,BinaryOpMutation,src/SweepExecutor.sol:321:60, * ,/,killed,test/unit/SgovParkAdapter.t.sol:SgovParkAdapterTest.test_cashPark_parkThenSweepRedeemsAndBuysTheMix
+173,BinaryOpMutation,src/SweepExecutor.sol:321:60, * ,%,killed,test/unit/SgovParkAdapter.t.sol:SgovParkAdapterTest.test_cashPark_parkThenSweepRedeemsAndBuysTheMix
+174,BinaryOpMutation,src/SweepExecutor.sol:321:60, * ,**,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+175,DeleteExpressionMutation,src/SweepExecutor.sol:322:13,left -= amt,assert(true),killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+176,AssignmentMutation,src/SweepExecutor.sol:322:21,amt,0,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+177,AssignmentMutation,src/SweepExecutor.sol:322:21,amt,1,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+178,DeleteExpressionMutation,src/SweepExecutor.sol:323:13,"_addLeg(b, a, mix[l].asset, amt)",assert(true),killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+179,SwapArgumentsOperatorMutation,src/SweepExecutor.sol:320:25,l < mix.length,mix.length < l,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_defaultMixDriftsIntoSpyWhileTheWhaleBlocksNvda
+180,DeleteExpressionMutation,src/SweepExecutor.sol:320:41,++l,assert(true),killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+181,UnaryOperatorMutation,src/SweepExecutor.sol:320:41,++,--,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+182,UnaryOperatorMutation,src/SweepExecutor.sol:320:41,++,~,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+183,DeleteExpressionMutation,src/SweepExecutor.sol:329:9,"b.c[b.nc++] = Contribution(account, asset, amt)",assert(true),killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_defaultMixDriftsIntoSpyWhileTheWhaleBlocksNvda
+184,UnaryOperatorMutation,src/SweepExecutor.sol:329:17,++,--,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+185,IfStatementMutation,src/SweepExecutor.sol:332:17,b.assets[k] == asset,true,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_defaultMixDriftsIntoSpyWhileTheWhaleBlocksNvda
+186,IfStatementMutation,src/SweepExecutor.sol:332:17,b.assets[k] == asset,false,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_defaultMixDriftsIntoSpyWhileTheWhaleBlocksNvda
+187,SwapArgumentsOperatorMutation,src/SweepExecutor.sol:331:16,k < b.na,b.na < k,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_defaultMixDriftsIntoSpyWhileTheWhaleBlocksNvda
+188,DeleteExpressionMutation,src/SweepExecutor.sol:331:26,++k,assert(true),killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+189,UnaryOperatorMutation,src/SweepExecutor.sol:331:26,++,--,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+190,UnaryOperatorMutation,src/SweepExecutor.sol:331:26,++,~,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+191,IfStatementMutation,src/SweepExecutor.sol:334:13,k == b.na,true,survived,
+192,IfStatementMutation,src/SweepExecutor.sol:334:13,k == b.na,false,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+193,DeleteExpressionMutation,src/SweepExecutor.sol:334:24,b.assets[b.na++] = asset,assert(true),killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+194,UnaryOperatorMutation,src/SweepExecutor.sol:334:37,++,--,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+195,DeleteExpressionMutation,src/SweepExecutor.sol:335:9,b.totals[k] += amt,assert(true),killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+196,AssignmentMutation,src/SweepExecutor.sol:335:24,amt,0,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+197,AssignmentMutation,src/SweepExecutor.sol:335:24,amt,1,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+198,IfStatementMutation,src/SweepExecutor.sol:341:13,total == 0,true,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+199,IfStatementMutation,src/SweepExecutor.sol:341:13,total == 0,false,survived,
+200,IfStatementMutation,src/SweepExecutor.sol:344:13,!registry.isEligible(asset),true,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+201,IfStatementMutation,src/SweepExecutor.sol:344:13,!registry.isEligible(asset),false,killed,test/unit/SweepExecutorSweep.t.sol:SweepExecutorSweepTest.test_safeSettle_suspendedAsset
+202,DeleteExpressionMutation,src/SweepExecutor.sol:345:13,"_unwind(asset, c, nc, Settle.SAFE_SETTLE, OracleGuard.Status.OK, ""asset suspended"")",assert(true),killed,test/unit/SweepExecutorSweep.t.sol:SweepExecutorSweepTest.test_safeSettle_suspendedAsset
+203,IfStatementMutation,src/SweepExecutor.sol:349:13,status != OracleGuard.Status.OK,true,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+204,IfStatementMutation,src/SweepExecutor.sol:349:13,status != OracleGuard.Status.OK,false,killed,test/unit/SweepExecutorSweep.t.sol:SweepExecutorSweepTest.test_defer_badOracleAnswer
+205,DeleteExpressionMutation,src/SweepExecutor.sol:350:13,"_unwind(asset, c, nc, Settle.DEFER, status, """")",assert(true),killed,test/unit/SweepExecutorSweep.t.sol:SweepExecutorSweepTest.test_defer_badOracleAnswer
+206,IfStatementMutation,src/SweepExecutor.sol:353:13,minOutPerUsdg == 0,true,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+207,IfStatementMutation,src/SweepExecutor.sol:353:13,minOutPerUsdg == 0,false,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+208,DeleteExpressionMutation,src/SweepExecutor.sol:355:13,"_unwind(asset, c, nc, Settle.DEFER, OracleGuard.Status.OK, """")",assert(true),killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+209,BinaryOpMutation,src/SweepExecutor.sol:359:39, / ,+,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+210,BinaryOpMutation,src/SweepExecutor.sol:359:39, / ,-,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+211,BinaryOpMutation,src/SweepExecutor.sol:359:39, / ,*,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+212,BinaryOpMutation,src/SweepExecutor.sol:359:39, / ,%,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+213,BinaryOpMutation,src/SweepExecutor.sol:359:39, / ,**,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+214,SwapArgumentsOperatorMutation,src/SweepExecutor.sol:359:23,(total * feeBps) / 10_000,10_000 / (total * feeBps),killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+215,BinaryOpMutation,src/SweepExecutor.sol:359:29, * ,+,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+216,BinaryOpMutation,src/SweepExecutor.sol:359:29, * ,-,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+217,BinaryOpMutation,src/SweepExecutor.sol:359:29, * ,/,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+218,BinaryOpMutation,src/SweepExecutor.sol:359:29, * ,%,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+219,BinaryOpMutation,src/SweepExecutor.sol:359:29, * ,**,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+220,BinaryOpMutation,src/SweepExecutor.sol:360:31, - ,+,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+221,BinaryOpMutation,src/SweepExecutor.sol:360:31, - ,*,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+222,BinaryOpMutation,src/SweepExecutor.sol:360:31, - ,/,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_defaultMixDriftsIntoSpyWhileTheWhaleBlocksNvda
+223,BinaryOpMutation,src/SweepExecutor.sol:360:31, - ,%,killed,test/unit/SgovParkAdapter.t.sol:SgovParkAdapterTest.test_cashPark_parkThenSweepRedeemsAndBuysTheMix
+224,BinaryOpMutation,src/SweepExecutor.sol:360:31, - ,**,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+225,SwapArgumentsOperatorMutation,src/SweepExecutor.sol:360:26,total - fee,fee - total,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+226,BinaryOpMutation,src/SweepExecutor.sol:362:50, / ,+,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+227,BinaryOpMutation,src/SweepExecutor.sol:362:50, / ,-,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+228,BinaryOpMutation,src/SweepExecutor.sol:362:50, / ,*,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+229,BinaryOpMutation,src/SweepExecutor.sol:362:50, / ,%,killed,test/unit/StockRouter.t.sol:StockRouterTest.test_executor_keeperLimitBindsInsideTheBand
+230,BinaryOpMutation,src/SweepExecutor.sol:362:50, / ,**,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+231,SwapArgumentsOperatorMutation,src/SweepExecutor.sol:362:26,(swapIn * minOutPerUsdg) / 1e6,1e6 / (swapIn * minOutPerUsdg),killed,test/unit/StockRouter.t.sol:StockRouterTest.test_executor_keeperLimitBindsInsideTheBand
+232,BinaryOpMutation,src/SweepExecutor.sol:362:33, * ,+,killed,test/unit/StockRouter.t.sol:StockRouterTest.test_executor_keeperLimitBindsInsideTheBand
+233,BinaryOpMutation,src/SweepExecutor.sol:362:33, * ,-,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+234,BinaryOpMutation,src/SweepExecutor.sol:362:33, * ,/,killed,test/unit/StockRouter.t.sol:StockRouterTest.test_executor_keeperLimitBindsInsideTheBand
+235,BinaryOpMutation,src/SweepExecutor.sol:362:33, * ,%,killed,test/unit/StockRouter.t.sol:StockRouterTest.test_executor_keeperLimitBindsInsideTheBand
+236,BinaryOpMutation,src/SweepExecutor.sol:362:33, * ,**,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+237,BinaryOpMutation,src/SweepExecutor.sol:363:93, / ,+,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+238,BinaryOpMutation,src/SweepExecutor.sol:363:93, / ,-,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+239,BinaryOpMutation,src/SweepExecutor.sol:363:93, / ,*,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+240,BinaryOpMutation,src/SweepExecutor.sol:363:93, / ,%,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_whaleBeyondTheBandDefersEveryCoBatchedLegEveryEpoch
+241,BinaryOpMutation,src/SweepExecutor.sol:363:93, / ,**,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+242,SwapArgumentsOperatorMutation,src/SweepExecutor.sol:363:29,"(router.oracleTokensFor(swapIn, price) * (10_000 - slippageBps)) / 10_000","10_000 / (router.oracleTokensFor(swapIn, price) * (10_000 - slippageBps))",killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_whaleBeyondTheBandDefersEveryCoBatchedLegEveryEpoch
+243,BinaryOpMutation,src/SweepExecutor.sol:363:67, * ,+,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_whaleBeyondTheBandDefersEveryCoBatchedLegEveryEpoch
+244,BinaryOpMutation,src/SweepExecutor.sol:363:67, * ,-,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_whaleBeyondTheBandDefersEveryCoBatchedLegEveryEpoch
+245,BinaryOpMutation,src/SweepExecutor.sol:363:67, * ,/,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_whaleBeyondTheBandDefersEveryCoBatchedLegEveryEpoch
+246,BinaryOpMutation,src/SweepExecutor.sol:363:67, * ,%,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_whaleBeyondTheBandDefersEveryCoBatchedLegEveryEpoch
+247,BinaryOpMutation,src/SweepExecutor.sol:363:67, * ,**,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+248,BinaryOpMutation,src/SweepExecutor.sol:363:77, - ,+,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+249,BinaryOpMutation,src/SweepExecutor.sol:363:77, - ,*,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+250,BinaryOpMutation,src/SweepExecutor.sol:363:77, - ,/,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_whaleBeyondTheBandDefersEveryCoBatchedLegEveryEpoch
+251,BinaryOpMutation,src/SweepExecutor.sol:363:77, - ,%,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_whaleBeyondTheBandDefersEveryCoBatchedLegEveryEpoch
+252,BinaryOpMutation,src/SweepExecutor.sol:363:77, - ,**,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+253,SwapArgumentsOperatorMutation,src/SweepExecutor.sol:363:71,10_000 - slippageBps,slippageBps - 10_000,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+254,IfStatementMutation,src/SweepExecutor.sol:364:13,oracleMin > minOut,true,killed,test/unit/StockRouter.t.sol:StockRouterTest.test_executor_keeperLimitBindsInsideTheBand
+255,IfStatementMutation,src/SweepExecutor.sol:364:13,oracleMin > minOut,false,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_whaleBeyondTheBandDefersEveryCoBatchedLegEveryEpoch
+256,SwapArgumentsOperatorMutation,src/SweepExecutor.sol:364:13,oracleMin > minOut,minOut > oracleMin,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_whaleBeyondTheBandDefersEveryCoBatchedLegEveryEpoch
+257,DeleteExpressionMutation,src/SweepExecutor.sol:364:33,minOut = oracleMin,assert(true),killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_whaleBeyondTheBandDefersEveryCoBatchedLegEveryEpoch
+258,AssignmentMutation,src/SweepExecutor.sol:364:42,oracleMin,0,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_whaleBeyondTheBandDefersEveryCoBatchedLegEveryEpoch
+259,AssignmentMutation,src/SweepExecutor.sol:364:42,oracleMin,1,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_whaleBeyondTheBandDefersEveryCoBatchedLegEveryEpoch
+260,IfStatementMutation,src/SweepExecutor.sol:367:17,fee != 0,true,killed,test/unit/SweepExecutorSweep.t.sol:SweepExecutorSweepTest.test_zeroFee_noTransferToTheVault
+261,IfStatementMutation,src/SweepExecutor.sol:367:17,fee != 0,false,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+262,DeleteExpressionMutation,src/SweepExecutor.sol:367:27,"usdg.safeTransfer(address(feeVault), fee)",assert(true),killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+263,DeleteExpressionMutation,src/SweepExecutor.sol:368:13,"_distribute(asset, out, total, c, nc)",assert(true),killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_defaultMixDriftsIntoSpyWhileTheWhaleBlocksNvda
+264,DeleteExpressionMutation,src/SweepExecutor.sol:374:13,"_unwind(asset, c, nc, Settle.DEFER, OracleGuard.Status.OK, """")",assert(true),killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_defaultMixDriftsIntoSpyWhileTheWhaleBlocksNvda
+265,IfStatementMutation,src/SweepExecutor.sol:384:17,c[k].asset != asset,true,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_defaultMixDriftsIntoSpyWhileTheWhaleBlocksNvda
+266,IfStatementMutation,src/SweepExecutor.sol:384:17,c[k].asset != asset,false,killed,test/unit/StockRouter.t.sol:StockRouterTest.test_executor_partialFillDefersNotReverts
+267,BinaryOpMutation,src/SweepExecutor.sol:385:46, / ,+,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_defaultMixDriftsIntoSpyWhileTheWhaleBlocksNvda
+268,BinaryOpMutation,src/SweepExecutor.sol:385:46, / ,-,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_defaultMixDriftsIntoSpyWhileTheWhaleBlocksNvda
+269,BinaryOpMutation,src/SweepExecutor.sol:385:46, / ,*,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_defaultMixDriftsIntoSpyWhileTheWhaleBlocksNvda
+270,BinaryOpMutation,src/SweepExecutor.sol:385:46, / ,%,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_oneWhaleLegSetsTheNettedFillForEveryCoBatchedAccount
+271,BinaryOpMutation,src/SweepExecutor.sol:385:46, / ,**,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+272,SwapArgumentsOperatorMutation,src/SweepExecutor.sol:385:29,(out * c[k].usdg) / total,total / (out * c[k].usdg),killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_oneWhaleLegSetsTheNettedFillForEveryCoBatchedAccount
+273,BinaryOpMutation,src/SweepExecutor.sol:385:33, * ,+,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_oneWhaleLegSetsTheNettedFillForEveryCoBatchedAccount
+274,BinaryOpMutation,src/SweepExecutor.sol:385:33, * ,-,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_oneWhaleLegSetsTheNettedFillForEveryCoBatchedAccount
+275,BinaryOpMutation,src/SweepExecutor.sol:385:33, * ,/,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_oneWhaleLegSetsTheNettedFillForEveryCoBatchedAccount
+276,BinaryOpMutation,src/SweepExecutor.sol:385:33, * ,%,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_oneWhaleLegSetsTheNettedFillForEveryCoBatchedAccount
+277,BinaryOpMutation,src/SweepExecutor.sol:385:33, * ,**,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+278,DeleteExpressionMutation,src/SweepExecutor.sol:386:13,assigned += share,assert(true),killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_oneWhaleLegSetsTheNettedFillForEveryCoBatchedAccount
+279,AssignmentMutation,src/SweepExecutor.sol:386:25,share,0,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_oneWhaleLegSetsTheNettedFillForEveryCoBatchedAccount
+280,AssignmentMutation,src/SweepExecutor.sol:386:25,share,1,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_oneWhaleLegSetsTheNettedFillForEveryCoBatchedAccount
+281,DeleteExpressionMutation,src/SweepExecutor.sol:387:13,last = k,assert(true),killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_oneWhaleLegSetsTheNettedFillForEveryCoBatchedAccount
+282,AssignmentMutation,src/SweepExecutor.sol:387:20,k,0,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_oneWhaleLegSetsTheNettedFillForEveryCoBatchedAccount
+283,AssignmentMutation,src/SweepExecutor.sol:387:20,k,1,killed,test/unit/SweepExecutorSweep.t.sol:SweepExecutorSweepTest.test_net_dustGoesToTheLastContributor
+284,DeleteExpressionMutation,src/SweepExecutor.sol:388:13,"_deliver(c[k].account, asset, share)",assert(true),killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_defaultMixDriftsIntoSpyWhileTheWhaleBlocksNvda
+285,SwapArgumentsOperatorMutation,src/SweepExecutor.sol:383:25,k < nc,nc < k,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_defaultMixDriftsIntoSpyWhileTheWhaleBlocksNvda
+286,DeleteExpressionMutation,src/SweepExecutor.sol:383:33,++k,assert(true),killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+287,UnaryOperatorMutation,src/SweepExecutor.sol:383:33,++,--,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+288,UnaryOperatorMutation,src/SweepExecutor.sol:383:33,++,~,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+289,IfStatementMutation,src/SweepExecutor.sol:390:13,assigned < out && last != type(uint256).max,true,survived,
+290,IfStatementMutation,src/SweepExecutor.sol:390:13,assigned < out && last != type(uint256).max,false,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_oneWhaleLegSetsTheNettedFillForEveryCoBatchedAccount
+291,SwapArgumentsOperatorMutation,src/SweepExecutor.sol:390:13,assigned < out,out < assigned,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_oneWhaleLegSetsTheNettedFillForEveryCoBatchedAccount
+292,DeleteExpressionMutation,src/SweepExecutor.sol:390:58,"_deliver(c[last].account, asset, out - assigned)",assert(true),killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_oneWhaleLegSetsTheNettedFillForEveryCoBatchedAccount
+293,BinaryOpMutation,src/SweepExecutor.sol:390:94, - ,+,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_oneWhaleLegSetsTheNettedFillForEveryCoBatchedAccount
+294,BinaryOpMutation,src/SweepExecutor.sol:390:94, - ,*,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_oneWhaleLegSetsTheNettedFillForEveryCoBatchedAccount
+295,BinaryOpMutation,src/SweepExecutor.sol:390:94, - ,/,killed,test/unit/SweepExecutorSweep.t.sol:SweepExecutorSweepTest.testFuzz_netDistributionConservesExactly
+296,BinaryOpMutation,src/SweepExecutor.sol:390:94, - ,%,killed,test/unit/SweepExecutorSweep.t.sol:SweepExecutorSweepTest.test_net_everyShareFloorsToZero_lastContributorTakesAll
+297,BinaryOpMutation,src/SweepExecutor.sol:390:94, - ,**,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_oneWhaleLegSetsTheNettedFillForEveryCoBatchedAccount
+298,SwapArgumentsOperatorMutation,src/SweepExecutor.sol:390:91,out - assigned,assigned - out,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_oneWhaleLegSetsTheNettedFillForEveryCoBatchedAccount
+299,IfStatementMutation,src/SweepExecutor.sol:402:17,c[k].asset != asset || c[k].usdg == 0,true,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_defaultMixDriftsIntoSpyWhileTheWhaleBlocksNvda
+300,IfStatementMutation,src/SweepExecutor.sol:402:17,c[k].asset != asset || c[k].usdg == 0,false,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_defaultMixDriftsIntoSpyWhileTheWhaleBlocksNvda
+301,IfStatementMutation,src/SweepExecutor.sol:403:17,mode == Settle.DEFER,true,killed,test/unit/SweepExecutorSweep.t.sol:SweepExecutorSweepTest.test_safeSettle_suspendedAsset
+302,IfStatementMutation,src/SweepExecutor.sol:403:17,mode == Settle.DEFER,false,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_defaultMixDriftsIntoSpyWhileTheWhaleBlocksNvda
+303,DeleteExpressionMutation,src/SweepExecutor.sol:407:17,"_deliver(c[k].account, address(usdg), c[k].usdg)",assert(true),killed,test/unit/SweepExecutorSweep.t.sol:SweepExecutorSweepTest.test_safeSettle_suspendedAsset
+304,DeleteExpressionMutation,src/SweepExecutor.sol:404:17,"cashPark.returnFromSweep(c[k].account, c[k].usdg)",assert(true),killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_defaultMixDriftsIntoSpyWhileTheWhaleBlocksNvda
+305,SwapArgumentsOperatorMutation,src/SweepExecutor.sol:401:25,k < nc,nc < k,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_defaultMixDriftsIntoSpyWhileTheWhaleBlocksNvda
+306,DeleteExpressionMutation,src/SweepExecutor.sol:401:33,++k,assert(true),killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+307,UnaryOperatorMutation,src/SweepExecutor.sol:401:33,++,--,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_defaultMixDriftsIntoSpyWhileTheWhaleBlocksNvda
+308,UnaryOperatorMutation,src/SweepExecutor.sol:401:33,++,~,killed,test/unit/SgovChurn.t.sol:SgovChurnTest.test_AL2_keeperChurnOnSgovCostsAboutTwoPercentAnEpoch
+309,IfStatementMutation,src/SweepExecutor.sol:416:13,amount == 0,true,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_defaultMixDriftsIntoSpyWhileTheWhaleBlocksNvda
+310,IfStatementMutation,src/SweepExecutor.sol:416:13,amount == 0,false,killed,test/unit/SweepExecutorSweep.t.sol:SweepExecutorSweepTest.test_net_everyShareFloorsToZero_lastContributorTakesAll
+311,IfStatementMutation,src/SweepExecutor.sol:418:13,"ok && (ret.length == 0 || abi.decode(ret, (bool)))",true,killed,test/unit/SweepInvariant.t.sol:SweepInvariantTest.invariant_executorHoldsOnlyClaimables
+312,IfStatementMutation,src/SweepExecutor.sol:418:13,"ok && (ret.length == 0 || abi.decode(ret, (bool)))",false,killed,test/unit/SweepExecutorSweep.t.sol:SweepExecutorSweepTest.test_defer_assetMissingFromLimits
+313,DeleteExpressionMutation,src/SweepExecutor.sol:421:13,claimable[account][token] += amount,assert(true),killed,test/unit/SweepExecutorSweep.t.sol:SweepExecutorSweepTest.test_claim_onlyOwnBalance
+314,AssignmentMutation,src/SweepExecutor.sol:421:42,amount,0,killed,test/unit/SweepExecutorSweep.t.sol:SweepExecutorSweepTest.test_claim_onlyOwnBalance
+315,AssignmentMutation,src/SweepExecutor.sol:421:42,amount,1,killed,test/unit/SweepExecutorSweep.t.sol:SweepExecutorSweepTest.test_blockedRecipient_claimableThenClaim
+316,IfStatementMutation,src/SweepExecutor.sol:431:13,amt == 0,true,killed,test/unit/SweepExecutorSweep.t.sol:SweepExecutorSweepTest.test_blockedRecipient_claimableThenClaim
+317,IfStatementMutation,src/SweepExecutor.sol:431:13,amt == 0,false,killed,test/unit/SweepExecutorSweep.t.sol:SweepExecutorSweepTest.test_claim_nothingClaimableIsANoop
+318,DeleteExpressionMutation,src/SweepExecutor.sol:432:9,claimable[msg.sender][token] = 0,assert(true),killed,test/unit/SweepExecutorSweep.t.sol:SweepExecutorSweepTest.test_blockedRecipient_claimableThenClaim
+319,AssignmentMutation,src/SweepExecutor.sol:432:40,0,1,killed,test/unit/SweepExecutorSweep.t.sol:SweepExecutorSweepTest.test_blockedRecipient_claimableThenClaim
+320,DeleteExpressionMutation,src/SweepExecutor.sol:433:9,"IERC20(token).safeTransfer(msg.sender, amt)",assert(true),killed,test/unit/SweepExecutorSweep.t.sol:SweepExecutorSweepTest.test_blockedRecipient_claimableThenClaim
+321,BinaryOpMutation,src/SweepExecutor.sol:440:45, + ,-,killed,test/unit/SweepExecutorSweep.t.sol:SweepExecutorSweepTest.test_swap_buysMixAtOracleAndChargesFee
+322,BinaryOpMutation,src/SweepExecutor.sol:440:45, + ,*,killed,test/unit/SweepExecutorSweep.t.sol:SweepExecutorSweepTest.test_swap_buysMixAtOracleAndChargesFee
+323,BinaryOpMutation,src/SweepExecutor.sol:440:45, + ,/,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_defaultMixDriftsIntoSpyWhileTheWhaleBlocksNvda
+324,BinaryOpMutation,src/SweepExecutor.sol:440:45, + ,%,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_defaultMixDriftsIntoSpyWhileTheWhaleBlocksNvda
+325,BinaryOpMutation,src/SweepExecutor.sol:440:45, + ,**,killed,test/unit/SweepExecutorSweep.t.sol:SweepExecutorSweepTest.test_defer_assetMissingFromLimits
+326,BinaryOpMutation,src/SweepExecutor.sol:440:31, / ,+,killed,test/unit/SweepExecutorSweep.t.sol:SweepExecutorSweepTest.test_swap_buysMixAtOracleAndChargesFee
+327,BinaryOpMutation,src/SweepExecutor.sol:440:31, / ,-,killed,test/unit/SweepExecutorSweep.t.sol:SweepExecutorSweepTest.test_defer_assetMissingFromLimits
+328,BinaryOpMutation,src/SweepExecutor.sol:440:31, / ,*,killed,test/unit/SweepExecutorSweep.t.sol:SweepExecutorSweepTest.test_defer_assetMissingFromLimits
+329,BinaryOpMutation,src/SweepExecutor.sol:440:31, / ,%,killed,test/unit/SweepExecutorSweep.t.sol:SweepExecutorSweepTest.test_defer_assetMissingFromLimits
+330,BinaryOpMutation,src/SweepExecutor.sol:440:31, / ,**,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_defaultMixDriftsIntoSpyWhileTheWhaleBlocksNvda
+331,SwapArgumentsOperatorMutation,src/SweepExecutor.sol:440:16,block.timestamp / epochLength,epochLength / block.timestamp,killed,test/unit/SweepExecutorSweep.t.sol:SweepExecutorSweepTest.test_defer_assetMissingFromLimits
+332,BinaryOpMutation,src/SweepExecutor.sol:445:50, / ,+,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.testFuzz_accrue_neverExceedsCapInTheWindow
+333,BinaryOpMutation,src/SweepExecutor.sol:445:50, / ,-,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.testFuzz_accrue_neverExceedsCapInTheWindow
+334,BinaryOpMutation,src/SweepExecutor.sol:445:50, / ,*,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.testFuzz_accrue_neverExceedsCapInTheWindow
+335,BinaryOpMutation,src/SweepExecutor.sol:445:50, / ,%,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.testFuzz_accrue_neverExceedsCapInTheWindow
+336,BinaryOpMutation,src/SweepExecutor.sol:445:50, / ,**,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.testFuzz_accrue_neverExceedsCapInTheWindow
+337,SwapArgumentsOperatorMutation,src/SweepExecutor.sol:445:35,block.timestamp / 1 days,1 days / block.timestamp,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.testFuzz_accrue_neverExceedsCapInTheWindow
+338,SwapArgumentsOperatorMutation,src/SweepExecutor.sol:451:16,used >= cap,cap >= used,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_accrue_rollingWindowSumsAcrossDays
+339,BinaryOpMutation,src/SweepExecutor.sol:451:37, - ,+,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_accrue_rollingWindowSumsAcrossDays
+340,BinaryOpMutation,src/SweepExecutor.sol:451:37, - ,*,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_accrue_rollingWindowSumsAcrossDays
+341,BinaryOpMutation,src/SweepExecutor.sol:451:37, - ,/,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_accrue_rollingWindowSumsAcrossDays
+342,BinaryOpMutation,src/SweepExecutor.sol:451:37, - ,%,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_accrue_rollingWindowSumsAcrossDays
+343,BinaryOpMutation,src/SweepExecutor.sol:451:37, - ,**,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_accrue_rollingWindowSumsAcrossDays
+344,SwapArgumentsOperatorMutation,src/SweepExecutor.sol:451:34,cap - used,used - cap,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.test_accrue_rollingWindowSumsAcrossDays
+345,DeleteExpressionMutation,src/SweepExecutor.sol:457:13,sum += d[today - i],assert(true),killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.testFuzz_accrue_neverExceedsCapInTheWindow
+346,AssignmentMutation,src/SweepExecutor.sol:457:20,d[today - i],0,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.testFuzz_accrue_neverExceedsCapInTheWindow
+347,AssignmentMutation,src/SweepExecutor.sol:457:20,d[today - i],1,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.testFuzz_accrue_neverExceedsCapInTheWindow
+348,BinaryOpMutation,src/SweepExecutor.sol:457:27, - ,+,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.testFuzz_accrue_neverExceedsCapInTheWindow
+349,BinaryOpMutation,src/SweepExecutor.sol:457:27, - ,*,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.testFuzz_accrue_neverExceedsCapInTheWindow
+350,BinaryOpMutation,src/SweepExecutor.sol:457:27, - ,/,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+351,BinaryOpMutation,src/SweepExecutor.sol:457:27, - ,%,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+352,BinaryOpMutation,src/SweepExecutor.sol:457:27, - ,**,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.testFuzz_accrue_neverExceedsCapInTheWindow
+353,SwapArgumentsOperatorMutation,src/SweepExecutor.sol:457:22,today - i,i - today,killed,test/unit/NettedWhale.t.sol:NettedWhaleTest.test_AM1_defaultMixDriftsIntoSpyWhileTheWhaleBlocksNvda
+354,SwapArgumentsOperatorMutation,src/SweepExecutor.sol:456:25,i < 7,7 < i,killed,test/unit/SweepExecutorAccrue.t.sol:SweepExecutorAccrueTest.testFuzz_accrue_neverExceedsCapInTheWindow
+355,DeleteExpressionMutation,src/SweepExecutor.sol:456:32,++i,assert(true),killed,test/unit/SgovChurn.t.sol:SgovChurnTest.setUp
+356,UnaryOperatorMutation,src/SweepExecutor.sol:456:32,++,--,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable
+357,UnaryOperatorMutation,src/SweepExecutor.sol:456:32,++,~,killed,test/unit/FeeVault.t.sol:FeeVaultTest.test_feesFromASweepAreWithdrawable

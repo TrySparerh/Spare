@@ -1,0 +1,702 @@
+{
+  "fundWallet": {
+    "hero": {
+      "kicker": "第 0 步",
+      "subtitle": "从零到就绪",
+      "description": "把少量用于支付 Gas 的 ETH 和日常要花的 USDG 转入 Robinhood Chain，再逐项完成 Spare 开始凑整所需的准备。"
+    },
+    "features": {
+      "gas": "ETH 支付 Gas",
+      "usdg": "USDG 用于付款",
+      "readiness": "5 项准备检查"
+    },
+    "connectWhy": "尚未连接钱包。连接你日常付款用的钱包（也可以在 Robinhood Wallet 里新建一个，它原生支持 Robinhood Chain），这个窗口会带你从空钱包一步步准备到可以开始凑整。下方列出了把 ETH 和 USDG 转入 Robinhood Chain 的方法。",
+    "balancesError": "无法读取这个钱包的余额：{{error}}",
+    "status": {
+      "reading": "读取中",
+      "rpcError": "RPC 错误",
+      "checking": "检测中",
+      "deploying": "部署中",
+      "noEth": "无 ETH",
+      "low": "偏低",
+      "noUsdg": "无 USDG",
+      "linked": "已绑定",
+      "notLinked": "未绑定",
+      "notAuthorized": "未授权",
+      "noRule": "未设规则",
+      "on": "已开启",
+      "off": "已关闭"
+    },
+    "checks": {
+      "eth": "支付 Gas 的 ETH",
+      "usdg": "USDG 余额",
+      "link": "已绑定 Spare",
+      "consent": "已授权凑整",
+      "rule": "凑整规则已开启"
+    },
+    "example": {
+      "eth": "Robinhood Chain 上每笔交易都用 ETH 支付 Gas，几美元就够用了。",
+      "usdg": "付款和凑整的资金来源。",
+      "link": "在“绑定钱包”里发一笔交易，这个钱包的 USDG 付款就会凑整。",
+      "consent": "两笔授权，都由该钱包自己签名。",
+      "rule": "凑整至 $1、$5 或 $10，1× 至 5× 倍数，外加每周上限。"
+    },
+    "readiness": {
+      "title": "准备情况",
+      "previewIntro": "连接钱包后，这个窗口会在 Robinhood Chain 上实时检查五项内容，每个缺口都会直接链接到能补齐它的应用。下面是一个准备了一半的钱包示例：",
+      "exampleWallet": "示例钱包",
+      "exampleProgress": "{{ok}}/{{total}} 项就绪",
+      "notLive": {
+        "rpc": "无法连接 Robinhood Chain 检测 Spare 合约，每 30 秒重试一次。（{{error}}）",
+        "checking": "正在 Robinhood Chain 上检测 Spare 合约…",
+        "deploying": "Spare 合约尚未在 Robinhood Chain 上线。"
+      },
+      "action": {
+        "openLink": "打开绑定钱包",
+        "openRules": "打开凑整规则",
+        "getEth": "如何获取 ETH",
+        "topUp": "用 USDG 补充 ETH",
+        "swapToUsdg": "兑换 ETH → USDG",
+        "getUsdg": "如何获取 USDG",
+        "authorize": "去绑定钱包授权"
+      },
+      "readingBalance": "正在读取余额…",
+      "readingRegistry": "正在读取 RuleRegistry…",
+      "eth": {
+        "rpc": "无法读取 ETH 余额：{{error}}",
+        "none": "Robinhood Chain 上每笔交易都要用 ETH 支付 Gas。没有 ETH，这个钱包就无法授权、绑定或兑换，连 USDG → ETH 也不行。准备几美元的 ETH 就够了。",
+        "gasRpc": "{{eth}} ETH{{usd}} · 无法读取 Gas 价格（{{error}}），暂时无法估算能支付多少笔交易",
+        "readingGas": "{{eth}} ETH{{usd}} · 正在读取 Gas 价格…",
+        "low": "{{eth}} ETH{{usd}} · 按 {{gas}} 计，约可支付 {{count}} 笔 Spare 交易。请至少保留 {{reserve}} ETH（约 {{txs}} 笔交易）用于 Gas。",
+        "lowStuck": "{{eth}} ETH{{usd}} · 按 {{gas}} 计，约可支付 {{count}} 笔 Spare 交易。请至少保留 {{reserve}} ETH（约 {{txs}} 笔交易）用于 Gas。这点余额也不够把 USDG 换成 ETH（兑换及其授权约需 {{need}} ETH，已含余量）——没有 ETH 就无法用 USDG 兑换 ETH。准备几美元的 ETH 就够了。",
+        "ok": "{{eth}} ETH{{usd}} · 按 {{gas}} 计，约可支付 {{count}} 笔 Spare 交易 · 最多可将 {{max}} ETH{{maxUsd}} 兑换为 USDG，{{reserve}} ETH 留作 Gas"
+      },
+      "usdg": {
+        "none": "付款就是 USDG 转账，凑整也以 USDG 扣款，所以这个钱包需要一些 USDG。",
+        "ok": "{{amount}} USDG：付款和凑整的资金来源"
+      },
+      "link": {
+        "notLinked": "绑定这个钱包后，它的 USDG 付款才会凑整。只需一笔交易：它会成为自己的 Spare 账户（也可以绑定到其他账户）。",
+        "spender": "消费钱包，凑整计入账户 <addr/>。",
+        "self": "这个钱包就是它自己的 Spare 账户：既用于消费，也用于投资。"
+      },
+      "consentDetail": "{{detail}}。USDG → Permit2，再 Permit2 → SweepExecutor，两笔都由这个钱包签名。",
+      "rule": {
+        "on": "凑整至 ${{roundTo}} · {{multiplier}}× · 每 7 天上限 {{cap}}。",
+        "onWhose": "凑整至 ${{roundTo}} · {{multiplier}}× · 每 7 天上限 {{cap}}。规则由账户 <addr/> 设置，需连接该账户才能修改。",
+        "paused": "规则已暂停或每周上限为 $0，不会计入任何零钱。",
+        "pausedWhose": "规则已暂停或每周上限为 $0，不会计入任何零钱。规则由账户 <addr/> 设置，需连接该账户才能修改。",
+        "none": "链上还没有凑整规则，不会计入任何零钱。",
+        "noneWhose": "链上还没有凑整规则，不会计入任何零钱。规则由账户 <addr/> 设置，需连接该账户才能修改。"
+      },
+      "accentReady": "可以开始凑整",
+      "accentProgress": "{{ok}}/{{total}} 项就绪",
+      "statReady": "就绪",
+      "usdgSub": "用于付款和凑整",
+      "progress": "{{ok}}/{{total}}",
+      "gasNote": "Gas：每笔 Spare 交易（授权、绑定、设置规则、兑换）约需 {{k}}k Gas，按 Robinhood Chain 实时 Gas 价格计算，仅为估算，并非报价。余额不高于 {{reserve}} ETH（取 0.0003 ETH 与 {{txs}} 笔交易 Gas 中的较大者）时，第 1 项显示“偏低”；每次 ETH → USDG 兑换后也会留下同样的数额。准备情况每 30 秒刷新一次，每笔交易后也会刷新。"
+    },
+    "receive": {
+      "title": "收款",
+      "eyebrow": "本钱包 · 转入此地址",
+      "copied": "已复制 ✓",
+      "copy": "复制地址",
+      "explorer": "在 Blockscout 查看 ↗",
+      "copyBlocked": "浏览器阻止了复制，请选中上方地址手动复制。",
+      "chainOnlyTitle": "仅限 Robinhood Chain",
+      "chainOnly": "务必只通过 Robinhood Chain 网络（链 ID 4663）转入。同一个 0x 地址在 Ethereum、Base 和 Arbitrum 上也存在，但通过这些网络转入的资金会留在那里，Spare 无法看到，也无法转移。",
+      "needs": "Spare 在这里只需要两样：少量用于支付 Gas 的 ETH，以及用于付款和凑整的 USDG。其他代币会被忽略。"
+    },
+    "bridge": {
+      "title": "跨链 / 购买",
+      "heading": "把 ETH + USDG 转入 Robinhood Chain",
+      "quickest": "如果你用 Robinhood app，最快的方法是：在 app 里购买几美元的 ETH（用于 Gas）和你要花的 USDG，然后通过 <b>Robinhood Chain</b> 网络把两者都发送到这个钱包。已有 USDG 但没有 ETH？每笔交易（包括下方的兑换）都需要先有少量 ETH。",
+      "buy": "购买",
+      "buyRight": "法币 → Robinhood Chain",
+      "bridgeFrom": "从其他链跨链转入",
+      "bridgeRight": "收录于 docs.robinhood.com/chain",
+      "unconfirmed": "未经确认：转账前请先核实",
+      "kucoin": "据报道，<b>KuCoin</b> 支持在“Robinhood”网络上提现 ETH 和 USDG（仅见于一则帖子片段），请先在 KuCoin 的提现页面确认网络名称。",
+      "others": "<b>Coinbase、Kraken（交易所）、Binance、OKX、Bybit</b>：未发现支持 Robinhood Chain 充值或提现。请先把 USDC 或 ETH 提现到 Base、Arbitrum 或 Ethereum，再通过 Across 或 Relay 跨链转入。",
+      "docsLink": "Robinhood Chain 官方跨链文档 ↗",
+      "legend": "已收录 = 列于 Robinhood 官方跨链页面 · 合作方 = 由服务商自行宣布。以上服务均不由 Spare 运营，Spare 也不从中获得任何收益。",
+      "newTab": "{{name}}（在新标签页打开）",
+      "tag": {
+        "official": "官方",
+        "partner": "合作方",
+        "listed": "已收录",
+        "canonical": "官方跨链桥"
+      },
+      "routes": {
+        "robinhoodApp": {
+          "how": "在 Robinhood Crypto 购买 ETH 和 USDG，然后点 Send（发送）→ 选择 Robinhood Chain 网络 → 粘贴上方地址。Robinhood 不收发送手续费，只需支付网络费用。",
+          "caveat": "纽约州不支持加密货币转账；纽约州和得克萨斯州不提供 USDG 购买。用即时存款或尚未结清的存款购买的加密货币可能会被暂时冻结。"
+        },
+        "robinhoodWallet": {
+          "gives": "发送 · 收款 · 兑换",
+          "how": "内置 Robinhood Chain 的自托管钱包。可以通过 Robinhood Chain 从 Robinhood Crypto 转入加密货币，也可以直接连接到这里，作为你的 Spare 钱包。"
+        },
+        "moonpay": {
+          "how": "用银行卡、银行转账、Apple Pay 或 Google Pay 直接购买 Robinhood Chain 上的 USDG。",
+          "caveat": "不支持纽约州和加拿大；仅支持购买。能否通过 MoonPay 购买 Robinhood Chain 上的 ETH 尚未确认，你仍需要少量 ETH 支付 Gas。"
+        },
+        "across": {
+          "how": "从 13 条链（Ethereum、Arbitrum、Base、Optimism、Polygon、Solana…）转出的 USDC，几秒内就会以 USDG 到账；ETH 支持主流 EVM 链。"
+        },
+        "relay": {
+          "gives": "ETH · 代币",
+          "how": "基于意图的跨链桥，几秒内完成结算。",
+          "caveat": "支持哪些源链尚未经过独立核实，请以其页面为准。"
+        },
+        "stargate": {
+          "how": "从 USDG 发行的其他链转入 USDG (LayerZero OFT)。"
+        },
+        "arbitrum": {
+          "name": "Arbitrum 官方跨链桥",
+          "gives": "ETH · ERC-20 代币",
+          "how": "无需信任第三方，仅支持从 Ethereum 主网转入。转入约需 10 分钟。",
+          "caveat": "转回 Ethereum 约需 7 天，最后还需在 L1 上领取。"
+        }
+      }
+    },
+    "age": {
+      "s": "{{n}} 秒",
+      "min": "{{n}} 分钟",
+      "h": "{{n}} 小时"
+    },
+    "swap": {
+      "title": "兑换",
+      "accentFee": "Spare 手续费 {{pct}}",
+      "accentNoFee": "无 Spare 手续费",
+      "dirTopUp": "USDG → ETH · 补充 Gas",
+      "dirAria": "兑换方向",
+      "hintToUsdg": "把 ETH 换成付款和凑整要用的 USDG。",
+      "hintToEth": "把少量 USDG 换成 ETH，让钱包能支付 Gas。",
+      "youPay": "支付",
+      "max": "最大",
+      "balance": "余额：{{amount}}",
+      "maxLeaves": "“最大”会保留 {{reserve}} ETH 用于 Gas",
+      "slippage": "滑点",
+      "slippageHint": "可接受低于报价的幅度，超出则整笔兑换失败回滚",
+      "noQuote": "无法报价：{{error}}",
+      "noQuoteStale": "无法报价：{{error}}——下方的上一次报价已过时，刷新成功前不可兑换。",
+      "err": {
+        "deployRpc": "无法连接 Robinhood Chain 检测 Spare 的 FeeVault，每 30 秒重试一次。（{{error}}）",
+        "notDeployed": "Spare 的 FeeVault 在 Robinhood Chain 上线后即可兑换。",
+        "invalidAmount": "{{sym}} 数量无效：只能输入数字和一个小数点，最多 {{dec}} 位小数。",
+        "zero": "请输入大于 0 的数量。",
+        "ethRead": "无法读取你的 ETH 余额（{{error}}），读取成功前暂时无法兑换。",
+        "usdgRead": "无法读取你的 USDG 余额（{{error}}），读取成功前暂时无法兑换。",
+        "gasRead": "无法读取网络 Gas 价格（{{error}}），确认网络费用前暂时无法兑换。",
+        "nothingToSwap": "这个钱包持有 {{eth}} ETH。“钱包充值”始终会为 Gas 保留 {{reserve}} ETH（约 {{txs}} 笔交易），所以目前没有可兑换的余额。",
+        "overMax": "最多可兑换 {{max}} ETH，{{reserve}} ETH 会留在钱包里用于 Gas。",
+        "overUsdg": "这个钱包只有 {{amount}} USDG。",
+        "allowRead": "无法读取你的 USDG 授权（{{error}}），每 30 秒重试一次。",
+        "noEth": "这个钱包没有 ETH，而这笔兑换本身也需要少量 ETH 支付 Gas。请先准备几美元的 ETH（见上方“跨链 / 购买”）。",
+        "lowEthOne": "ETH 不足以支付网络费用：{{count}} 笔交易约需 {{fee}} ETH，而钱包通常要求手头留有约 {{mult}}× 的余量（{{need}} ETH）。这个钱包只有 {{eth}} ETH，请先准备几美元的 ETH（见上方“跨链 / 购买”）。",
+        "lowEthMany": "ETH 不足以支付网络费用：{{count}} 笔交易约需 {{fee}} ETH，而钱包通常要求手头留有约 {{mult}}× 的余量（{{need}} ETH）。这个钱包只有 {{eth}} ETH，请先准备几美元的 ETH（见上方“跨链 / 购买”）。",
+        "prepLowEth": "ETH 不足以支付网络费用：{{count}} 笔交易需要手头约有 {{need}} ETH，而这个钱包只有 {{eth}} ETH。未发送任何交易。",
+        "reserveBreached": "你的 ETH 余额现在是 {{bal}} ETH，兑换 {{amount}} ETH 后将低于 {{reserve}} ETH 的 Gas 预留。未发送任何交易。",
+        "blocked": "{{reason}}未发送任何交易。"
+      },
+      "wait": {
+        "checking": "正在 Robinhood Chain 上检测 Spare 的 FeeVault…",
+        "eth": "正在读取你的 ETH 余额…",
+        "usdg": "正在读取你的 USDG 余额…",
+        "gas": "正在读取网络 Gas 价格…",
+        "allow": "正在检查你的 USDG 授权…"
+      },
+      "steps": {
+        "approveSized": "授权恰好 {{amount}} USDG 给 Permit2（按本次兑换金额）",
+        "approveOnce": "授权 USDG 给 Permit2（一次性）",
+        "router": "允许 Uniswap 路由合约扣取恰好 {{amount}} USDG",
+        "swap": "兑换 {{amount}} {{in}} → {{out}}"
+      },
+      "button": {
+        "working": "处理中…",
+        "swapSteps": "兑换 {{amount}} {{in}} → {{out}}（{{count}} 步）",
+        "enterAmount": "输入数量"
+      },
+      "step1": {
+        "sized": "授权恰好 {{amount}} USDG 给 Permit2：只按本次兑换金额授权，而非无限额。你给 Spare 的 SweepExecutor 的 Permit2 授权仍然有效，无限额授权会让凑整扣款重新生效；这笔授权会在本次兑换中用完。",
+        "sizedKeep": "授权恰好 {{amount}} USDG 给 Permit2：只按本次兑换金额授权，而非无限额。你给 Spare 的 SweepExecutor 的 Permit2 授权仍然有效，无限额授权会让凑整扣款重新生效；这笔授权会在本次兑换中用完，你的凑整授权额度保持不变。",
+        "once": "授权 USDG 给 Permit2：一次性授权，与凑整使用的是同一笔授权。"
+      },
+      "quoting": "正在 Uniswap v4 上报价…",
+      "staleBadge": "已过时 · 刷新中",
+      "stale": {
+        "ago": "{{n}} 秒前报价，获取新报价前不可兑换",
+        "agoFailed": "{{n}} 秒前报价 · 上次刷新失败，获取新报价前不可兑换",
+        "earlier": "较早前报价，获取新报价前不可兑换",
+        "earlierFailed": "较早前报价 · 上次刷新失败，获取新报价前不可兑换"
+      },
+      "line": {
+        "youPay": "支付",
+        "poolOutput": "流动性池输出",
+        "poolFee": "流动性池手续费",
+        "spareFee": "Spare 手续费",
+        "youReceive": "收到",
+        "minReceived": "最少收到",
+        "price": "价格",
+        "impact": "价格影响",
+        "networkFee": "网络费用"
+      },
+      "sub": {
+        "payUsd": "按 Chainlink ETH/USD 约合 {{usd}}",
+        "poolOutput": "V4Quoter 实时报价 · Uniswap v4 ETH/USDG 流动性池",
+        "poolFee": "已包含在池内价格中，归 Uniswap 流动性提供者所有",
+        "feeNone": "无",
+        "fee": "按输出金额计算，在同一笔交易中付给 Spare 的 FeeVault",
+        "feeWeth": "按输出金额计算，在同一笔交易中付给 Spare 的 FeeVault（以 WETH 支付）",
+        "receive": "按报价计算",
+        "minReceived": "按 {{pct}} 滑点计，低于此数整笔兑换会失败回滚",
+        "priceEdge": "Chainlink ETH/USD {{usd}}，{{age}}前更新 · 对你 {{edge}}",
+        "priceOld": "Chainlink ETH/USD {{usd}}，{{age}}前更新 · 数据过旧，无法用于核对",
+        "priceNoRef": "Chainlink 参考价格不可用，读取成功前兑换将保持暂停",
+        "impact": "对比同一流动性池中 {{probe}} 的交易 · 超过 {{block}} 将禁止兑换",
+        "txOne": "{{count}} 笔交易",
+        "txMany": "{{count}} 笔交易",
+        "txAtOne": "{{count}} 笔交易，Gas 价格 {{gas}}",
+        "txAtMany": "{{count}} 笔交易，Gas 价格 {{gas}}",
+        "estimated": "估算值",
+        "assumesApprovals": "读取授权前按需要两笔授权估算"
+      },
+      "warnEdge": "流动性池给出的价格比 Chainlink 低 {{pct}}，减少兑换数量通常能降低价格影响。",
+      "warnImpact": "这个数量会让池内价格朝不利于你的方向变动 {{pct}}，数量越小影响越小。",
+      "walletAsks": "钱包会请你确认的步骤",
+      "upToTxs": "最多 {{count}} 笔交易 · 检查中…",
+      "approvedSkipped": "已授权，跳过",
+      "step2": "Permit2：允许 Uniswap 路由合约扣取恰好 {{amount}} USDG，{{min}} 分钟后过期。",
+      "allowanceSkipped": "现有授权额度已足够，跳过",
+      "step3": "执行兑换，ETH 将转入这个钱包。",
+      "checking": "检查中…",
+      "badge": {
+        "live": "报价有效",
+        "inProgress": "进行中",
+        "stale": "报价已过时",
+        "notReady": "未就绪"
+      },
+      "deadline": "截止时间 {{min}} 分钟 · 报价每 15 秒刷新，点击时会再次核对 · 兑换所得发送到发起交易的钱包。",
+      "swapped": "兑换完成。预计约 {{expected}} {{sym}}，保证至少 {{min}}，上方余额会自动刷新。",
+      "footer": {
+        "feeRoute": "Spare 手续费：流动性池输出金额的 {{pct}}，在同一笔交易中扣除并发送到 Spare 的 FeeVault <vault/>：兑换为 USDG 时收 USDG，兑换为 ETH 时收 WETH。这笔费用用于维持 Spare 运营；在其他地方兑换（例如 Robinhood Wallet）则无需支付。路由：经 Universal Router <router/> 使用 Uniswap v4 ETH/USDG {{poolFee}} 流动性池。保护机制：Chainlink ETH/USD 数据须在 {{hours}} 小时内更新，且池内价格与其偏差不超过 {{priceBlock}}；价格影响须低于 {{impactBlock}}，否则禁止兑换。",
+        "noFeeRoute": "目前兑换不收 Spare 手续费。路由：经 Universal Router <router/> 使用 Uniswap v4 ETH/USDG {{poolFee}} 流动性池。保护机制：Chainlink ETH/USD 数据须在 {{hours}} 小时内更新，且池内价格与其偏差不超过 {{priceBlock}}；价格影响须低于 {{impactBlock}}，否则禁止兑换。"
+      }
+    }
+  },
+  "linkWallet": {
+    "hero": {
+      "kicker": "零钱来源",
+      "subtitle": "钱包原生",
+      "description": "选择为你的凑整提供零钱的钱包。只有你明确绑定的钱包才会计入，解绑后即停止新的计入。",
+      "noWallet": "无钱包"
+    },
+    "features": {
+      "onlyLinked": "仅计入已绑定钱包",
+      "perWallet": "每个钱包单独授权",
+      "unlinkAnyTime": "随时可解绑"
+    },
+    "connectWhy": "尚未连接钱包。先连接你用于投资的钱包（它会成为你的 Spare 账户），再绑定你用于消费的钱包。",
+    "sig": {
+      "undeployed": "这看起来是一个尚未部署到 Robinhood Chain 的智能钱包，RuleRegistry 无法验证它的签名。请先用它发送一笔交易（例如下方的“授权凑整”），再重新签署绑定消息。未保存任何内容。",
+      "mismatch": "钱包返回的签名与该地址不匹配，未保存任何内容。",
+      "erc1271": "该钱包的合约 (ERC-1271) 在 Robinhood Chain 上不接受这个签名，RuleRegistry 也会拒绝它。未保存任何内容。"
+    },
+    "age": {
+      "s": "≈{{n}} 秒前",
+      "m": "≈{{n}} 分钟前",
+      "h": "≈{{n}} 小时前",
+      "d": "≈{{n}} 天前"
+    },
+    "never": "从未",
+    "thisWalletChip": "本钱包",
+    "thisWalletChipTitle": "当前连接的钱包",
+    "example": {
+      "title": "钱包关系图",
+      "intro": "示例设置：多个消费钱包为同一个投资账户提供零钱。仅为示意，并非真实钱包。",
+      "walletA": "消费钱包 A",
+      "walletB": "消费钱包 B",
+      "walletOther": "其他任何钱包",
+      "noteA": "已绑定 + 已授权",
+      "noteB": "已绑定，尚未签署授权",
+      "noteOther": "从未绑定，不会凑整",
+      "roundUp": "凑整",
+      "account": "投资账户",
+      "accountNote": "已授权钱包的凑整零钱存入这里。"
+    },
+    "status": {
+      "authorized": "已授权",
+      "notAuthorized": "未授权",
+      "notLinked": "未绑定"
+    },
+    "how": {
+      "title": "绑定流程",
+      "connect": {
+        "title": "连接你的投资钱包",
+        "body": "它会成为你的 Spare 账户：凑整零钱存入这里，凑整规则也保存在这里。"
+      },
+      "link": {
+        "title": "绑定消费钱包",
+        "body": "一笔交易即可绑定当前连接的钱包；也可以在另一个钱包上签名，再从你的账户提交绑定。"
+      },
+      "authorize": {
+        "title": "授权凑整",
+        "body": "每个消费钱包都要自己签署两笔授权。Permit2 授权没有金额上限；限制每次扣款的是凑整规则里的每周上限。"
+      }
+    },
+    "tx": {
+      "approveUsdg": "授权 USDG 给 Permit2",
+      "allowExecutor": "通过 Permit2 允许 SweepExecutor 扣款",
+      "revoke": "撤销 Permit2 扣款授权",
+      "linkSelf": "绑定这个钱包",
+      "unlink": "解绑 {{addr}}",
+      "link": "绑定 {{addr}}",
+      "invalidate": "作废我的绑定签名"
+    },
+    "sign": {
+      "readingNonce": "正在读取你的绑定 nonce…",
+      "switching": "正在把你的钱包切换到 Robinhood Chain…",
+      "alreadyLinked": "这个钱包已绑定到 {{addr}}，请先解绑。",
+      "signInWallet": "请在钱包中签署绑定消息…",
+      "verifying": "正在按 RuleRegistry 的方式验证签名…",
+      "done": "已签名。现在把钱包切换到 {{addr}}，这个窗口会在那里显示“提交绑定”按钮。",
+      "working": "处理中"
+    },
+    "cols": {
+      "linkedAt": "绑定于",
+      "scanned": "已扫描至",
+      "consent": "扣款授权",
+      "actions": "操作"
+    },
+    "confirmUnlink": "确认解绑",
+    "unlink": "解绑",
+    "role": {
+      "reading": "读取中",
+      "accountSpender": "账户 + 消费",
+      "spendingWallet": "消费钱包",
+      "account": "账户"
+    },
+    "registryError": "无法读取 RuleRegistry：{{error}}",
+    "connected": {
+      "title": "已连接的钱包",
+      "thisWallet": "本钱包",
+      "feeding": "绑定到本账户的钱包",
+      "slotsAria": "已绑定 {{n}}/{{max}} 个钱包",
+      "spender": "这个钱包是为账户 <addr/> 提供零钱的<b>消费钱包</b>。它的付款会凑整计入该账户，你随时可以在这里解绑。",
+      "linkSelf": "绑定这个钱包（消费 + 投资）",
+      "confirmUnlinkSelf": "确认解绑这个钱包",
+      "unlinkSelf": "解绑这个钱包",
+      "linkedHint": "绑定于 {{linked}} · 付款已扫描至 {{scanned}}",
+      "linkSelfHint": "linkSelf() 会让这个钱包既是账户，也是它自己的消费钱包之一。",
+      "consentHead": "本钱包的扣款授权",
+      "reauthorize": "重新授权凑整",
+      "authorize": "授权凑整",
+      "revoke": "撤销授权",
+      "consentHint": "两笔授权，都来自这个钱包：先 USDG → Permit2（标准 approve），再 Permit2 → SweepExecutor（无限额，365 天后过期）。限制每次扣款的是规则的每周上限，按当天（UTC）及之前六天累计（因此任意 7×24 小时内最多可达上限的两倍）。"
+    },
+    "list": {
+      "count": "{{n}}/{{max}}",
+      "reading": "正在读取 RuleRegistry…",
+      "empty": "这个账户还没有绑定任何钱包。在绑定之前，任何付款都不会产生零钱。可以在上方绑定这个钱包，或在下方绑定其他钱包。",
+      "consentNote": "授权只能由钱包本身签署，请连接该钱包后再授权。"
+    },
+    "another": {
+      "title": "绑定其他钱包",
+      "steps": "2 步",
+      "signedCount": "{{count}} 个已签名",
+      "step2": "第 2 步：从本账户提交",
+      "linkedHere": "已绑定到本账户",
+      "linkedTo": "已绑定到 {{addr}}",
+      "expired": "签名已过期，请在该钱包重新签名",
+      "stale": "签名后钱包 nonce 已变化，请重新签名",
+      "signedExpires": "已签名 · {{min}} 分钟后过期",
+      "submit": "提交绑定",
+      "discard": "放弃",
+      "step1": "第 1 步：在消费钱包上签名",
+      "alreadySelf": "这个钱包已绑定到它自己。如需签署绑定到其他账户，请先解绑。",
+      "alreadyOther": "这个钱包已绑定到 {{addr}}。如需签署绑定到其他账户，请先解绑。",
+      "howTo": "连接你用于消费的钱包，输入它要绑定的账户地址，然后签名。不会发送任何交易，也不消耗 Gas。之后把钱包切换到那个账户（同一浏览器）并提交。",
+      "account": "账户",
+      "placeholder": "0x… 投资账户",
+      "sign": "签署绑定",
+      "invalidAddress": "不是有效的 0x 地址。",
+      "isMe": "这就是当前钱包，请改用上方的“绑定这个钱包”。",
+      "awaitingHead": "本钱包已签名，等待账户提交",
+      "forAccount": "目标账户",
+      "expiredShort": "已过期",
+      "expiresIn": "{{min}} 分钟后过期",
+      "invalidate": "链上作废",
+      "invalidateHint": "“放弃”只会在这个浏览器里清除记录；invalidateNonce() 会让这个钱包发出的所有绑定签名失效。"
+    },
+    "meaning": {
+      "title": "绑定意味着什么",
+      "payments": "付款是指从已绑定钱包转出的 <info>USDG 转账</info>。在你自己的已绑定钱包之间转账、转给你的账户、转给 Spare 合约，以及转入 Uniswap v4 PoolManager（外加执行器列出的少数 Uniswap 合约），都不算消费，永远不会凑整。转到其他任何地方的 USDG 都算付款，包括直接付给 Uniswap v3 流动性池的兑换，以及任何其他 DEX 或聚合器。<warn>用已绑定钱包进行大额兑换前，请先暂停凑整。</warn>绑定从交易上链的区块开始生效，不会追溯到你授权之前的付款。",
+      "unlink": "<info>解绑</info>会立即停止该钱包新的计入（执行合约不会从已解绑的钱包扣款）。已收集的零钱和已买入的股票都原样保留。账户或钱包本身都可以解绑。"
+    }
+  },
+  "roundUpRules": {
+    "multiplier": {
+      "none": "不加倍",
+      "times": "凑整金额的 {{m}}×"
+    },
+    "connectWhy": "连接你的投资钱包，即可查看并设置它的凑整规则。规则保存在链上，每个账户一份。",
+    "hero": {
+      "kicker": "加倍凑整",
+      "subtitle": "凑整至 $1 / $5 / $10",
+      "description": "已绑定钱包的每笔付款都会凑整到下一个 $1、$5 或 $10。差额乘以 1× 至 5× 后，就成为可投资的零钱。"
+    },
+    "features": {
+      "range": "1× 至 5×",
+      "native": "钱包原生",
+      "cap": "链上每周上限"
+    },
+    "what": "凑整规则和每周上限",
+    "stairsAria": "{{caption}}：{{steps}}",
+    "ruleTitle": "凑整规则",
+    "roundUpTo": "凑整至",
+    "multiplierLabel": "倍数",
+    "example": {
+      "intro": "试一试：这个示例把规则套用到一笔 {{payment}} 的付款上。它只在你的浏览器里运行，不读取任何钱包，也不保存任何内容。",
+      "roundAria": "示例：凑整至",
+      "multiplierAria": "示例：倍数",
+      "caption": "{{payment}} 在各倍数下的零钱",
+      "next": "→ 下一个 ${{roundTo}}",
+      "roundUp": "= 凑整金额",
+      "spare": "× {{m}} = 零钱",
+      "note": "示例数字，并非真实账户。连接钱包后，这个窗口会在 Robinhood Chain 的 RuleRegistry 中读取并保存你的真实规则，同时设置一个 Spare 永远无法超额扣款的每周上限。"
+    },
+    "payment": "付款",
+    "tx": {
+      "save": "保存规则",
+      "pause": "暂停凑整"
+    },
+    "status": {
+      "reading": "读取中",
+      "noRuleYet": "尚无规则",
+      "paused": "凑整已暂停"
+    },
+    "readError": "无法读取规则：{{error}}",
+    "onChain": {
+      "title": "链上当前状态",
+      "weeklyCap": "每周上限",
+      "perRolling": "每滚动 7 天",
+      "badge": "链上 · RuleRegistry",
+      "noWallets": "还没有已绑定的钱包。请在“绑定钱包”中绑定一个，否则这条规则读取不到任何付款。",
+      "noWalletsSince": "还没有已绑定的钱包。请在“绑定钱包”中绑定一个，否则这条规则读取不到任何付款。自区块 #{{block}} 起生效。",
+      "appliesTo": "适用于 {{count}} 个已绑定的钱包。",
+      "appliesToSince": "适用于 {{count}} 个已绑定的钱包。自区块 #{{block}} 起生效。"
+    },
+    "noRule": {
+      "readOnly": "账户 {{addr}} 在链上还没有规则，因此不会计入任何零钱。连接该账户即可设置。",
+      "owner": "这个账户在链上还没有规则，因此不会计入任何零钱。在下方选择凑整档位、倍数和每周上限后保存即可，只需这个钱包发送一笔交易。"
+    },
+    "editor": {
+      "boundaryHint": "每笔付款将凑整到的下一个档位",
+      "multiplierHint": "倍数作用于凑整金额，而非付款金额"
+    },
+    "cap": {
+      "accentOnChain": "链上 {{cap}}/7 天",
+      "accentNone": "未设上限 = 不计入",
+      "label": "每 7 天上限",
+      "quickSet": "快速设置",
+      "presetsAria": "每周上限预设",
+      "invalid": "不是有效的美元金额（最多 6 位小数）。",
+      "tooBig": "数值超出合约范围（uint64 基础单位）。",
+      "missing": "请输入每周上限：它限制 Spare 在当天（UTC）及之前六天内能从你的钱包扣取的金额。",
+      "zero": "上限设为 $0 会完全停止计入，效果等同于暂停。",
+      "enforced": "由链上强制执行：任何会让滚动 7 天扣款超出上限的扣款都会失败回滚。",
+      "pulled": "近 7 天已扣款",
+      "remaining": "剩余额度",
+      "used": "链上上限已用"
+    },
+    "switch": {
+      "title": "开关",
+      "on": "已开启",
+      "label": "计入零钱",
+      "detail": "关闭只会停止新的计入。重新开启时不会追溯暂停期间的付款，而是从重新开启的区块开始计入。"
+    },
+    "saveBar": {
+      "readOnly": "只读",
+      "noRule": "链上无规则",
+      "unsaved": "未保存修改",
+      "matches": "与链上一致",
+      "readOnlyHint": "这是账户 {{addr}} 的规则，只有该账户能修改。这里的修改只会用于下方的计算示例。",
+      "revert": "撤销修改",
+      "pauseNow": "立即暂停",
+      "save": "保存规则到链上"
+    },
+    "worked": {
+      "title": "计算示例",
+      "accent": "非历史记录",
+      "hint": "用你的数字计算，并非历史记录：按上方编辑器中的规则运行，无论是否已保存。",
+      "ifIPay": "如果我付",
+      "anyAmount": "任意金额，不会发送也不会记录任何内容",
+      "enterAmount": "输入付款金额（最多 6 位小数），看看上方规则会凑出多少零钱。",
+      "nextBoundary": "→ 下一个 ${{roundTo}} 档位",
+      "delta": "= 凑整差额",
+      "captured": "凑整零钱 ({{m}}×)",
+      "caption": "这笔付款在各倍数下的结果（凑整至 ${{roundTo}}）",
+      "vsThreshold": "单笔付款对比买入门槛",
+      "toReach": "达到门槛需要",
+      "noSweep": "按此速度不会触发买入",
+      "payments": "{{count}} 笔付款",
+      "onBoundary": "{{amount}} 正好落在 ${{roundTo}} 档位上，所以凑整金额为 $0.00，倍数也没有可乘的金额。",
+      "paused": "规则暂停（或上限为 $0）时，这笔付款不会凑出任何零钱。",
+      "overCap": "单笔付款就超过了 {{cap}} 的每周上限，执行器最多只能扣到本周剩余额度。",
+      "formula": "以 USDG 基础单位做整数运算，与 RoundUp.sol 完全一致：step = roundTo × 1e6，rem = amount mod step，delta = rem = 0 ? 0 : (step − rem) × multiplier。这只是规则预览，并非付款或持仓。"
+    }
+  },
+  "stockMix": {
+    "connectWhy": "连接你的投资钱包，即可选定自选组合。在此之前，自动买入按默认组合进行。",
+    "hero": {
+      "kicker": "你的股票 · 你的权重",
+      "subtitle": "代币化股票",
+      "description": "选择每次自动买入的代币化股票，以及零钱在它们之间的分配比例。权重合计必须正好 100%。",
+      "badge": "你的组合"
+    },
+    "what": "股票组合",
+    "example": {
+      "title": "你的股票组合",
+      "barAria": "示例组合：股票 A 60%、股票 B 40%",
+      "body": "仅为示例：一次 $5 的自动买入中，这个组合会把 $3.00 分给第一只股票、$2.00 分给第二只。你的组合从可选股票池中挑选。",
+      "legA": "股票 A {{pct}}%",
+      "legB": "股票 B {{pct}}%"
+    },
+    "price": {
+      "lastTitle": "Chainlink 最近一次报价：{{when}}",
+      "last": "上次 {{price}}"
+    },
+    "weightInvalid": "每个权重都必须是最多 2 位小数的百分比。",
+    "tx": {
+      "save": "保存组合",
+      "revertDefault": "恢复默认组合"
+    },
+    "registry": {
+      "eligible": "可选",
+      "inactive": "未启用",
+      "inactiveTitle": "在 AssetRegistry 中未启用，无法选入组合",
+      "notElectable": "不可选",
+      "inMix": "已在组合",
+      "add": "+ 添加"
+    },
+    "cols": {
+      "asset": "资产",
+      "oraclePrice": "预言机价格",
+      "oracle": "预言机",
+      "registry": "注册状态"
+    },
+    "universe": {
+      "empty": "尚无已注册资产。",
+      "aria": "可选股票池",
+      "title": "可选股票池 · AssetRegistry",
+      "reading": "读取中…",
+      "count": "{{eligible}} 只可选 / {{registered}} 只已注册",
+      "staleNote": "股票价格源 24/5 运行。只有当最近一次报价超过心跳间隔 + 1 小时，价格源才会变为“已过时”。对每日更新的价格源来说，就是最后一次更新后约 25 小时，所以从周五晚上到周六，自动买入仍可按周五收盘价执行（成交价受预言机价格区间约束）。一旦“已过时”，自动买入就会<warn>等待</warn>：零钱继续暂存，下一周期重试。绝不会因为休市而把零钱改为以 USDG 返还。未启用的资产（例如流动性不足的池子）无法选入组合。"
+    },
+    "preview": {
+      "title": "买入预览（非真实交易）",
+      "accent": "按 {{threshold}} 门槛",
+      "accentUnread": "门槛未读取",
+      "fixMix": "先修正上方的组合，才能预览买入。",
+      "readingThreshold": "正在读取买入门槛…",
+      "oneSweep": "单次买入",
+      "onChainThreshold": "链上门槛",
+      "splitAria": "买入分配：{{legs}}",
+      "fee": "（手续费 ≈ {{fee}}）",
+      "note": "按 SweepExecutor 的方式分配：每个成分 = 门槛 × bps / 10000，最后一个成分取余数。{{fee}}% 手续费只对实际完成兑换的成分收取。这只是计算，并非下单。"
+    },
+    "readFailed": "读取失败",
+    "defaultMix": {
+      "title": "默认组合",
+      "badge": "默认",
+      "usedWhen": "账户未设置自选组合时使用。",
+      "reading": "正在读取默认组合…",
+      "barAria": "默认组合：{{legs}}",
+      "body": "没有自选组合的账户，每次自动买入都按这个比例分配。连接钱包即可选定你的组合。"
+    },
+    "yourMix": {
+      "title": "你的组合",
+      "reading": "读取中",
+      "own": "自选组合",
+      "usingDefault": "使用默认组合",
+      "totalWeight": "权重合计",
+      "complete": "正好 100%，已完成",
+      "mustTotal": "合计必须正好 100%",
+      "legs": "{{n}}/{{max}} 个成分",
+      "balance": "均衡至 100",
+      "add": "添加",
+      "addTitle": "把 {{sym}} 加入组合",
+      "noLegs": "还没有成分。用上方的标签或下方的股票池列表添加可选资产。",
+      "weight": "权重 %",
+      "share": "占比",
+      "atThreshold": "按门槛计",
+      "atThresholdInline": "按门槛计",
+      "weightAria": "{{sym}} 权重（百分比）",
+      "shareAria": "{{sym}} 占比",
+      "remove": "移除",
+      "legsAria": "组合成分",
+      "barAria": "组合：{{legs}}",
+      "readOnlyOwn": "这是账户 {{addr}} 的自选组合，只有该账户能修改。这里的修改只会用于下方的预览。",
+      "readOnlyDefault": "这是账户 {{addr}} 使用的默认组合，只有该账户能修改。这里的修改只会用于下方的预览。",
+      "valid": "有效，可以保存。",
+      "matches": "与你的链上组合一致。",
+      "isDefault": "这是默认组合。编辑并保存即可选定你的自选组合。",
+      "revert": "撤销修改",
+      "confirmClear": "确认：使用默认",
+      "clear": "清除（使用默认）",
+      "save": "保存组合到链上",
+      "findPlaceholder": "在 {{n}} 只中查找…",
+      "findAria": "查找要添加的股票",
+      "moreToFind": "还有 {{n}} 只，搜索即可找到",
+      "noMatch": "没有匹配的启用股票。"
+    }
+  },
+  "consent": {
+    "label": {
+      "reading": "读取中",
+      "authorized": "已授权",
+      "low": "额度不足",
+      "expired": "已过期",
+      "none": "未授权",
+      "partial": "部分授权"
+    },
+    "unlimited": "无限额",
+    "detail": {
+      "reading": "正在读取授权额度…",
+      "authorized": "扣款授权有效至 {{until}}",
+      "authorizedLimited": "扣款授权有效至 {{until}} · USDG→Permit2 授权 {{amount}}",
+      "low": "目前仅剩 {{room}} 可扣款（USDG→Permit2 {{erc20}}，Permit2→SweepExecutor {{p2}}）。超出的扣款会失败，额度用完后扣款即停止，重新授权即可提高额度",
+      "lowVsCap": "目前仅剩 {{room}} 可扣款（USDG→Permit2 {{erc20}}，Permit2→SweepExecutor {{p2}}），低于 {{cap}} 的每周上限。超出的扣款会失败，额度用完后扣款即停止，重新授权即可提高额度",
+      "expiring": "Permit2 授权将于 {{until}} 到期，离到期太近，执行器不会扣款",
+      "expired": "Permit2 授权已于 {{until}} 到期",
+      "none": "没有授权额度，无法扣款",
+      "partialNoP2": "USDG 已授权给 Permit2，但 SweepExecutor 没有 Permit2 授权，无法扣款",
+      "partialNoErc20": "SweepExecutor 的 Permit2 授权仍然有效，但 USDG 未授权给 Permit2。现在无法扣款，但之后在任何应用里再把 USDG 授权给 Permit2，都会让它重新生效。撤销授权才能彻底终止"
+    }
+  },
+  "collection": {
+    "listSep": "、",
+    "label": {
+      "off": "凑整已关闭",
+      "on": "凑整已开启",
+      "noWallet": "已开启 · 无钱包",
+      "notAuthorized": "已开启 · 未授权",
+      "some": "已开启 · {{n}}/{{total}} 已授权",
+      "low": "已开启 · 额度不足"
+    },
+    "detail": {
+      "off": "规则已关闭（或上限为 $0）：不会再计入新的凑整。已暂存的零钱仍可自动买入。",
+      "checking": "正在检查已绑定钱包的扣款授权…",
+      "noWallet": "规则已开启，但还没有绑定钱包，任何付款都不会产生凑整。请在“绑定钱包”中绑定一个。",
+      "checkingN": "已绑定 {{n}} 个钱包，正在检查扣款授权…",
+      "notAuthorized": "已绑定的 {{n}} 个钱包都没有授权扣款，所以目前不会收取任何零钱，这期间付款产生的凑整也可能永远无法收取。请逐一连接每个消费钱包，在“绑定钱包 → 授权凑整”中完成授权。",
+      "some": "目前只从 {{pullable}} 收取凑整。未授权：{{missing}}，其付款产生的凑整不会被收取。",
+      "low": "{{n}} 个已绑定的钱包均已授权，但 {{low}} 的可扣款额度低于每周上限，请在“绑定钱包”中重新授权。",
+      "on": "已绑定 {{n}} 个钱包，全部已授权。新的凑整会持续存入暂存区。"
+    }
+  },
+  "fundTx": {
+    "connectFirst": "请先连接钱包。",
+    "revertedOnChain": "交易在链上回滚，没有兑换也没有授权任何资产，只花掉了网络费用。"
+  }
+}

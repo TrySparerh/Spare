@@ -1,0 +1,14 @@
+commit: [pre-release commit, not in the public history]; the blob ids below identify the sources
+uncommitted changes copied (src, test/unit, test/mocks, foundry.toml):
+   M contracts/foundry.toml
+blob src/SweepExecutor.sol: c98767a3718dcb3fd13a4d7a68e56dc5e57001c4
+blob src/CashPark.sol: b4d6f2ab0e7b575295fc47a68f1377162501158f
+blob src/StockRouter.sol: 5960404d1278253375b899af5d02c01e3b3a3256
+blob mutation/gambit.conf.json: c248180d7e957b9226720f030fd72a2b492e0653
+blob mutation/run-mutants.sh: 58c541723e7aa416a6166c7415de22da72251324
+forge: forge Version: 1.5.1-stable
+solc: Version: 0.8.26+commit.8a97fa7a.Windows.msvc
+gambit: gambit 0.2.1 (git+https://github.com/Certora/gambit#072ff4c6d747397f859e0a15a20fe1ff05672332)
+settings: via_ir=false optimizer=false fuzz_runs=512 fuzz_seed=0x5ba4e invariant_runs=128 invariant_depth=64 timeout=900s
+suite (unmutated): 19 suites, 328 tests passed, 0 failed, 0 skipped
+finished: 2026-10-02T22:06Z

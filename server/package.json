@@ -1,0 +1,45 @@
+{
+  "name": "spare-api",
+  "version": "3.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Spare API — round-up investing on Robinhood Chain: engine reads and Spare MCP",
+  "main": "dist/index.js",
+  "packageManager": "npm@11.19.0",
+  "devEngines": {
+    "packageManager": {
+      "name": "npm",
+      "version": ">=11.10.0",
+      "onFail": "warn"
+    }
+  },
+  "engines": {
+    "node": "24.x"
+  },
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "typecheck": "tsc --noEmit -p ."
+  },
+  "dependencies": {
+    "cors": "2.8.6",
+    "dotenv": "16.6.1",
+    "express": "4.22.3",
+    "viem": "2.57.1",
+    "zod": "3.25.76"
+  },
+  "devDependencies": {
+    "@types/cors": "2.8.19",
+    "@types/express": "5.0.6",
+    "@types/node": "22.19.19",
+    "tsx": "4.22.2",
+    "typescript": "5.9.3",
+    "vitest": "4.1.11"
+  },
+  "overrides": {
+    "qs": "6.16.0"
+  }
+}

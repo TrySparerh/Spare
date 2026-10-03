@@ -1,0 +1,254 @@
+SPARE governance rehearsal - 2026-10-02T05:45:24Z
+  repo HEAD  [pre-release commit, not in the public history] (working tree may carry uncommitted changes)
+  forge      forge Version: 1.5.1-stable
+  fork of    <RHC_RPC_URL> (chain 4663)
+  local node "anvil/v1.5.1" at http://127.0.0.1:8551, chain 4663, forked at block 77992222, time 1790919925
+
+== 0. baseline: VerifyDeployment on the fork, current roles
+  | SUMMARY: 254 passed, 0 failed, 0 warnings; ownership pending acceptance on 0/7 contracts
+  | VerifyDeployment: PASS
+  [ok]   VerifyDeployment PASS on the fork before the hand-over (owner = pauser = attestor = EOA)
+
+== 1. Safes (canonical Safe v1.4.1 factory + SafeL2 singleton, on the fork)
+  owner Safe  0x023Cd43e6fC74B380126071DAE1cb0eC4b8d4D5A  2 of 3: [0x4D5Da2C23008FCC73284E60C9c461780C45A20F6, 0x6d31f2B23540A4097cA92c84e096FB586cD533C7, 0x316a90Bf768832B838231Afe57a9763f6ca6d708]
+  pauser Safe 0x8fF26d7e51E85110BEB2C2bEC17322f85f434035  1 of 2: [0x4B1F5ac29a0062cBD3EA3c82689a44F8aD918eED, 0xD6a4FA401CffD16C2AEd13131D7FAfF2C7Cda200]
+  [ok]   owner Safe threshold = 2
+  [ok]   pauser Safe threshold = 1
+
+== 2. a user with spare change in CashPark (before the hand-over, system live)
+  [spare]   0x19969BECe3F66E2AA04445BB02d197efDa17A0e6 <- 50 USDG transferred from holder 0xf70da97812cb96acdf810712aa562db8dfa3dbef
+  [ok]   CashPark.pending(user) after keeper accrue = 7000000
+
+== 3. DeployTimelock - guards (dry runs, nothing sent)
+  [ok]   DeployTimelock refuses SPARE_TIMELOCK_DELAY=3600 (below 48 h)
+  [ok]   DeployTimelock refuses a 1-of-2 owner Safe (policy 2 of 3)
+
+== 4. DeployTimelock - broadcast by the owner EOA (to the local fork)
+  | [ok]   proxy of a canonical Safe v1.4.1 singleton (0x29fcB43b46531BcA003ddC8FCB67FFE91900C762)
+  | [ok]   VERSION() = 1.4.1
+  | [ok]   threshold 2 of 3 signers (policy: at least 2 of 3)
+  | [ok]   signer 0x4D5Da2C23008FCC73284E60C9c461780C45A20F6 is not a hot key / the outgoing owner
+  | [ok]   signer 0x6d31f2B23540A4097cA92c84e096FB586cD533C7 is not a hot key / the outgoing owner
+  | [ok]   signer 0x316a90Bf768832B838231Afe57a9763f6ca6d708 is not a hot key / the outgoing owner
+  | [ok]   no modules enabled (a module acts without the signers)
+  | [ok]   no transaction guard set
+  | [ok]   runtime code = OpenZeppelin TimelockController (v5.0.2, this repo's compiler settings)
+  | [ok]   minDelay 172800 s >= 172800 s (48 h)
+  | [ok]   owner Safe holds PROPOSER_ROLE
+  | [ok]   owner Safe holds CANCELLER_ROLE
+  | [ok]   owner Safe holds EXECUTOR_ROLE
+  | [ok]   execution is not open to everyone (no EXECUTOR_ROLE on 0x0)
+  | [ok]   the timelock administers itself
+  | [ok]   minDelay = requested 172800 s
+  | [ok]   deployer is NOT admin
+  | [ok]   deployer is NOT proposer
+  | [ok]   deployer is NOT executor
+  | [ok]   owner Safe is NOT admin (role changes go through the delay)
+  | SUMMARY: 20 passed, 0 failed, 0 warnings
+  | TimelockController: 0xFD9775DA94b96b671b2cF9d587137Fb4aDC2BceB
+  [ok]   TimelockController deployed at 0xFD9775DA94b96b671b2cF9d587137Fb4aDC2BceB (scan from block 77995231)
+  [ok]   timelock minDelay = 172800
+
+== 5. HandOver - guard, then broadcast by the owner EOA, then idempotence
+  [ok]   HandOver refuses pauser Safe = owner Safe
+  | [ok]   live role holder: DEFAULT_ADMIN_ROLE 0xFD9775DA94b96b671b2cF9d587137Fb4aDC2BceB
+  | [ok]   live role holder: PROPOSER_ROLE 0x023Cd43e6fC74B380126071DAE1cb0eC4b8d4D5A
+  | [ok]   live role holder: CANCELLER_ROLE 0x023Cd43e6fC74B380126071DAE1cb0eC4b8d4D5A
+  | [ok]   live role holder: EXECUTOR_ROLE 0x023Cd43e6fC74B380126071DAE1cb0eC4b8d4D5A
+  | [ok]   RoleGranted scan from block 77995231 covers the deployment (4 live grants)
+  | [ok]   pauser Safe is not the owner Safe
+  | [ok]   pauser is not the timelock (pausing must not wait 48 h)
+  | [ok]   attestor is not 0x0, the timelock, the outgoing owner, the deployer or the keeper
+  | SUMMARY: 59 passed, 0 failed, 0 warnings; 15 call(s) sent; 7/7 awaiting acceptOwnership through the timelock
+  [ok]   HandOver sent 15 calls (7 setPauser, 1 setAttestor, 7 transferOwnership)
+  [ok]   AssetRegistry: owner still EOA, pendingOwner = timelock, pauser = pauser Safe
+  [ok]   ElectionRegistry: owner still EOA, pendingOwner = timelock, pauser = pauser Safe
+  [ok]   ScreeningGate: owner still EOA, pendingOwner = timelock, pauser = pauser Safe
+  [ok]   StockRouter: owner still EOA, pendingOwner = timelock, pauser = pauser Safe
+  [ok]   CashPark: owner still EOA, pendingOwner = timelock, pauser = pauser Safe
+  [ok]   FeeVault: owner still EOA, pendingOwner = timelock, pauser = pauser Safe
+  [ok]   SweepExecutor: owner still EOA, pendingOwner = timelock, pauser = pauser Safe
+  [ok]   ScreeningGate.attestor = 0x8fF26d7e51E85110BEB2C2bEC17322f85f434035
+  [ok]   HandOver re-run is idempotent: 0 calls sent
+
+== 6. TimelockBatch (acceptOwnership x7) and scheduling through the owner Safe
+  operation 0x4ec0d4370afd4764cb9707811ff9df86aa45e6a8371b4a2e8b70752353ef8f91
+  Safe Transaction Builder JSON (schedule), as generated:
+    {"version":"1.0","chainId":"4663","meta":{"name":"SPARE timelock: schedule acceptOwnership x7","description":"TimelockController.scheduleBatch, operation 0x4ec0d4370afd4764cb9707811ff9df86aa45e6a8371b4a2e8b70752353ef8f91, delay 172800 s","createdFromSafeAddress":"0x023Cd43e6fC74B380126071DAE1cb0eC4b8d4D5A"},"transactions":[{"to":"0xFD9775DA94b96b671b2cF9d587137Fb4aDC2BceB","value":"0","data":"0x8f2a0bb000000000000000000000000000000000000000000000000000000000000000c000000000000000000000000000000000000000000000000000000000000001c000000000000000000000000000000000000000000000000000000000000002c00000000000000000000000000000000000000000000000000000000000000000dd43dbedf4bef696b09686e40c1397129002b6ce973074e36804a8ac731caa73000000000000000000000000000000000000000000000000000000000002a30000000000000000000000000000000000000000000000000000000000000000070000000000000000000000006da6e49e2c59b622697a208a83bf266d5268c93700000000000000000000000005fb5b11b676bc0fbf893480b4101fb7c8db0543000000000000000000000000c3289c38c53055d58009b2fa9499c753b3dbced30000000000000000000000001fec3654fea787a63104a6634c9781b837b5e17e000000000000000000000000947538724ed80ba609b4a1b4bbcb62d7f3cd6abb000000000000000000000000f5b9c500998d122fbbb606f23dbee91aa5549add000000000000000000000000908f545d0fb87fac3b225cbd12e899bce77147ab00000000000000000000000000000000000000000000000000000000000000070000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000700000000000000000000000000000000000000000000000000000000000000e00000000000000000000000000000000000000000000000000000000000000120000000000000000000000000000000000000000000000000000000000000016000000000000000000000000000000000000000000000000000000000000001a000000000000000000000000000000000000000000000000000000000000001e000000000000000000000000000000000000000000000000000000000000002200000000000000000000000000000000000000000000000000000000000000260000000000000000000000000000000000000000000000000000000000000000479ba509700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000479ba509700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000479ba509700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000479ba509700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000479ba509700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000479ba509700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000479ba509700000000000000000000000000000000000000000000000000000000","contractMethod":null,"contractInputsValues":null}]}
+  [ok]   generator's SCHEDULE_SAFE_TX_HASH vs Safe.getTransactionHash = 0x478a76146cb00d9e3dd961d09949aebbfeb543d65f0d6cd21ce8803ac1aa59ff
+  [ok]   old owner EOA calls timelock.scheduleBatch itself -> reverts 0xe2517d3f
+  [ok]   owner Safe execTransaction with 1 of 3 signatures -> reverts GS020
+  [ok]   operation state after the Safe schedules (1 = Waiting) = 1
+  [ok]   operation ready-at timestamp = 1791092899
+
+== 7. the 48 h delay
+  [ok]   execute right after scheduling -> reverts 0x5ead8eb5
+  [ok]   CashPark.owner() during the delay (EOA keeps control until acceptance) = 0x56B67D71039365083727b661Dbe9Bdb7f7D15189
+  [ok]   execute at 48 h - 2 min (block time 1791092779) -> reverts 0x5ead8eb5
+  [ok]   operation state after execute (3 = Done) = 3
+  [ok]   AssetRegistry: owner = timelock, no pending owner
+  [ok]   ElectionRegistry: owner = timelock, no pending owner
+  [ok]   ScreeningGate: owner = timelock, no pending owner
+  [ok]   StockRouter: owner = timelock, no pending owner
+  [ok]   CashPark: owner = timelock, no pending owner
+  [ok]   FeeVault: owner = timelock, no pending owner
+  [ok]   SweepExecutor: owner = timelock, no pending owner
+
+== 8. the old owner EOA has no power left
+  [ok]   EOA CashPark.setExecutor(EOA) - the drain path -> sent transaction rejected, 0x118cdaa7
+  [ok]   CashPark.executor() unchanged = 0x908F545d0FB87fAC3b225cbd12E899BCE77147Ab
+  [ok]   EOA CashPark.setAdapter -> reverts 0x118cdaa7
+  [ok]   EOA AssetRegistry.setActive(SPY,false) -> reverts 0x118cdaa7
+  [ok]   EOA ElectionRegistry.setDefaultMix -> reverts 0x118cdaa7
+  [ok]   EOA ScreeningGate.setEnforced(true) -> reverts 0x118cdaa7
+  [ok]   EOA ScreeningGate.setAttestor -> reverts 0x118cdaa7
+  [ok]   EOA ScreeningGate.revoke (attestor-or-owner) -> reverts 0xdde328f8
+  [ok]   EOA StockRouter.setCaller(EOA,true) -> reverts 0x118cdaa7
+  [ok]   EOA StockRouter.setSequencerFeed -> reverts 0x118cdaa7
+  [ok]   EOA FeeVault.withdraw -> reverts 0x118cdaa7
+  [ok]   EOA SweepExecutor.setParams(fee 1%, slippage 5%) -> reverts 0x118cdaa7
+  [ok]   EOA SweepExecutor.setKeeper(EOA,true) -> reverts 0x118cdaa7
+  [ok]   EOA AssetRegistry.setPauser -> reverts 0x118cdaa7
+  [ok]   EOA AssetRegistry.transferOwnership -> reverts 0x118cdaa7
+  [ok]   EOA AssetRegistry.pause (neither pauser nor owner) -> reverts 0x492f6781
+  [ok]   EOA ElectionRegistry.setPauser -> reverts 0x118cdaa7
+  [ok]   EOA ElectionRegistry.transferOwnership -> reverts 0x118cdaa7
+  [ok]   EOA ElectionRegistry.pause (neither pauser nor owner) -> reverts 0x492f6781
+  [ok]   EOA ScreeningGate.setPauser -> reverts 0x118cdaa7
+  [ok]   EOA ScreeningGate.transferOwnership -> reverts 0x118cdaa7
+  [ok]   EOA ScreeningGate.pause (neither pauser nor owner) -> reverts 0x492f6781
+  [ok]   EOA StockRouter.setPauser -> reverts 0x118cdaa7
+  [ok]   EOA StockRouter.transferOwnership -> reverts 0x118cdaa7
+  [ok]   EOA StockRouter.pause (neither pauser nor owner) -> reverts 0x492f6781
+  [ok]   EOA CashPark.setPauser -> reverts 0x118cdaa7
+  [ok]   EOA CashPark.transferOwnership -> reverts 0x118cdaa7
+  [ok]   EOA CashPark.pause (neither pauser nor owner) -> reverts 0x492f6781
+  [ok]   EOA FeeVault.setPauser -> reverts 0x118cdaa7
+  [ok]   EOA FeeVault.transferOwnership -> reverts 0x118cdaa7
+  [ok]   EOA FeeVault.pause (neither pauser nor owner) -> reverts 0x492f6781
+  [ok]   EOA SweepExecutor.setPauser -> reverts 0x118cdaa7
+  [ok]   EOA SweepExecutor.transferOwnership -> reverts 0x118cdaa7
+  [ok]   EOA SweepExecutor.pause (neither pauser nor owner) -> reverts 0x492f6781
+  [ok]   owner Safe calling CashPark.setExecutor directly (bypassing the timelock) -> reverts 0x118cdaa7
+  [ok]   owner Safe calling SweepExecutor.setKeeper directly -> reverts 0x118cdaa7
+
+== 9. the pauser Safe pauses instantly (deployments/4663-pauser-pause-all.json, 1 of 2)
+  pause tx mined in block 77995240 (head before it: 77995239): no delay, one signature
+  [ok]   AssetRegistry.paused() right after the pause tx = true
+  [ok]   ElectionRegistry.paused() right after the pause tx = true
+  [ok]   ScreeningGate.paused() right after the pause tx = true
+  [ok]   StockRouter.paused() right after the pause tx = true
+  [ok]   CashPark.paused() right after the pause tx = true
+  [ok]   FeeVault.paused() right after the pause tx = true
+  [ok]   SweepExecutor.paused() right after the pause tx = true
+  [ok]   keeper SweepExecutor.sweep while paused -> reverts 0x1309a563
+  [ok]   keeper SweepExecutor.accrue while paused -> reverts 0x1309a563
+  [ok]   keeper CashPark.park while paused -> reverts 0x1309a563
+  [ok]   pauser Safe cannot unpause (owner-only) -> reverts 0x118cdaa7
+
+== 10. exit is never gated: the user withdraws while everything is paused
+  [ok]   CashPark.pending(user) after exit = 0
+  [ok]   user USDG gained by exit() = 7000000
+
+== 11. owner actions now run only through the timelock: unpause x7
+  [ok]   TimelockBatch refuses a custom batch without a salt label
+  [ok]   owner Safe schedules with a 1 h delay -> reverts 0x54336609
+  [ok]   approved-hash signatures where the other owner never approved -> reverts GS025
+  [ok]   unpause batch scheduled through the CLI path: signer 1 approveHash(0x7eed2ab0dee108dff0f6871cb2fe2564c15fa2decb153fc07d9d11b601cf4607), signer 3 execTransaction
+  [ok]   unpause executed immediately -> reverts 0x5ead8eb5
+  [ok]   unpause operation state after scheduling (1 = Waiting) = 1
+  [ok]   unpause executed at 48 h - 1 min (block time 1791265671) -> reverts 0x5ead8eb5
+  [ok]   executeBatch by a non-executor (the old EOA) -> reverts 0xe2517d3f
+  [ok]   unpause operation state (3 = Done) = 3
+  [ok]   AssetRegistry.paused() after the timelocked unpause = false
+  [ok]   ElectionRegistry.paused() after the timelocked unpause = false
+  [ok]   ScreeningGate.paused() after the timelocked unpause = false
+  [ok]   StockRouter.paused() after the timelocked unpause = false
+  [ok]   CashPark.paused() after the timelocked unpause = false
+  [ok]   FeeVault.paused() after the timelocked unpause = false
+  [ok]   SweepExecutor.paused() after the timelocked unpause = false
+
+== 12. VerifyDeployment against the post-hand-over roles (SPARE_REQUIRE_ACCEPTED=true)
+  SweepExecutor -> CashPark USDG allowance now 115792089237316195423570985008687907853269984665640564039457584007913122639935
+  [ok]   max - that allowance (USDG CashPark.credit pulled in step 2) = 7000000
+  | [FAIL] SweepExecutor -> CashPark USDG allowance = max
+  | [ok]   AssetRegistry.pauser = config pauser
+  | [ok]   AssetRegistry: owner = config owner (accepted)
+  | [ok]   CashPark.pauser = config pauser
+  | [ok]   CashPark: owner = config owner (accepted)
+  | [ok]   ElectionRegistry.pauser = config pauser
+  | [ok]   ElectionRegistry: owner = config owner (accepted)
+  | [ok]   FeeVault.pauser = config pauser
+  | [ok]   FeeVault: owner = config owner (accepted)
+  | [ok]   ScreeningGate.attestor = config attestor
+  | [ok]   ScreeningGate.pauser = config pauser
+  | [ok]   ScreeningGate: owner = config owner (accepted)
+  | [ok]   StockRouter.pauser = config pauser
+  | [ok]   StockRouter: owner = config owner (accepted)
+  | [ok]   SweepExecutor.pauser = config pauser
+  | [ok]   SweepExecutor: owner = config owner (accepted)
+  | └─ ← [Revert] VerifyDeployment: FAILED
+  | SUMMARY: 253 passed, 1 failed, 36 warnings; ownership pending acceptance on 0/7 contracts
+  | Error: script failed: VerifyDeployment: FAILED
+  [ok]   VerifyDeployment: every role, ownership (0/7 pending) and wiring check passes except the allowance one below
+  [known] VerifyDeployment fails only 'USDG allowance = max'. USDG decrements even an unlimited allowance on transferFrom, so the exact-max check fails after ANY accrual or sweep, on mainnet too; not a hand-over effect. script/lib/SpareBase.sol should accept >= max/2 (it does since 2026-10-02)
+
+== 13. live role inventory after the hand-over (contracts/scripts/roles.sh)
+  | SPARE roles - chain 4663, block 77995246, 2026-10-02T05:50:04Z, addresses contracts/addresses/4663.json
+  | 
+  | == ownership and pause (Ownable2Step + SpareAuth)
+  | contract          owner                                       pendingOwner                                pauser                                      paused
+  | AssetRegistry     0xFD9775DA94b96b671b2cF9d587137Fb4aDC2BceB  0x0000000000000000000000000000000000000000  0x8fF26d7e51E85110BEB2C2bEC17322f85f434035  false
+  | ElectionRegistry  0xFD9775DA94b96b671b2cF9d587137Fb4aDC2BceB  0x0000000000000000000000000000000000000000  0x8fF26d7e51E85110BEB2C2bEC17322f85f434035  false
+  | ScreeningGate     0xFD9775DA94b96b671b2cF9d587137Fb4aDC2BceB  0x0000000000000000000000000000000000000000  0x8fF26d7e51E85110BEB2C2bEC17322f85f434035  false
+  | StockRouter       0xFD9775DA94b96b671b2cF9d587137Fb4aDC2BceB  0x0000000000000000000000000000000000000000  0x8fF26d7e51E85110BEB2C2bEC17322f85f434035  false
+  | CashPark          0xFD9775DA94b96b671b2cF9d587137Fb4aDC2BceB  0x0000000000000000000000000000000000000000  0x8fF26d7e51E85110BEB2C2bEC17322f85f434035  false
+  | FeeVault          0xFD9775DA94b96b671b2cF9d587137Fb4aDC2BceB  0x0000000000000000000000000000000000000000  0x8fF26d7e51E85110BEB2C2bEC17322f85f434035  false
+  | SweepExecutor     0xFD9775DA94b96b671b2cF9d587137Fb4aDC2BceB  0x0000000000000000000000000000000000000000  0x8fF26d7e51E85110BEB2C2bEC17322f85f434035  false
+  | 
+  | == keepers (KeeperSet logs since block 76221269, each re-read live with isKeeper)
+  | CashPark          0xB7FE91DF829FD2F616c111EDFb9f7B5703FE84fD  isKeeper=true
+  | SweepExecutor     0xB7FE91DF829FD2F616c111EDFb9f7B5703FE84fD  isKeeper=true
+  | 
+  | == StockRouter callers (CallerSet logs, re-read live with isCaller)
+  | 0x908F545d0FB87fAC3b225cbd12E899BCE77147Ab  isCaller=true
+  | 0x4197a7Eb8e08a35fd55273afA3D0f8Cb3bd98525  isCaller=true
+  | sequencerFeed   0x0000000000000000000000000000000000000000
+  | 
+  | == CashPark
+  | executor        0x908F545d0FB87fAC3b225cbd12E899BCE77147Ab   (only it can credit / withdrawForSweep / returnFromSweep)
+  | adapter         0x1E29fD4F78cDfabdE3Df605e66aE3d78a8980DD8
+  | totalPending    0 USDG base units
+  | totalUnits      0
+  | USDG held       0 base units
+  | 
+  | == ScreeningGate
+  | attestor        0x8fF26d7e51E85110BEB2C2bEC17322f85f434035
+  | enforced        false
+  | 
+  | == SweepExecutor params (owner-set; bounds MAX_FEE_BPS 100, MAX_SLIPPAGE_BPS 500, threshold >= 1e6, epoch >= 3600)
+  | finalityBuffer  3000
+  | threshold       5000000
+  | feeBps          25
+  | slippageBps     150
+  | epochLength     86400
+  | 
+  | == FeeVault
+  | USDG held       0 base units (owner-withdrawable)
+  | 
+  | == AssetRegistry
+  | registered 36, active 27
+  | 
+  | == adapters (immutable wiring, no roles)
+  | UsdgParkAdapter park = 0x947538724Ed80BA609B4A1B4bBCb62d7f3Cd6Abb
+  | SgovParkAdapter park = 0x947538724Ed80BA609B4A1B4bBCb62d7f3Cd6Abb, router = 0x1Fec3654Fea787a63104a6634C9781B837B5e17E
+  | RuleRegistry: no admin role (users link, unlink and set rules for themselves only)
+  | 
+  | == TimelockController 0xFD9775DA94b96b671b2cF9d587137Fb4aDC2BceB
+  | minDelay        172800 s
+  | DEFAULT_ADMIN_ROLE  0xFD9775DA94b96b671b2cF9d587137Fb4aDC2BceB  hasRole=true
+  | PROPOSER_ROLE       0x023Cd43e6fC74B380126071DAE1cb0eC4b8d4D5A  hasRole=true
+  | CANCELLER_ROLE      0x023Cd43e6fC74B380126071DAE1cb0eC4b8d4D5A  hasRole=true
+  | EXECUTOR_ROLE       0x023Cd43e6fC74B380126071DAE1cb0eC4b8d4D5A  hasRole=true
+
+REHEARSAL SUMMARY: 102 passed, 0 failed, 1 known (caused outside the governance tooling) (fork block 77992222, chain 4663, local anvil only)

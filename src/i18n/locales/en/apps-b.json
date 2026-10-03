@@ -1,0 +1,921 @@
+{
+  "shared": {
+    "readFirst": "Read this first",
+    "notBuilt": "NOT BUILT",
+    "reading": "READING",
+    "refresh": "Refresh",
+    "unavailable": "UNAVAILABLE",
+    "listSep": ", ",
+    "customAdapter": "custom adapter",
+    "readUniverseFail": "Couldn't read the stock universe",
+    "dur": {
+      "now": "now",
+      "hm": "{{h}}h {{m}}m",
+      "ms": "{{m}}m {{s}}s",
+      "hmShort": "{{h}}h {{m}}m",
+      "msShort": "{{m}}m {{s}}s"
+    },
+    "stockA": "Stock A",
+    "stockB": "Stock B"
+  },
+  "autoInvest": {
+    "hero": {
+      "kicker": "From payments to stocks",
+      "subtitle": "Sweep engine",
+      "description": "When your parked spare reaches the threshold, the keeper buys your stock mix — once per epoch, with nothing to click.",
+      "badge": "AUTOMATIC"
+    },
+    "what": "sweep status, park and mix",
+    "connectWhy": "Connect your investing wallet to see whether and when the keeper will sweep it.",
+    "example": {
+      "title": "Auto-buy threshold",
+      "note": "Sample payments with a $1 round-up and a $5 threshold — not your account.",
+      "aria": "Example round-ups",
+      "parked": "Parked (example)",
+      "toGo": "{{amount}} to go — then the keeper sweeps the spare into your stock mix.",
+      "cols": {
+        "payment": "Payment",
+        "paid": "Paid",
+        "roundsTo": "Rounds to",
+        "spare": "Spare"
+      },
+      "items": {
+        "coffee": "Coffee",
+        "lunch": "Lunch",
+        "ride": "Ride",
+        "groceries": "Groceries",
+        "books": "Books"
+      }
+    },
+    "policy": {
+      "title": "How A Sweep Runs",
+      "accent": "ON-CHAIN RULES",
+      "aria": "Sweep rules",
+      "venue": {
+        "term": "Venue",
+        "body": "Each asset is bought through the ONE pool pinned for it in AssetRegistry. Pools are never discovered at runtime."
+      },
+      "price": {
+        "term": "Price",
+        "body": "The keeper supplies a same-block quote limit per asset; the router also rejects any fill outside the asset's oracle band."
+      },
+      "waiting": {
+        "term": "Waiting",
+        "body": "While any active asset in your mix has a stale oracle (market closed) or a paused token, the keeper holds the WHOLE account: no leg is bought until every active leg can trade."
+      },
+      "deferred": {
+        "term": "Deferred",
+        "body": "No quote, or a swap that reverts at sweep time: that leg's USDG goes back to the park untouched and is retried next epoch; the other legs still buy. A market condition never becomes a USDG payout."
+      },
+      "delisted": {
+        "term": "Delisted",
+        "body": "If an elected asset is deactivated, it does not hold up the sweep: that leg is delivered to you as USDG with a notice (safe-settled)."
+      },
+      "fee": {
+        "term": "Fee",
+        "rate": "{{fee}} on legs that actually convert — never on deferred or safe-settled legs.",
+        "small": "A small bps fee on legs that actually convert — never on deferred or safe-settled legs."
+      },
+      "delivery": {
+        "term": "Delivery",
+        "body": "Bought tokens go straight to your account wallet. If a token refuses the transfer, it is held as a claimable balance in Spare Balance."
+      }
+    },
+    "park": {
+      "usdg": "USDG (no yield)",
+      "sgov": "SGOV treasuries"
+    },
+    "verdict": {
+      "paused": "PAUSED BY OPERATOR",
+      "connect": "CONNECT TO CHECK",
+      "attemptedDeferred": "ATTEMPTED · DEFERRED",
+      "swept": "SWEPT THIS EPOCH",
+      "below": "BELOW THRESHOLD",
+      "notEligible": "NOT ELIGIBLE",
+      "noMix": "NO MIX",
+      "waits": "WAITS FOR MARKET",
+      "checking": "CHECKING MARKET",
+      "due": "DUE NEXT KEEPER RUN"
+    },
+    "swept": {
+      "last": "Last swept in epoch #{{epoch}}.",
+      "never": "Never swept.",
+      "legSwapFail": "{{sym}} swap did not fill",
+      "legStatus": "{{sym}} {{status}}",
+      "allDeferred": "Attempted in epoch #{{epoch}}, but every leg deferred ({{why}}): {{amount}} went back to the park and nothing was bought. Retried next epoch, in {{next}}.",
+      "settled": "Swept in epoch #{{epoch}}: {{settled}} settled. Eligible again in {{next}}.",
+      "settledDeferred": "Swept in epoch #{{epoch}}: {{settled}} settled, {{deferred}} deferred back to the park. Eligible again in {{next}}.",
+      "plain": "Swept in epoch #{{epoch}}; eligible again in {{next}}.",
+      "checking": "Swept in epoch #{{epoch}} — checking what filled…; eligible again in {{next}}."
+    },
+    "engine": {
+      "readFail": "Could not read SweepExecutor",
+      "title": "Sweep Engine",
+      "sweepsAt": "Sweeps at",
+      "sweepsAtSub": "the auto-buy threshold",
+      "fee": "Fee",
+      "epoch": "Epoch",
+      "epochLength": "Epoch length",
+      "nextEpochIn": "Next epoch in",
+      "epochNo": "Epoch #{{epoch}}",
+      "nextIn": "next in {{time}}",
+      "epochAria": "Share of the current epoch elapsed",
+      "hint": "The keeper sweeps automatically — there is nothing to click. <code>sweep()</code> is keeper-only on-chain: once per epoch it takes every account whose parked spare has reached the threshold, splits it across that account's mix and buys each leg through its one allowlisted pool."
+    },
+    "account": {
+      "title": "This Account",
+      "readFail": "Could not read this account: {{error}}",
+      "reading": "Reading this account from Robinhood Chain…",
+      "parked": "Parked spare",
+      "threshold": "Threshold",
+      "verdictLabel": "Keeper verdict",
+      "nextEpochIn": "Next epoch in {{time}}",
+      "progressAria": "Parked spare toward the sweep threshold",
+      "atThreshold": "At or over the threshold.",
+      "toGo": "{{amount}} to go.",
+      "pendingUnits": " {{amount}} pending USDG + parked units.",
+      "checklist": "Sweep checklist",
+      "parkIn": "Idle spare parks in: {{park}}.",
+      "parkInStale": "Idle spare parks in: {{park}} (NAV stale — new accruals are held un-parked for now)."
+    },
+    "check": {
+      "engineLive": "ENGINE LIVE",
+      "pausedDetail": "The operator paused new sweeps. Your exit from Spare Balance still works.",
+      "liveDetail": "SweepExecutor is not paused.",
+      "thresholdMet": "THRESHOLD MET",
+      "thresholdMetDetail": "{{value}} ≥ {{threshold}}.",
+      "belowDetail": "Round-ups keep parking until {{threshold}}.",
+      "notSwept": "NOT SWEPT YET",
+      "deferredEpoch": "DEFERRED THIS EPOCH",
+      "eligible": "ELIGIBLE",
+      "notCleared": "NOT CLEARED",
+      "screenOk": "Screening clearance is current.",
+      "screenBlocked": "Screening is enforced and this account is not cleared — sweeps skip it.",
+      "screenOff": "Screening is not enforced at launch.",
+      "ownMix": "OWN MIX",
+      "defaultMix": "DEFAULT MIX",
+      "noMixDetail": "No mix and no default — nothing to buy.",
+      "delisted": "{{sym}} DELISTED",
+      "delistedDetail": "Deactivated in the asset registry: at the sweep this leg is paid to you as USDG (safe-settled), not bought. It does not hold up the rest of the mix.",
+      "unknownRouter": "oracle status unknown — reading the router…",
+      "unknownRegistry": "reading the asset registry…",
+      "waitingDetail": "{{detail}}. The keeper holds the WHOLE account — no leg is bought — until every active leg can trade."
+    }
+  },
+  "spareBalance": {
+    "hero": {
+      "kicker": "Spare change · on-chain",
+      "subtitle": "Park · Stocks · Claims",
+      "description": "Parked spare, the stocks your sweeps bought and anything waiting to be claimed — read straight from Robinhood Chain."
+    },
+    "what": "parked spare, stock holdings and claimables",
+    "connectWhy": "Connect your investing wallet to see what SPARE holds for it: parked spare, the stocks it bought and anything waiting to be claimed.",
+    "example": {
+      "title": "Spare change",
+      "note": "How one payment becomes spare — an example, not your balance.",
+      "roundUpTo": "Round up to",
+      "aria": "Example round-up rule",
+      "coffee": "Coffee",
+      "roundsTo": "Rounds to",
+      "spare": "Spare",
+      "steps": {
+        "park": "The spare parks in CashPark with your other round-ups.",
+        "sweep": "At the sweep threshold the keeper buys your stock mix.",
+        "land": "The stocks land in your wallet — and show up here."
+      }
+    },
+    "park": {
+      "usdg": "USDG adapter · no yield",
+      "sgov": "SGOV adapter · treasuries",
+      "units": "{{amount}} units",
+      "readFail": "Could not read CashPark",
+      "title": "Spare In The Park",
+      "reading": "Reading CashPark…",
+      "total": "Total value",
+      "pending": "Pending USDG",
+      "pendingSub": "accrued, not yet parked",
+      "parked": "Parked",
+      "splitAria": "Pending {{pending}}, parked {{parked}}",
+      "splitPending": "Pending {{amount}}",
+      "splitParked": "Parked {{amount}}"
+    },
+    "tx": {
+      "exit": "Exit CashPark",
+      "claim": "Claim {{sym}}"
+    },
+    "cols": {
+      "asset": "Asset",
+      "tokens": "Tokens",
+      "price": "Price",
+      "value": "Value"
+    },
+    "liveOracle": "live oracle",
+    "priceLast": "{{price}} last",
+    "exit": {
+      "readOnly": "Only account {{account}} can exit — exit() pays whoever calls it. Connect that account to withdraw.",
+      "confirm": "Sends {{pending}} pending USDG to this wallet first, then redeems parked units to USDG — or hands them over in kind (e.g. SGOV) if they cannot be redeemed right now. Your rule and linked wallets are untouched, so new round-ups keep accruing unless you pause them.",
+      "info": "exit() cannot be paused, even if SPARE halts new activity. It does rely on the operator: one owner key (no multisig or timelock yet) controls the SPARE contracts and could redirect parked spare before you exit, so the park is only as safe as that key.",
+      "confirmBtn": "Confirm: withdraw everything",
+      "btn": "Exit — withdraw all"
+    },
+    "holdings": {
+      "title": "Stock Holdings",
+      "accentUnpriced": "{{value}} + {{count}} unpriced",
+      "none": "NONE YET",
+      "readingRegistry": "Reading the asset registry…",
+      "emptyAccount": "Account {{account}} holds none of the registry's tokenized stocks yet. Sweeps deliver bought tokens to that account, not to this spending wallet.",
+      "emptyWallet": "This wallet holds none of the registry's tokenized stocks yet. Sweeps deliver bought tokens straight here.",
+      "value": "Stocks value",
+      "unpricedSub": "+ {{count}} unpriced",
+      "positions": "Positions",
+      "aria": "Stock holdings",
+      "hintAccount": "Tokens held by account {{account}} (sweeps deliver there), valued at the router's oracle price. “last” = the feed's most recent answer while the market is closed. Account USDG: {{usdg}}.",
+      "hintWallet": "Tokens held by this wallet (sweeps deliver there), valued at the router's oracle price. “last” = the feed's most recent answer while the market is closed. Wallet USDG: {{usdg}}."
+    },
+    "claim": {
+      "title": "Claimable",
+      "waiting": "{{count}} WAITING",
+      "nothing": "NOTHING HELD",
+      "empty": "Nothing is waiting. A delivery lands here only if a token refused to transfer to you during a sweep.",
+      "aria": "Claimable deliveries",
+      "btn": "Claim",
+      "readOnly": "claim(token) pays whoever calls it — connect account {{account}} to claim.",
+      "own": "claim(token) pays this wallet — the account itself — and is never paused."
+    }
+  },
+  "activity": {
+    "filter": {
+      "all": "All",
+      "roundups": "Round-ups",
+      "sweeps": "Sweeps",
+      "money": "Claims & exits",
+      "settings": "Settings"
+    },
+    "ago": {
+      "s": "{{n}}s ago",
+      "m": "{{n}}m ago",
+      "h": "{{n}}h ago",
+      "d": "{{n}}d ago"
+    },
+    "ev": {
+      "notCollected": "NOT COLLECTED",
+      "scanned": "SCANNED",
+      "nothingPulled": "NOTHING PULLED",
+      "partial": "PARTIAL",
+      "roundUp": "ROUND-UP",
+      "skipped": "SKIPPED",
+      "credited": "CREDITED",
+      "attempted": "ATTEMPTED",
+      "swept": "SWEPT",
+      "delivered": "DELIVERED",
+      "claimable": "CLAIMABLE",
+      "deferred": "DEFERRED",
+      "safeSettled": "SAFE-SETTLED",
+      "claimed": "CLAIMED",
+      "returned": "RETURNED",
+      "toSweep": "TO SWEEP",
+      "exit": "EXIT",
+      "exitPartial": "EXIT PARTIAL",
+      "ruleSet": "RULE SET",
+      "linked": "LINKED",
+      "unlinked": "UNLINKED",
+      "mixSet": "MIX SET",
+      "mixCleared": "MIX CLEARED"
+    },
+    "d": {
+      "where": "{{wallet}} · blocks {{from}}–{{to}}",
+      "notCollected": "{{where}} · {{payments}} payment(s) owed ≈{{due}} in round-ups, but $0 was pulled (no pull consent, no USDG in the wallet, or the weekly cap was used up). The cursor moved past them — they can no longer be collected.",
+      "notCollectedAmount": "$0 of ≈{{due}}",
+      "scanned": "{{where}} · no payments in this window — cursor advanced",
+      "nothingPulledChecking": "{{where}} · $0 pulled — checking this window for payments…",
+      "nothingPulledUnknown": "{{where}} · $0 pulled — could not check this window for payments (if the rule changed before it, load older weeks)",
+      "partial": "pulled from {{where}} · short by ≈{{short}} of ≈{{due}} owed (weekly cap, pull allowance or wallet balance) — the rest can no longer be collected",
+      "pulledFrom": "pulled from {{where}}",
+      "skipped": "{{wallet}}: {{reason}}",
+      "pullReverted": "pull reverted",
+      "credited": "spare credited to the park",
+      "filled": "{{sym}} filled",
+      "legDeferred": "{{sym}} deferred",
+      "batch": "batch: {{fills}}",
+      "epoch": "epoch #{{epoch}}",
+      "attempted": "epoch #{{epoch}} · every leg deferred — {{amount}} went back to the park, nothing bought; retried next epoch",
+      "split": "{{settled}} settled, {{deferred}} deferred back to the park",
+      "delivered": "{{sym}} sent to your wallet",
+      "claimable": "{{sym}} refused the transfer — claim it in Spare Balance",
+      "swapNoFill": "swap did not fill",
+      "deferred": "{{sym}}: {{reason}} — back to the park",
+      "suspended": "suspended",
+      "safeSettled": "{{sym}} {{reason}} — paid to you as USDG",
+      "claimed": "{{sym}} claimed",
+      "returned": "returned to the park",
+      "toSweep": "withdrawn from the park for a sweep",
+      "exited": "withdrew everything",
+      "exitedInKind": "withdrew everything · {{units}} units in kind",
+      "exitPartial": "{{units}} parked units could not leave yet — exit again later",
+      "ruleSet": "${{roundTo}} · {{mult}}× · cap {{cap}}/7d · {{state}}",
+      "ruleOn": "on",
+      "rulePaused": "paused",
+      "linked": "wallet {{wallet}} linked",
+      "unlinked": "wallet {{wallet}} unlinked",
+      "mixCleared": "back to the default mix"
+    },
+    "why": "Connect your investing wallet. Activity is read from Robinhood Chain event logs for that account.",
+    "hero": {
+      "kicker": "Your own book · on-chain",
+      "subtitle": "Round-ups · sweeps · settings",
+      "description": "Every round-up, sweep, delivery and settings change on your SPARE account, decoded straight from Robinhood Chain event logs. Each row links to its transaction on Blockscout.",
+      "noIndexer": "NO INDEXER"
+    },
+    "what": "round-ups, sweeps and settings",
+    "connectTitle": "Connect a wallet",
+    "sample": {
+      "pulledYours": "pulled from your spending wallet · 3 payments in the window"
+    },
+    "cols": {
+      "when": "When",
+      "event": "Event",
+      "detail": "Detail",
+      "amount": "Amount",
+      "tx": "Tx"
+    },
+    "kinds": {
+      "roundups": "Spare pulled from your linked wallets, window by window — including windows that were owed but not collected.",
+      "sweeps": "Parked spare swept into your stock mix and delivered to your wallet. Legs that cannot fill defer back to the park.",
+      "money": "Tokens you claim, and withdrawals out of the park.",
+      "settings": "Round-up rule, linked-wallet and stock-mix changes."
+    },
+    "preview": {
+      "title": "Preview — what you will see",
+      "note": "Illustration only: sample numbers showing how this window reads. Not your account and not live data.",
+      "aria": "Example activity rows — illustration, not live data",
+      "logged": "What gets logged"
+    },
+    "math": {
+      "aria": "Example: you pay $3.75, it rounds up to $4.00, and $0.25 of spare change is set aside to invest",
+      "youPay": "You pay",
+      "roundTo": "Round to $1",
+      "spare": "Spare",
+      "badge": "ROUND UP"
+    },
+    "body": {
+      "blockTitle": "block {{n}}",
+      "window": "blocks {{from}}–{{to}}",
+      "scanning": "scanning…",
+      "statusScanning": "SCANNING",
+      "statusError": "ERROR",
+      "title": "Account activity",
+      "pulled": "Round-ups pulled",
+      "pulledSub": "from your wallets · loaded window",
+      "swept": "Swept (net)",
+      "sweptSub": "net of legs deferred back to the park",
+      "notCollected": "Not collected",
+      "deferredLegs": "Deferred legs",
+      "events": "Events",
+      "scanLabel": "Scanning event logs",
+      "chunks": "{{done}}/{{total}} chunks",
+      "scanFailed": "Scan failed",
+      "totalsHint": "Totals cover the loaded window only: {{window}}. Swept is net of legs that deferred back to the park. Not collected re-prices each round-up window from the wallet's own USDG payments (current exclusions, rule in force) — an estimate of round-ups the keeper moved past without pulling."
+    },
+    "log": {
+      "title": "Event log",
+      "checking": "CHECKING WINDOWS",
+      "rowsBadge": "{{count}} ROW(S)",
+      "filter": "Filter",
+      "filterAria": "Filter events",
+      "refresh": "↻ Refresh",
+      "aria": "Account activity, newest first",
+      "emptyError": "Scan failed — see above.",
+      "emptyAll": "No SPARE activity for this account in the loaded window.",
+      "emptyKind": "Nothing of this kind in the loaded window.",
+      "rows": "{{count}} row(s)",
+      "idle": "{{count}} idle-window advance(s) with no payments hidden",
+      "checkingWindows": "checking round-up windows…",
+      "older": "Load older (7 days)",
+      "reachedStart": "Reached the deployment block — nothing older."
+    },
+    "selected": {
+      "title": "Selected event",
+      "clear": "Clear selection",
+      "block": "Block",
+      "time": "Time",
+      "tx": "Transaction",
+      "fillsIntro": "Netted batch fills in this sweep (all accounts in the batch, not just yours):",
+      "fillSwept": "<b>{{sym}}</b>: {{in}} in · fee {{fee}} · {{out}} out",
+      "fillDeferred": "<b>{{sym}}</b>: {{in}} deferred"
+    },
+    "footer": "Read straight from event logs in ≤ 50,000-block chunks — no indexer, no server. The first scan covers about the last 7 days; older weeks load on demand, back to the deployment block."
+  },
+  "viewingKey": {
+    "items": {
+      "notes": {
+        "piece": "Shielded note commitments",
+        "why": "Holdings must live as commitments in a pool, not a balance on a public account."
+      },
+      "stealth": {
+        "piece": "Stealth funding addresses",
+        "why": "A sweep must land somewhere that cannot be linked back to a linked wallet."
+      },
+      "key": {
+        "piece": "Viewing-key derivation + audit",
+        "why": "The key that decrypts your own notes must be derived and reviewed before issue."
+      },
+      "proof": {
+        "piece": "Solvency proof circuit",
+        "why": "The pool must prove it holds every share it owes without naming who owns what."
+      },
+      "custody": {
+        "piece": "Custodian + venue agreement",
+        "why": "Whoever holds the equities must accept settling against a shielded pool."
+      }
+    },
+    "preview": {
+      "title": "Preview · not live",
+      "body": "Nothing is routed privately yet. Every sweep settles publicly to your wallet, and nothing in this window changes that."
+    },
+    "hero": {
+      "kicker": "Spare privacy",
+      "subtitle": "Private path",
+      "description": "What a private path for sweeps would take. None of it is built: today every sweep settles publicly.",
+      "noKey": "NO KEY ISSUED"
+    },
+    "read": {
+      "p1": "The shielded-balance cryptography behind the private path <warn>is not built</warn>. No shielded pool is deployed, no viewing key has ever been issued, and no proof has been verified.",
+      "p2": "The route switch below only changes the picture in this window. <info>It is not saved</info> and changes nothing on-chain.",
+      "p3": "No viewing key is shown here, because none exists. A key that looks real but protects nothing would be saved, trusted and possibly reused. Once key derivation is audited and live, your key will come from the pool, not from this screen."
+    },
+    "route": {
+      "title": "Sweep route",
+      "accent": "PREVIEW",
+      "label": "Show the route",
+      "aria": "Which route to show (preview only)",
+      "optPublic": "Public",
+      "optPrivate": "Private (not built)"
+    },
+    "readout": {
+      "route": "Route today",
+      "public": "public",
+      "saved": "Choice saved",
+      "key": "Key material held",
+      "none": "none",
+      "today": "Shielded today",
+      "no": "no"
+    },
+    "prereq": {
+      "title": "Before the private path works",
+      "count": "{{count}} prerequisite(s)",
+      "required": "REQUIRED"
+    },
+    "balance": {
+      "title": "Shielded balance",
+      "head": "No shielded pool · nothing to show",
+      "body": "No shielded pool is deployed, so there is no shielded balance to show. Your SPARE balance today is public and lives in Spare Balance: parked spare in CashPark and the stock tokens sweeps deliver to your wallet."
+    },
+    "lanes": {
+      "aria": "Where a sweep settles",
+      "wallet": "Your wallet",
+      "walletNote": "transparent account",
+      "only": "ONLY ROUTE",
+      "pool": "Shielded pool",
+      "warn": "Preview only. There is no private route yet: sweeps settle to your wallet in public.",
+      "sweep": "SWEEP",
+      "pick": "SHOWN"
+    },
+    "notDeployed": "not deployed",
+    "diagram": {
+      "label": "What the private path means",
+      "title": "Shielded by design",
+      "badge": "DESIGN · NOT BUILT"
+    },
+    "callout": {
+      "a": {
+        "title": "Your data yours",
+        "lead": "Shielded holdings.",
+        "body": "Your tokenized equities sit in a pool as encrypted commitments instead of a balance anyone can read off an explorer. The pool's total is public; your slice of it is not."
+      },
+      "b": {
+        "title": "Unlinkable wallet",
+        "lead": "Stealth funding.",
+        "body": "Each sweep lands on a fresh one-time address, so watching a linked wallet does not reveal a running position — the single biggest leak in a transparent round-up product."
+      },
+      "c": {
+        "title": "Read your own book",
+        "lead": "A viewing key.",
+        "body": "One read-only secret, held by you, that decrypts your own notes so you can audit your balance and history. Read-only: it cannot move funds. Sharing it hands someone permanent sight of your account, which is why it must never be issued casually — or by a mockup."
+      },
+      "d": {
+        "title": "Proof of backing",
+        "lead": "Public solvency proofs.",
+        "body": "Privacy for you, not for the operator. The pool publishes proofs that it holds every share it owes, so shielding your balance never means trusting an unaudited ledger."
+      }
+    },
+    "vault": {
+      "aria": "Shielded pool — not deployed",
+      "badge": "SHIELDED POOL"
+    }
+  },
+  "about": {
+    "props": {
+      "version": "Version",
+      "network": "Network",
+      "contracts": "Contracts",
+      "fee": "Fee",
+      "token": "Token",
+      "deployed": "Deployed 30 Sep 2026",
+      "feeValue": "0.25% on spare change that converts, plus the pool's swap fee",
+      "tokenValue": "$SPARE — not live yet"
+    },
+    "title": "Spare — round-ups into tokenized stocks",
+    "meta": "Version {{version}} · Robinhood Chain (4663) · Contracts deployed 30 Sep 2026",
+    "body": "Spare rounds up the USDG payments from wallets you link and sweeps the spare change into the stocks you choose. No subscription; Spare's fee is 0.25% of the spare change that converts, and each buy also pays its pool's own swap fee, which differs by stock.",
+    "footer": "© 2026 Spare. Built on Robinhood Chain. Not investment advice.",
+    "engine": "Roundup engine",
+    "versionBadge": "Version {{version}}"
+  },
+  "mySpare": {
+    "drives": "{{count}} DRIVES",
+    "tagline": "Every part of your Spare account, one click away.",
+    "desc": {
+      "fundWallet": "ETH ↔ USDG swaps · official bridges",
+      "spareBalance": "Parked spare · your stocks · exit",
+      "linkWallet": "Spending wallets · pull approvals",
+      "roundupRules": "$1 / $5 / $10 · 1×–5× · weekly cap",
+      "stockMix": "Up to 6 stocks · weights to 100%",
+      "autoInvest": "Sweeps · threshold · next epoch",
+      "activity": "Round-ups, sweeps and deliveries",
+      "viewingKey": "Private round-ups · coming in S2"
+    }
+  },
+  "taskManager": {
+    "title": "Spare Task Manager",
+    "accent": "{{open}} OPEN · {{services}} SERVICES",
+    "intro": "Applications and the services they read from — live.",
+    "aria": "Open windows and background services",
+    "footer": "Processes: {{count}} · select a window, then End Task to close it.",
+    "endTask": "End Task",
+    "cols": {
+      "process": "Process",
+      "status": "Status",
+      "detail": "Detail"
+    },
+    "status": {
+      "minimized": "Minimized",
+      "running": "Running",
+      "live": "Live",
+      "marketClosed": "Market closed",
+      "partly": "Partly live",
+      "unavailable": "Unavailable",
+      "checking": "Checking",
+      "online": "Online",
+      "reporting": "Reporting"
+    },
+    "detail": {
+      "window": "window",
+      "feedsOk": "{{count}} stock feeds OK",
+      "lastCloses": "last closes · sweeps wait",
+      "someWaiting": "some feeds waiting",
+      "noAnswer": "no answer from the chain",
+      "block": "block #{{n}}",
+      "rpcDown": "RPC not responding",
+      "apiDown": "on-chain app still works",
+      "lastRoundUp": "last round-up {{ago}}",
+      "noRoundUps": "no round-ups reported yet",
+      "viaApi": "status via Spare API"
+    },
+    "svc": {
+      "feeds": "Chainlink feeds",
+      "keeper": "Spare keeper (remote)"
+    }
+  },
+  "recycleBin": {
+    "objects0": "0 OBJECTS",
+    "empty": "Recycle Bin is empty",
+    "body": "No deleted round-ups, sweeps or settings to restore. The chain remembers everything — that's by design.",
+    "stats": {
+      "objects": "Objects",
+      "size": "Size",
+      "free": "Free"
+    },
+    "emptyBtn": "Empty Recycle Bin",
+    "restoreAll": "Restore All"
+  },
+  "roadmap": {
+    "status": {
+      "live": "LIVE",
+      "inProgress": "IN PROGRESS",
+      "planned": "PLANNED"
+    },
+    "hero": {
+      "title": "Where Spare is going",
+      "subtitle": "Order, not dates",
+      "description": "S1 is live on Robinhood Chain; everything after it is planned."
+    },
+    "openFull": "Open the full roadmap ↗",
+    "count": "{{live}} live · {{toCome}} to come",
+    "wontTitle": "What we won't ship",
+    "principles": "S1 is live because it was built on patterns that already work: indexing, registries, one router. Each later stage attaches without changing S1's interfaces. We publish order, not dates, and we mark something live only when it's on mainnet.",
+    "wont": {
+      "subscription": "A subscription.",
+      "projections": "Yield or return projections.",
+      "card": "A card or bank link.",
+      "pausableExit": "An exit that can be paused.",
+      "earlyAddress": "A token address before the token is real."
+    },
+    "phases": {
+      "s1": {
+        "title": "Round-ups, live",
+        "summary": "Wallet-native round-ups into tokenized stocks, on the public path. Contracts live on Robinhood Chain mainnet since 30 Sep 2026.",
+        "link": "Link spending wallets (up to 8)",
+        "rules": "Round-up rules: $1 / $5 / $10, 1×–5×, weekly cap",
+        "mix": "Stock mix: up to 6 stocks; default 60% SPY / 40% NVDA",
+        "cashPark": "CashPark with exit that can't be paused",
+        "keeper": "Keeper: collection every minute, quote-limited sweeps",
+        "pools": "Uniswap v4 pinned pools with Chainlink guards",
+        "stocks": "Stocks: the full Robinhood Chain stock universe, each live while its pool tracks Chainlink",
+        "fund": "Fund Wallet: ETH ↔ USDG swaps and official bridge links",
+        "fee": "0.25% conversion fee, no subscription"
+      },
+      "hardening": {
+        "title": "Hardening S1",
+        "summary": "Making the live system sturdier before it grows.",
+        "multisig": "Move the owner key to a multisig",
+        "audit": "Third-party security audit",
+        "standby": "Switch standby stocks on (QQQ and others) once their pools track Chainlink",
+        "treasuryPark": "Move idle spare to the SGOV treasury park after fork verification",
+        "gate": "Decide on the eligibility gate (deployed, off)"
+      },
+      "s2": {
+        "title": "Private round-ups",
+        "summary": "Round up without being watched: shielded balance, unlinkable funding, confidential amounts, viewing-key recap, public solvency proofs. Exits stay open.",
+        "balance": "Shielded Spare balance",
+        "stealth": "Stealth funding from spending wallets",
+        "confidential": "Confidential amounts and sealed buys",
+        "viewingKey": "Viewing key: your full book, readable only by you",
+        "proofs": "Epoch solvency proofs"
+      },
+      "s3": {
+        "title": "Boosts and $SPARE",
+        "summary": "Rewards that add to round-ups instead of fees that subtract from them.",
+        "boosts": "Boosts: partner rebates routed into round-ups",
+        "streaks": "Streaks and first-full-share milestones",
+        "match": "Match sponsors (family or employer) with caps",
+        "kids": "Round-ups to a kid's account or a shared goal",
+        "recap": "Weekly recap cards",
+        "token": "$SPARE: fees fund buybacks and stakers"
+      },
+      "s4": {
+        "title": "In-flow round-ups and more chains",
+        "summary": "Round up at the moment you pay, and from wallets on other chains.",
+        "hook": "Account-abstraction (ERC-4337) round-up hook at payment time",
+        "chains": "Spending wallets on other chains (Solana, Arc)"
+      }
+    }
+  },
+  "markets": {
+    "stockTokenNote": "Stock tokens are ERC-20 tokens issued by Robinhood Assets (Jersey) Limited that track the underlying. They are not shares. Prices here are per token and already include the token’s multiplier. Chainlink updates stock prices during the US-equities 24/5 session; outside it, the last close is shown and sweeps wait. Not offered to US persons.",
+    "hooked": "hooked",
+    "noHook": "no hook",
+    "market": {
+      "live": "LIVE",
+      "liveTitle": "Chainlink stock feeds are live",
+      "partly": "PARTLY LIVE",
+      "partlyTitle": "Some stock feeds are live, some are waiting",
+      "closed": "MARKET CLOSED",
+      "closedTitle": "US-equities 24/5 session closed — last closes shown, sweeps wait",
+      "checking": "CHECKING",
+      "checkingTitle": "Reading the stock universe from Robinhood Chain",
+      "offlineTitle": "Couldn't reach Robinhood Chain"
+    },
+    "copyTitle": "copy {{token}}",
+    "copyAria": "Copy {{symbol}} token address {{short}}",
+    "copied": "copied ✓",
+    "dynamicFee": "dynamic fee"
+  },
+  "stockDesk": {
+    "hero": {
+      "kicker": "Robinhood Chain · stock universe",
+      "subtitle": "Tokenized stocks",
+      "description": "The stocks your spare change can buy, live from Spare's asset registry and Chainlink on Robinhood Chain. Only active stocks can go in a mix."
+    },
+    "badge": "{{active}} ACTIVE · {{total}} REGISTERED",
+    "noPrices": "Robinhood Chain didn't answer, so there are no prices to show yet.",
+    "divider": "The stock universe",
+    "loading": "Loading",
+    "readingAria": "Reading the stock universe",
+    "readingRegistry": "Reading AssetRegistry on Robinhood Chain…",
+    "aboutTokens": "About stock tokens",
+    "card": {
+      "noFeedPrice": "no price from the feed yet",
+      "livePrice": "live Chainlink price · {{ago}}",
+      "lastClose": "last close · {{ago}}",
+      "active": "ACTIVE",
+      "inactive": "INACTIVE",
+      "price": "Price",
+      "noPrice": "no price",
+      "oracle": "Oracle",
+      "pool": "Pool",
+      "defaultMix": "Default mix",
+      "addToMix": "Add to mix",
+      "change": "~1 day"
+    },
+    "age": {
+      "firstLoad": "First load",
+      "loadingPrices": "Loading prices",
+      "label": "Data age",
+      "value": "{{age}}s / {{max}}s"
+    },
+    "feed": {
+      "title": "Desk feed",
+      "universe": "Universe",
+      "prices": "Prices",
+      "viaGuard": "via StockRouter's oracle guard",
+      "refresh": "Refresh",
+      "every": "every {{n}}s",
+      "updated": "Updated"
+    }
+  },
+  "afterHours": {
+    "depth": {
+      "noQuote": "NO QUOTE",
+      "deep": "DEEP",
+      "ok": "OK",
+      "thin": "THIN"
+    },
+    "active": "active",
+    "inactive": "inactive",
+    "premium": "premium",
+    "discount": "discount",
+    "onchainPremium": "on-chain premium",
+    "onchainDiscount": "on-chain discount",
+    "feedPrice": "feed {{price}}",
+    "closePrice": "close {{price}}",
+    "live": "live",
+    "lastClose": "last close",
+    "cols": {
+      "stock": "Stock",
+      "gap": "Gap",
+      "depth": "Depth",
+      "onchain": "On-chain"
+    },
+    "et": "{{time}} ET",
+    "inM": "{{n}}m",
+    "inH": "{{n}}h",
+    "session": {
+      "open": "SESSION OPEN",
+      "closed": "SESSION CLOSED",
+      "title": "US-equities 24/5 session: Sunday 20:00 to Friday 20:00 ET",
+      "lineOpen": "US-equities session is open",
+      "lineOpens": "Session opens {{when}} · in {{in}}",
+      "lineClosed": "US-equities session is closed",
+      "hintOpen": "Chainlink is posting live stock prices; on-chain pools should sit close to them.",
+      "hintClosed": "Chainlink shows the last close. The pools keep trading, so any gap is where the chain is pricing the open. Spare’s sweeps wait for the session.",
+      "card": "Market session"
+    },
+    "hero": {
+      "kicker": "Tokenized stocks · 24/7",
+      "subtitle": "Robinhood Chain never closes",
+      "description": "Wall Street keeps hours; the stock tokens don't. See what each stock trades at on-chain right now against Chainlink's price, and how deep the pool behind it is."
+    },
+    "quoting": "Quoting…",
+    "quotingAria": "Quoting the stock pools",
+    "stats": {
+      "premium": "At a premium",
+      "premiumSub": "on-chain above Chainlink",
+      "discount": "At a discount",
+      "discountSub": "on-chain below it",
+      "widest": "Widest readable gap",
+      "none": "none",
+      "noneSub": "no active pool deep enough to read"
+    },
+    "noTape": "Robinhood Chain didn't answer, so there's no tape to show yet.",
+    "tape": {
+      "title": "On-chain vs Chainlink",
+      "accent": "{{count}} STOCKS · $100 QUOTE",
+      "loading": "LOADING",
+      "empty": "No stocks in the universe yet.",
+      "aria": "After-hours tape: on-chain price, Chainlink price, gap and pool depth per stock",
+      "quotesFailed": "Some quotes failed — those rows read “—”.",
+      "gapBar": "gap bar: premium grows right, discount grows left — scaled to the widest gap on the board (min ±1%)."
+    },
+    "how": {
+      "title": "How to read the tape",
+      "body": "on-chain = what $100 of USDG buys now through the Uniswap v4 pool Spare pins for the stock · Chainlink = the feed’s price (last close while the session is closed) · depth = price impact from a $5 to a $100 buy.",
+      "warn": "A big gap on a THIN pool is thin liquidity, not a signal. Nothing here is investment advice."
+    }
+  },
+  "xray": {
+    "kind": {
+      "stocks": "stocks",
+      "cash": "cash",
+      "eth": "ETH"
+    },
+    "priceNote": {
+      "none": "no Chainlink price yet",
+      "live": "Chainlink, live",
+      "lastClose": "Chainlink, last close",
+      "usd": "counted at $1.00"
+    },
+    "parked": {
+      "symbol": "Parked",
+      "name": "Spare change in CashPark"
+    },
+    "etherGas": "Ether (gas)",
+    "split": "Split by kind",
+    "splitAria": "{{label}}: {{parts}}",
+    "weightAria": "{{symbol}} weight",
+    "cols": {
+      "asset": "Asset",
+      "value": "Value",
+      "weight": "Weight",
+      "kind": "Kind",
+      "balance": "Balance"
+    },
+    "example": {
+      "note": "Illustration only — a sample wallet, not your data."
+    },
+    "how": {
+      "title": "How X-Ray works",
+      "connect": "Connect",
+      "connectBody": "The wallet that holds your Robinhood Chain assets.",
+      "read": "Read",
+      "readBody": "X-Ray reads its balances on Robinhood Chain: every stock token Spare knows, USDG, ETH and WETH, plus any spare change parked for it in Spare.",
+      "price": "Price",
+      "priceBody": "Each position is priced with Chainlink (USDG at $1.00), then weighed against the whole wallet.",
+      "hint": "Read-only. Nothing to sign, nothing sent anywhere, and no advice — just what's there."
+    },
+    "status": {
+      "noWallet": "NO WALLET"
+    },
+    "hero": {
+      "kicker": "What's in my wallet",
+      "subtitle": "Your on-chain book",
+      "description": "Reads your wallet's Robinhood Chain holdings — stock tokens, USDG, ETH and the spare change parked in Spare — prices them with Chainlink and shows how the book is split.",
+      "readOnly": "READ-ONLY"
+    },
+    "connectWhy": "Connect a wallet to X-ray its Robinhood Chain holdings. X-Ray only reads balances — it never asks your wallet to sign anything.",
+    "wallet": {
+      "reading": "Reading",
+      "hint": "· balances on Robinhood Chain, refreshed every minute",
+      "rescan": "Re-scan",
+      "progress": "X-raying your wallet",
+      "spending": "This wallet is a linked spending wallet; the spare change it rounds up is parked for its Spare account, not here."
+    },
+    "readFail": {
+      "title": "Couldn't read this wallet",
+      "body": "Robinhood Chain didn't answer, so there is nothing to show yet."
+    },
+    "empty": {
+      "title": "Nothing to X-ray yet",
+      "accent": "EMPTY",
+      "body": "No ETH, USDG or stock tokens on Robinhood Chain in this wallet yet. Fund it, set up round-ups, and the stocks your spare change buys will show up here.",
+      "open": "Open Fund Wallet"
+    },
+    "holdings": {
+      "title": "Holdings",
+      "accent": "{{total}} · {{priced}}/{{count}} priced",
+      "value": "Wallet value",
+      "valueSub": "{{priced}} of {{count}} positions priced",
+      "positions": "Positions",
+      "largest": "Largest",
+      "aria": "Holdings: asset, kind, balance, value and weight",
+      "showFewer": "Show fewer",
+      "showAll": "Show all {{count}}"
+    },
+    "ray": {
+      "title": "The X-ray",
+      "inStocks": "In stocks",
+      "stockTokenOne": "{{count}} stock token",
+      "stockTokenMany": "{{count}} stock tokens",
+      "inCash": "In cash",
+      "inCashHint": "USDG, plus spare change parked in Spare",
+      "inEth": "In ETH",
+      "inEthHint": "gas money (ETH and WETH)",
+      "largestHint": "share of the priced wallet"
+    },
+    "next": {
+      "title": "Next steps",
+      "body": "Stocks your round-ups buy land in this wallet. Change which ones in Stock Mix, or see what's parked in Spare Balance."
+    },
+    "footer": "On-chain balances · Chainlink prices (a stock shows its last close while the market is closed) · USDG at $1.00 · not investment advice."
+  },
+  "oracle": {
+    "label": {
+      "live": "LIVE",
+      "stale": "STALE",
+      "paused": "PAUSED",
+      "seqDown": "SEQ DOWN",
+      "badAnswer": "BAD ANSWER"
+    },
+    "detail": {
+      "live": "oracle fresh — sweeps can buy",
+      "stale": "feed older than heartbeat + 1h (market closed) — sweep waits",
+      "paused": "token paused (corporate action) — sweep waits",
+      "seqDown": "sequencer down — sweep waits",
+      "badAnswer": "oracle returned bad data — sweep waits",
+      "unknown": "oracle status unknown"
+    }
+  },
+  "tx": {
+    "connectFirst": "Connect a wallet first.",
+    "revertedOnChain": "The transaction reverted on-chain — nothing changed."
+  }
+}

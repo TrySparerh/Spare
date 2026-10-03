@@ -1,0 +1,209 @@
+# Build and test every part of Spare on every push and pull request.
+#
+# Every action is pinned to a full commit SHA (release in the trailing comment)
+# and every container image by digest; the `pins` job enforces that, plus exact
+# engine and spare-api dependencies, exact toolchains and install-script/cooldown
+# settings (.github/scripts/check-pins.mjs).
+# Fork tests (anvil forks of chain 4663) are excluded: they need an RPC and a
+# recent block, and they never broadcast. Run them locally (see README).
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+jobs:
+  pins:
+    name: Pins and supply chain
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+      - name: Pin checker unit tests
+        run: node --test .github/scripts/check-pins.test.mjs
+      - name: Check pins
+        run: node .github/scripts/check-pins.mjs
+
+  contracts:
+    name: Contracts (forge build + test, no fork)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    defaults:
+      run:
+        working-directory: contracts
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          submodules: recursive
+          persist-credentials: false
+      - uses: foundry-rs/foundry-toolchain@908c540300062bd5a7e473851cdb4282204cee09 # v1.9.1
+        with:
+          version: v1.5.1
+      - name: forge build
+        run: |
+          forge --version
+          forge build
+      - name: forge test (unit, invariants, audit PoCs that need no fork)
+        run: forge test --no-match-path 'test/fork/*'
+
+  halmos:
+    name: Contracts (Halmos symbolic specs)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: contracts
+    steps:
+      # The specs import only forge-std and src/libraries, so the nested
+      # v4 submodules are not needed.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          submodules: true
+          persist-credentials: false
+      - uses: foundry-rs/foundry-toolchain@908c540300062bd5a7e473851cdb4282204cee09 # v1.9.1
+        with:
+          version: v1.5.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+      # halmos pins z3-solver itself; yices (its default solver) is pinned here.
+      - name: Install Halmos
+        run: python -m pip install --disable-pip-version-check halmos==0.3.3 yices-solver==2.6.4.post23
+      - name: halmos (RoundUp + OracleGuard; any FAIL, TIMEOUT or ERROR fails the job)
+        # Settings, including the per-query solver timeout, are in halmos/halmos.toml.
+        run: |
+          halmos --version
+          halmos --root halmos --no-status
+
+  engine:
+    name: Engine + keeper (bun test, tsc)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      # engine/test/roundup.test.ts checks parity with the frontend's round-up math
+      # by importing src/lib/spare.ts, so the root dependencies are needed too.
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - name: Root dependencies (frontend parity test)
+        run: npm ci --no-audit --no-fund
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
+        with:
+          bun-version-file: engine/package.json
+      # --ignore-scripts, as in both engine Dockerfiles: Bun would otherwise run
+      # the install scripts of its default-trusted packages (msgpackr-extract).
+      - name: Install
+        working-directory: engine
+        run: bun install --frozen-lockfile --ignore-scripts
+      - name: Typecheck
+        working-directory: engine
+        run: bun run typecheck
+      # The live-fork router suite is opt-in (SPARE_FORK=1) and stays off here.
+      - name: bun test (no fork)
+        working-directory: engine
+        env:
+          # The DB tests run on in-process PGlite (real Postgres in WASM, served over
+          # the wire protocol), so no service container; locally they prefer the
+          # compose Timescale from infra/docker-compose.yml when it is up.
+          SPARE_TEST_PGLITE: "1"
+        run: bun test
+
+  images:
+    name: Engine images (build, non-root, entrypoints resolve)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Build both engine images (the deployed services build the same Dockerfiles)
+        run: |
+          docker build -f engine/Dockerfile -t spare-engine:ci engine
+          docker build -f engine/Dockerfile.keeper -t spare-keeper:ci engine
+      - name: Unprivileged user, pinned bun, every entrypoint resolves on production deps
+        run: |
+          want=$(jq -r .packageManager engine/package.json | cut -d@ -f2)
+          check() { # image entrypoint...
+            img=$1; shift
+            uid=$(docker run --rm --entrypoint id "$img" -u)
+            ver=$(docker run --rm --entrypoint bun "$img" --version)
+            echo "$img: uid $uid, bun $ver"
+            [ "$uid" != "0" ] || { echo "::error::$img runs as root"; exit 1; }
+            [ "$ver" = "$want" ] || { echo "::error::$img has bun $ver, engine/package.json says $want"; exit 1; }
+            for entry in "$@"; do
+              docker run --rm --entrypoint bun "$img" build "$entry" --target=bun --outdir=/tmp/bundle > /dev/null
+              echo "  $entry resolves"
+            done
+          }
+          check spare-engine:ci src/index.ts src/db/migrate.ts
+          # The monitor service runs from the keeper image with another start command.
+          check spare-keeper:ci src/keeper/run.ts $( [ -f engine/src/monitor/run.ts ] && echo src/monitor/run.ts )
+
+  server:
+    name: spare-api (vitest, tsc)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: server
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+          cache-dependency-path: server/package-lock.json
+      - name: Install
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Build
+        run: npm run build
+      - name: vitest
+        run: npm run test:run
+
+  frontend:
+    name: Site (vitest, tsc, build)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - name: Install
+        run: npm ci --no-audit --no-fund
+      - name: Typecheck
+        run: npx tsc --noEmit -p tsconfig.app.json
+      - name: Lint
+        run: npm run lint
+      - name: i18n completeness (warnings fail too)
+        run: npm run i18n:check -- --strict
+      - name: vitest
+        run: npm test
+      - name: Build
+        run: npm run build

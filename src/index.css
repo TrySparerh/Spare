@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Handjet:wght@700;900&family=VT323&display=swap');
+/* Spare Holo type: chunky pixel display, pixel caps, pixel UI sans, body mono. */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Silkscreen:wght@400;700&family=Jersey+10&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+@import './styles/retro98.css';
+@import './components/retro/holo/holo.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* The brand display font is licensed separately and not redistributed in this
+   repository (README, Fonts): only a locally installed copy is used, and every
+   font stack falls back to the open fonts above without it. */
+@font-face {
+  font-family: 'Neue Metana';
+  src: local('Neue Metana Next SemiBold'), local('NeueMetanaNext-SemiBold');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  /* Page defaults behind the app: near-black background, light grey text,
+     dark borders and the Spare lilac for text selection. */
+  :root {
+    --background: 0 0% 3%;
+    --foreground: 0 0% 85%;
+    --primary: 255 92% 76%;
+    --border: 0 0% 15%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+
+  ::selection {
+    @apply bg-primary/30 text-white;
+  }
+}

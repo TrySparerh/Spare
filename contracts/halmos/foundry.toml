@@ -1,0 +1,15 @@
+# Halmos (symbolic execution) specs for the two libraries every buy and every
+# accrual depends on: RoundUp and OracleGuard. A separate Foundry root, so
+# `halmos` compiles only these specs and the libraries they import (no via-IR,
+# and nothing written to ../out). Run from contracts/: halmos --root halmos
+[profile.default]
+src = "specs"
+test = "specs"
+script = "specs"
+out = "out"
+cache_path = "cache"
+libs = ["../lib"]
+solc = "0.8.26"
+evm_version = "cancun"
+allow_paths = ["../src"]
+remappings = ["forge-std/=../lib/forge-std/src/", "spare/=../src/"]

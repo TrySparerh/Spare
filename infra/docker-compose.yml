@@ -1,0 +1,47 @@
+# SPARE engine — local infrastructure.
+#
+# Postgres (TimescaleDB) and Redis on non-default ports (5434, 6381), so they can
+# run beside another local Postgres or Redis on the usual ones.
+#
+# Images are pinned by version AND digest (multi-arch index), so a re-tag upstream
+# can never change what runs. Bump the tag and digest together. Redis stays on a
+# patched 7.4.x (>= 7.4.6 fixes CVE-2025-49844).
+#
+#   docker compose -f infra/docker-compose.yml up -d
+#
+# Postgres: postgres://spare:spare_dev@localhost:5434/spare   (Timescale, pg16)
+# Redis:    redis://localhost:6381
+#
+# The engine's tests create and use a separate database (spare_test) on the same
+# server; they never touch the `spare` database.
+name: spare
+
+services:
+  postgres:
+    image: timescale/timescaledb:2.30.2-pg16@sha256:6f139d56042989bd35f50ba5986e492cd32e35cc6778c50be2659add298dc09f
+    environment:
+      POSTGRES_USER: spare
+      POSTGRES_PASSWORD: spare_dev
+      POSTGRES_DB: spare
+    ports:
+      - "127.0.0.1:5434:5432"
+    volumes:
+      - spare_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U spare"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  redis:
+    image: redis:7.4.11-alpine@sha256:858f009f9709ce576febc734aa78b8f6d624b82571f9ddb6bda4377c833b3499
+    ports:
+      - "127.0.0.1:6381:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  spare_pgdata:

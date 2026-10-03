@@ -1,0 +1,358 @@
+{
+  "meta": {
+    "pageTitle": "证明 — Spare",
+    "description": "亲自核查 Spare：它在 Robinhood Chain 上构建了什么、10 个合约及实时源码验证、谁控制这些合约、链上安全限制、实时系统状态，以及如何在本地分叉上重放资金路径。",
+    "kicker": "证明 · Spare S1",
+    "title": "证明",
+    "subtitle": "Spare 在 Robinhood Chain 上构建了什么、由谁控制，以及如何亲自核查每一项说法。标有“实时”的数值，都在页面加载时由你的浏览器从链上、Sourcify 或 Spare API 读取。"
+  },
+  "hero": {
+    "verified": "{{n}}/{{total}} 源码已验证",
+    "verifying": "正在核对源码…",
+    "ownerEoa": "所有者：单一密钥",
+    "ownerTimelock": "所有者：{{delay}} 时间锁",
+    "ownerSafe": "所有者：Safe {{threshold}}/{{owners}}",
+    "ownerContract": "所有者：合约",
+    "ownerChecking": "正在读取所有者…",
+    "exit": "退出：从不暂停",
+    "noHumanAudit": "尚无人工审计"
+  },
+  "nav": {
+    "group": {
+      "built": "构建了什么",
+      "trust": "控制与限制",
+      "check": "亲自核查"
+    },
+    "architecture": "架构",
+    "contracts": "合约",
+    "control": "谁控制什么",
+    "rails": "安全护栏",
+    "status": "系统状态",
+    "run": "亲自运行",
+    "audit": "审计与测试"
+  },
+  "tag": {
+    "live": "实时",
+    "liveTitle": "在页面加载时实时读取",
+    "record": "记录",
+    "recordTitle": "来自 Spare 代码仓库中已提交的文件",
+    "code": "写在代码里",
+    "codeTitle": "已验证合约源码中的规则，而非可修改的设置"
+  },
+  "legend": {
+    "title": "如何阅读本页",
+    "live": "<b>实时</b>：页面加载时从 Robinhood Chain（公共 RPC）、Sourcify 或 Spare API 读取。某个来源没有响应时会显示“—”。",
+    "record": "<b>记录</b>：来自 Spare 代码仓库中已提交的文件（部署记录、审计报告）。",
+    "code": "<b>写在代码里</b>：写进已验证合约源码的规则，不是任何人可以修改的设置。"
+  },
+  "arch": {
+    "kicker": "构建了什么",
+    "intro": "Spare 为你在 Robinhood Chain 上的 USDG 付款凑整，并把零钱投入代币化股票。十个合约保管规则和资金；链下的执行器在这些合约强制的限制内完成日常工作；一个只读的 API 和 MCP 服务器报告链上的情况。",
+    "pathTitle": "资金路径",
+    "onchainTitle": "链上 · 10 个合约",
+    "onchainAccent": "不可升级",
+    "onchainNote": "没有代理合约，也没有升级路径：要改动合约，只能重新部署。",
+    "offchainTitle": "链下",
+    "keeperName": "执行器",
+    "apiName": "Spare API 与 MCP",
+    "parts": {
+      "ruleRegistry": "哪些钱包为哪个账户凑整，以及每个账户的凑整规则：凑整至 $1、$5 或 $10，1× 至 5× 倍数，以及每周上限。它没有所有者：只有账户本身能修改这些。",
+      "sweepExecutor": "通过有上限的 Permit2 扣款收取凑整，每个周期最多执行一次买入，只对实际转换的 USDG 收取转换手续费，并把股票交付给你。",
+      "cashPark": "在收取和买入之间暂存收取到的 USDG。<c>exit()</c> 随时把全部资金退还给你。",
+      "parkAdapters": "暂存 USDG 的方式。当前启用：UsdgParkAdapter，资金保持为 USDG。待命：SgovParkAdapter 会以 SGOV 持有，目前未启用。两者都没有所有者。",
+      "stockRouter": "只通过 AssetRegistry 中指定的 Uniswap v4 流动性池用 USDG 兑换股票，并拒绝明显低于 Chainlink 价格的成交。",
+      "assetRegistry": "股票池：每个代币的 Chainlink 价格源、心跳间隔、预言机价格区间、指定流动性池和启用状态。",
+      "electionRegistry": "每个账户的股票组合（权重合计 100%，仅限启用的股票）和默认组合。",
+      "screeningGate": "购买代币化股票的合规筛查门槛。已部署，上线时处于关闭状态。",
+      "feeVault": "接收转换手续费和钱包充值的兑换手续费。",
+      "keeper": "Spare 的自动化执行程序，使用一把热钱包密钥。它收取凑整并执行买入，但不能提取资金、改变交付去向、修改设置或阻止退出。",
+      "api": "面向用户和 AI 智能体的只读 HTTP 与 MCP 接口（<c>/health</c>、<c>/api/spare/*</c>、<c>/mcp</c>），报告链上的情况。"
+    }
+  },
+  "path": {
+    "aria": "一笔付款如何变成股票",
+    "s1": {
+      "title": "付款",
+      "body": "你用已绑定的钱包支付 USDG。"
+    },
+    "s2": {
+      "title": "收取凑整",
+      "body": "执行器通过 Permit2 扣取凑整金额，链上受你的每周上限约束。"
+    },
+    "s3": {
+      "title": "暂存",
+      "body": "USDG 在 CashPark 中等待。"
+    },
+    "s4": {
+      "title": "买入",
+      "body": "每个周期一次，达到买入门槛后，通过指定的 Uniswap v4 流动性池买入你的组合，每笔成交都对照 Chainlink 检查。"
+    },
+    "s5": {
+      "title": "已到账",
+      "body": "股票代币进入你的钱包。"
+    },
+    "fromStep": "接第 {{n}} 步",
+    "exitTitle": "随时退出",
+    "exitBody": "<c>CashPark.exit()</c> 退还全部暂存资金，暂停也无法阻止。",
+    "deferTitle": "价格检查未通过",
+    "deferBody": "该股票的成分顺延：对应的 USDG 留在暂存区，顺延至下一周期重试。"
+  },
+  "sourcify": {
+    "checking": "检测中",
+    "exact": "完全匹配",
+    "match": "匹配",
+    "none": "未验证",
+    "unknown": "无响应",
+    "unknownTitle": "Sourcify 没有响应。请刷新重试，或在 Sourcify 上打开该地址。",
+    "verifiedTitle": "{{date}} 在 Sourcify 验证",
+    "open": "在 Sourcify 打开此地址"
+  },
+  "code": {
+    "checking": "检测中",
+    "deployed": "已部署",
+    "none": "无代码",
+    "unread": "未读取",
+    "unreadTitle": "Robinhood Chain 的 RPC 没有响应。请在 Blockscout 上查看该地址。"
+  },
+  "dur": {
+    "h": "{{h}} 小时",
+    "hm": "{{h}} 小时 {{m}} 分",
+    "s": "{{s}} 秒"
+  },
+  "contracts": {
+    "kicker": "核查代码",
+    "intro": "Spare 于 {{date}} 在 Robinhood Chain（链 ID 4663）上部署的十个合约，起始区块 {{block}}。点击地址可在 Blockscout 查看。源码徽章会实时询问 Sourcify：公开的源码能否编译出该地址上的字节码。",
+    "summary": "{{n}}/{{total}} 已在 SOURCIFY 验证",
+    "head": {
+      "contract": "合约",
+      "address": "地址",
+      "deployed": "部署区块",
+      "bytecode": "字节码",
+      "source": "源码（Sourcify）"
+    },
+    "tx": "创建交易",
+    "verifiedAs": "对应 {{name}} · solc {{version}}",
+    "nameMismatch": "匹配到 {{name}}，预期为 {{expected}}",
+    "caption": "部署区块和创建交易：记录，来自 contracts/deployments/4663-contracts.json。字节码和源码：实时。",
+    "compiler": "使用 solc {{solc}}、via-IR、优化器 {{runs}} 次运行构建（创建记录）。",
+    "matchNote": "“匹配”表示公开的源码和编译设置能重新构建出该地址上的字节码；“完全匹配”表示内嵌的元数据也一致。无论哪种，链上运行的代码都由 Sourcify 展示的源码构建。",
+    "reproduce": "亲自复现：<c>contracts/scripts/verify-blockscout.sh check</c> 会从源码重新构建每个合约，并与链上的创建交易逐字节比对。",
+    "reproduceLink": "查看脚本",
+    "recordLink": "查看创建记录"
+  },
+  "control": {
+    "kicker": "谁能修改什么",
+    "intro": "10 个合约中有 {{n}} 个设有所有者（OpenZeppelin Ownable2Step）和暂停方。以下每个数值都实时读取自合约本身。",
+    "readFailed": "Robinhood Chain 的公共 RPC 没有响应，以下角色暂时无法读取。请刷新重试，或在 Blockscout 上查看。",
+    "badge": {
+      "eoa": "单一密钥",
+      "timelock": "时间锁",
+      "safe": "多签",
+      "contract": "合约",
+      "unknown": "未读取"
+    },
+    "kind": {
+      "eoa": "EOA：一把私钥，该地址上没有合约代码。",
+      "eoaDelegated": "带有 EIP-7702 委托的 EOA：仍然是一把私钥。",
+      "timelock": "TimelockController：每项所有者操作都要在链上等待至少 {{delay}} 才能执行。",
+      "safe": "Safe 多签：需 {{owners}} 位签名人中的 {{threshold}} 位批准。",
+      "contract": "一个既不是时间锁也不是 Safe 的合约。",
+      "unknown": "无法读取该地址上的代码。"
+    },
+    "ownerTitle": "所有者",
+    "pauserTitle": "暂停方",
+    "keeperTitle": "执行器",
+    "screeningTitle": "合规筛查",
+    "noOwnerTitle": "完全没有所有者",
+    "wiringTitle": "CashPark 连接",
+    "address": "地址",
+    "what": "类型",
+    "scope": "拥有",
+    "ownerOf": "{{total}} 个设有所有者的合约中的 {{n}} 个",
+    "ownerMixed": "各合约不同（见下表）",
+    "pauserMixed": "各合约不同（见下表）",
+    "pendingLabel": "待接任所有者",
+    "pendingCount": "已在 {{n}} 个合约上设置",
+    "none": "无",
+    "ownerEoaNote": "目前是单一密钥。移交给 48 小时时间锁后的 2/3 Safe 多签的方案已准备好，并在主网分叉上演练过，但尚未执行。在此之前，这把密钥可以在链上上限内修改设置、更换执行器和暂停方，并能通过 <c>CashPark.setExecutor</c> 在一笔交易中提取所有暂存的 USDG。它不能转移已交付的股票，不能修改账户的规则、上限、绑定或组合，也不能阻止 <c>exit()</c>。请把暂存余额视为需要信任这把密钥。",
+    "ownerTimelockNote": "每项所有者操作都先在链上排期，在可以执行前的整个等待期内公开可见。",
+    "pending": "所有权移交已开始：{{n}} 个合约的 pendingOwner() 为 {{addr}}。只有该地址接受后，所有权才会转移。",
+    "governanceDoc": "移交操作手册",
+    "rolesDoc": "全部特权函数",
+    "sameAsOwner": "与所有者为同一把密钥",
+    "pausedNow": "当前暂停",
+    "pausedNone": "{{total}} 个均未暂停",
+    "pauserBody": "可立即暂停新的收取、暂存和买入。不能阻止 <c>exit()</c> 或 <c>claim()</c>，也不能解除暂停：只有所有者可以。",
+    "keeperOnLabel": "执行器权限所在合约",
+    "keeperNone": "无",
+    "keeperBody": "Spare 的自动化执行程序，一把只供执行器服务使用的热钱包密钥。合约只允许它在每个账户的每周上限和 Permit2 授权额度内，把凑整收取到该账户自己的暂存区，并且只能在预言机价格区间内通过指定流动性池买入。它不能提取资金、改变交付去向、修改设置或阻止退出。",
+    "keeperSource": "地址来自部署记录；它在哪些合约上拥有执行器权限为实时读取。",
+    "screeningOn": "已开启：只有经认证方通过筛查的账户才会被买入。",
+    "screeningOff": "上线时关闭。你是否可以在所在地持有代币化股票，需要你自己确认。",
+    "noOwnerYes": "无所有者",
+    "noOwnerNo": "有所有者",
+    "noOwnerBody": "对每个合约实时调用 <c>owner()</c>，均回滚：这些合约没有任何管理员函数。RuleRegistry 只会因各账户自己的调用而改变；暂存适配器只听从 CashPark。",
+    "executorOk": "为 SweepExecutor",
+    "executorBad": "不是 SweepExecutor",
+    "adapterUsdg": "UsdgParkAdapter：暂存的 USDG 保持为 USDG",
+    "adapterSgov": "SgovParkAdapter：暂存的 USDG 以 SGOV 持有",
+    "adapterOther": "一个不是 Spare 暂存适配器的地址",
+    "wiringBody": "CashPark 只会把暂存的 USDG 交给 <c>executor()</c> 用于买入。如果它指向 SweepExecutor 以外的地址，这里会显示出来。",
+    "head": {
+      "contract": "合约"
+    },
+    "tableCaption": "逐个合约实时读取。pendingOwner() 为“无”表示没有正在进行的移交。"
+  },
+  "hooks": {
+    "title": "指定流动性池上的第三方 hook",
+    "none": "所有指定流动性池都没有 hook。",
+    "intro": "有 {{n}} 个指定流动性池带有 Spare 无法控制的 Uniswap v4 hook。v4 hook 的权限固定写在其地址中，因此可以直接从地址解码。",
+    "head": {
+      "stock": "股票",
+      "hook": "hook 合约",
+      "verified": "源码（Sourcify）",
+      "permissions": "权限（从地址解码）"
+    },
+    "noDelta": "没有 return-delta 权限：它无法改变兑换数量，只能设置流动性池手续费或让兑换回滚；StockRouter 的预言机价格区间会把不良成交转为顺延。",
+    "delta": "带有 return-delta 权限：它可以改变兑换数量。StockRouter 的预言机价格区间仍会拒绝区间外的成交。",
+    "authorityHint": "authority() 是决定谁能调用 hook 受限函数的访问管理合约（OpenZeppelin AccessManaged）；“—”表示该 hook 不提供此函数。",
+    "configLink": "Spare 对每个指定流动性池的说明"
+  },
+  "rails": {
+    "kicker": "合约强制的限制",
+    "intro": "每个数值都实时读取自合约。代码中写死上限的参数，任何人（包括所有者）都无法设置得更高。",
+    "pctBps": "{{pct}}（{{bps}} 基点）",
+    "ceiling": "硬上限 {{max}}",
+    "fee": {
+      "name": "转换手续费",
+      "body": "只对实际转换成股票的 USDG 收取，顺延或安全结算的成分不收。"
+    },
+    "band": {
+      "name": "预言机价格区间",
+      "group": "{{total}} 只启用股票中的 {{n}} 只为 {{pct}}",
+      "body": "如果买入得到的代币少于 Chainlink 价格减去该区间，StockRouter 会回滚这笔买入，该股票的成分顺延。"
+    },
+    "slippage": {
+      "name": "滑点兜底",
+      "body": "每个成分的最少收到数量，取执行器同区块报价限制与 Chainlink 价格减去此值两者中的较高者。"
+    },
+    "pinned": {
+      "name": "指定流动性池",
+      "value": "{{total}} 只启用股票中的 {{n}} 只",
+      "body": "每只股票只通过 AssetRegistry 中存储的一个确切的 Uniswap v4 流动性池（PoolKey，含 hook）交易。StockRouter 不会在别处兑换。"
+    },
+    "threshold": {
+      "name": "买入门槛",
+      "body": "账户余额至少达到此金额才会被买入。"
+    },
+    "epoch": {
+      "name": "每周期一次",
+      "value": "每个账户每 {{dur}} 买入一次",
+      "body": "每个账户每个周期最多被买入一次。"
+    },
+    "cap": {
+      "name": "每周上限",
+      "value": "由各账户自行设置",
+      "body": "每个账户在 RuleRegistry 中自行设置上限，任何管理员都不能修改。超出上限的收取会回滚（<c>WeeklyCapExceeded</c>），上限为 0 则停止收取。统计窗口是 7 个按日划分的区间，因此在 6 天零 1 秒内最多可能收取上限的 2×（审计发现 A-L1，已接受：这些 USDG 进入账户自己的暂存区，可随时通过 <c>exit()</c> 取回）。"
+    },
+    "finality": {
+      "name": "最终性缓冲",
+      "value": "{{n}} 个区块",
+      "body": "每次收取只能覆盖至少落后链头这么多的区块，且同一段区块不会被收取两次。"
+    },
+    "exit": {
+      "name": "退出从不暂停",
+      "body": "<c>CashPark.exit()</c> 没有 <c>whenNotPaused</c> 修饰符：暂停只会停止新的收取、暂存和买入，从不影响退出。待入账的 USDG 会无条件优先退还。"
+    },
+    "paused": {
+      "name": "收取与买入",
+      "running": "运行中（未暂停）",
+      "paused": "已暂停",
+      "body": "暂停会立即停止新的收取和买入，退出和领取始终开放。"
+    },
+    "sequencer": {
+      "name": "排序器检查",
+      "off": "已跳过：没有价格源",
+      "bodyOff": "Robinhood Chain 目前还没有发布 L2 排序器在线状态价格源，因此这里是零地址，该检查被跳过。",
+      "bodyOn": "当 L2 排序器在线状态价格源报告故障时，所有成分都会顺延。"
+    },
+    "legs": {
+      "name": "组合规模",
+      "value": "最多 {{n}} 只股票",
+      "body": "一个组合最多包含这么多只股票，权重合计 100%，仅限启用的股票。"
+    }
+  },
+  "common": {
+    "source": "源码"
+  },
+  "status": {
+    "kicker": "是否在运行",
+    "intro": "仅显示运行状态，在页面加载时实时读取。使用情况（每一次扣款和自动买入，以及部署以来的总额）见 Dispatch 页面（/dispatch）。",
+    "api": "Spare API",
+    "online": "在线",
+    "offline": "无响应",
+    "apiSub": "已同步到区块 {{block}} · RPC {{rpc}}",
+    "rpcOk": "正常",
+    "rpcDown": "故障",
+    "apiHost": "{{host}} 无响应",
+    "head": "链头区块",
+    "headSub": "Robinhood Chain，由你的浏览器读取",
+    "feeds": "Chainlink 价格源",
+    "feedsSub": "启用股票中 OracleGuard 判定为实时的数量",
+    "universe": "启用 · 待命",
+    "universeSub": "AssetRegistry 中的股票",
+    "sessionOpen": "美股交易时段：开盘",
+    "sessionClosed": "美股交易时段：休市",
+    "activeTitle": "启用的股票（{{n}}）",
+    "standbyTitle": "待命的股票（{{n}}）",
+    "oracleNote": "“实时”表示 OracleGuard 接受该价格源的最新报价（在心跳间隔内）。在美股 24/5 交易时段之外，即使价格源显示“实时”，执行器也会等待。",
+    "standbyNote": "待命的股票已注册，但在所有者启用之前不能被选入组合或买入。"
+  },
+  "run": {
+    "kicker": "不必信任，亲自重放",
+    "intro": "在你自己的电脑上重放完整的资金路径：在 Robinhood Chain 主网的本地分叉上，使用 Spare 部署在真实地址上的合约、真实的流动性池和 Chainlink 价格源，以及真实的执行器代码。不需要钱包，也不需要资金；不会向主网发送任何交易。",
+    "needs": "需要 Git、Node、Bun 和 Foundry，以及网络连接：它会在公共 RPC 的当前区块上分叉。一次运行约需三分钟。",
+    "noRepo": "本页尚未放上代码仓库链接。以下命令需要在该仓库的克隆中运行。",
+    "codeTitle": "终端",
+    "checksTitle": "检查内容",
+    "checks": {
+      "accrual": "凑整计算：每笔付款的凑整金额，由 RoundUp.sol 本身（在分叉上运行）、执行器的副本和一个独立参考实现分别计算，结果一致；执行器在最终性缓冲之后、在每周上限之内，恰好收取这个金额。",
+      "buys": "每只启用的股票都通过其指定流动性池完成买入，成交价在预言机区间之内，且不低于执行器的报价限额。执行器暂缓买入的股票（流动性池偏离预言机过远，或 hook 费率高于上限）会连同执行器给出的原因一起列出，并由本次运行自行重新测量。",
+      "delivery": "交付：股票代币到达每个账户；多个账户共用一笔兑换时按比例分配。",
+      "claim": "领取：claimable() 中没有任何待领取的余额；若有无法直接交付的股票，会被领取并核对。",
+      "exit": "退出：所有仍在暂存区的资金都能取回，无论是待入账 USDG 还是暂存适配器的份额。"
+    },
+    "output": "每项检查都会输出 PASS 或 FAIL，并为每只股票列出一张表；任何一项失败时以非零状态退出。"
+  },
+  "audit": {
+    "kicker": "审查",
+    "aiTitle": "AI 辅助审计 · 2026-10-02",
+    "p1": "2026-10-02（公开发布之前），一次 AI 辅助审计审查了合约、执行器和 API，并给出 {{grade}} 的评分。",
+    "contractsLabel": "合约",
+    "contractsValue": "0 严重 · 0 高 · 1 中 · 2 低",
+    "contractsHint": "报告摘要：外部攻击者无法盗取资金，即使在暂停时退出也始终开放。",
+    "offchainLabel": "API 与执行器",
+    "offchainValue": "5 中 · 8 低",
+    "offchainHint": "遗留的 API 路由、错误信息泄露、无上限的扫描以及限流漏洞。",
+    "governanceLabel": "治理",
+    "governanceValue": "评分 2.5 / 10",
+    "governanceHint": "单一所有者密钥且没有时间锁：扣分最多的一项，与发现的问题分开评分。",
+    "fixed": "针对审计结果，所有 API 与执行器问题均已修复；执行器现在会把成分可能影响合并价格的账户单独买入（A-M1）。A-L1、A-L2 以及单一密钥所有者属于已接受的风险，列在 <c>SECURITY.md</c> 中。没有重新部署任何合约。",
+    "where": "报告和修改记录都已提交到代码仓库：<c>docs/audits/2026-10-02-ai-audit-grade.md</c> 和 <c>CHANGELOG.md</c>。",
+    "openReport": "阅读报告",
+    "openChangelog": "更新日志",
+    "openSecurity": "安全政策",
+    "tests": {
+      "foundry": "通过的 Foundry 测试",
+      "foundrySub": "0 失败 · 审计时",
+      "invariants": "成立的不变量",
+      "invariantsSub": "每个 102,400 次调用",
+      "coverage": "合约代码行覆盖率",
+      "coverageSub": "contracts/src 范围",
+      "note": "这些数字属于“记录”：是审计在发布前代码上运行的结果，而非实时结果。"
+    },
+    "humanTitle": "第三方人工审计",
+    "humanBadge": "尚无",
+    "human": "目前还没有第三方人工审计。上面的 AI 辅助审计只是审计前的参考信号，不能替代人工审计。"
+  }
+}

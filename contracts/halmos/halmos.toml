@@ -1,0 +1,7 @@
+# Halmos settings for this root, read by `halmos --root halmos` (run from
+# contracts/), locally and in CI.
+[global]
+# RoundUpSpec's slowest query takes ~35 s with yices 2.6.4 on a 64-thread dev box
+# (also with --solver-threads 2), against a 60 s default: too little headroom for a
+# slower CI runner. Every OracleGuardSpec query solves in under 2 s.
+solver-timeout-assertion = "300s"

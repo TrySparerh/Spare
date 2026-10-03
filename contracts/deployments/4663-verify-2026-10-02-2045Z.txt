@@ -1,0 +1,445 @@
+SPARE VerifyDeployment - Robinhood Chain mainnet (4663), read-only
+date        2026-10-02, run 20:45:07Z - 20:48:05Z UTC
+fork block  latest at start: >= 78527016 (78528790 when the run ended)
+repo        [pre-release commit, not in the public history] + the working-tree changes committed with this
+            file: contracts/script/lib/SpareBase.sol, script/lib/SpareConfig.sol,
+            script/VerifyDeployment.s.sol and config/4663.json (hook pins for MU and GME), as
+            they were then. contracts/src identical to this release.
+note        run before the keeper rotation (2026-10-02 23:31 UTC): config/4663.json then named the
+            original keeper 0xB7FE91DF829FD2F616c111EDFb9f7B5703FE84fD. The run against this
+            release's config is 4663-verify-2026-10-03.txt.
+forge       1.5.1-stable
+command     bash scripts/spare-forge.sh VerifyDeployment --rpc-url https://rpc.mainnet.chain.robinhood.com \
+              --fork-retries 20 --fork-retry-backoff 3000 --compute-units-per-second 150 \
+              --out out-deploy/verify-run --cache-path cache-deploy/verify-run
+            (from the repo root, public RPC; no --broadcast, and the script opens no broadcast bracket)
+exit        0
+result      334 passed, 0 failed. 36 assets registered: 26 ACTIVE, 10 INACTIVE by config (INTC among them);
+            MU on its hooked pool (hook 0x5Eb87F69...e080). New in this run: token decimals 18 and
+            heartbeat <= 26 h on all 36; hook flags, codehash, authority and keeper fee ceiling on MU and GME;
+            the governance-policy section, which warns: the owner of all 7 is still an EOA (docs/GOVERNANCE.md).
+----------------------------------------------------------------------------------------
+[spare] config: contracts/config/4663.json
+Compiling 6 files with Solc 0.8.26
+Solc 0.8.26 finished in 16.47s
+Compiler run successful with warnings:
+Warning (2018): Function state mutability can be restricted to view
+  --> src/park/UsdgParkAdapter.sol:35:5:
+   |
+35 |     function deposit(uint256 amount) external onlyPark returns (uint256) {
+   |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Script ran successfully.
+
+== Logs ==
+  SPARE VerifyDeployment
+    chain      4663
+    addresses  addresses/4663.json
+    config     config/4663.json
+    deployer   0x56B67D71039365083727b661Dbe9Bdb7f7D15189
+  
+  == code
+    [ok]   AssetRegistry has code
+    [ok]   RuleRegistry has code
+    [ok]   ElectionRegistry has code
+    [ok]   ScreeningGate has code
+    [ok]   StockRouter has code
+    [ok]   CashPark has code
+    [ok]   FeeVault has code
+    [ok]   SweepExecutor has code
+    [ok]   UsdgParkAdapter has code
+    [ok]   SgovParkAdapter has code
+  
+  == immutables / cross-links
+    [ok]   AssetRegistry.usdg = USDG
+    [ok]   ElectionRegistry.registry = AssetRegistry
+    [ok]   StockRouter.poolManager = v4 PoolManager
+    [ok]   StockRouter.registry = AssetRegistry
+    [ok]   StockRouter.usdg = USDG
+    [ok]   CashPark.usdg = USDG
+    [ok]   SweepExecutor.permit2 = Permit2
+    [ok]   SweepExecutor.usdg = USDG
+    [ok]   SweepExecutor.rules = RuleRegistry
+    [ok]   SweepExecutor.elections = ElectionRegistry
+    [ok]   SweepExecutor.registry = AssetRegistry
+    [ok]   SweepExecutor.screening = ScreeningGate
+    [ok]   SweepExecutor.router = StockRouter
+    [ok]   SweepExecutor.cashPark = CashPark
+    [ok]   SweepExecutor.feeVault = FeeVault
+    [ok]   SweepExecutor -> StockRouter USDG allowance effectively unlimited (USDG decrements even a max approval)
+    [ok]   SweepExecutor -> CashPark USDG allowance effectively unlimited (USDG decrements even a max approval)
+  
+  == roles
+    [ok]   StockRouter caller: SweepExecutor
+    [ok]   StockRouter caller: SgovParkAdapter (pre-authorised)
+    [ok]   StockRouter NOT caller: UsdgParkAdapter (never swaps)
+    [ok]   StockRouter NOT caller: deployer
+    [ok]   StockRouter NOT caller: keeper
+    [ok]   StockRouter.sequencerFeed = config
+    [ok]   CashPark.executor = SweepExecutor
+    [ok]   CashPark keeper = config keeper
+    [ok]   SweepExecutor keeper = config keeper
+    [ok]   SweepExecutor: deployer is NOT a keeper
+    [ok]   CashPark: deployer is NOT a keeper
+    [ok]   ScreeningGate.attestor = config attestor
+    [ok]   ScreeningGate.enforced = config
+    [ok]   AssetRegistry.pauser = config pauser
+    [ok]   AssetRegistry is not paused
+    [ok]   ElectionRegistry.pauser = config pauser
+    [ok]   ElectionRegistry is not paused
+    [ok]   ScreeningGate.pauser = config pauser
+    [ok]   ScreeningGate is not paused
+    [ok]   StockRouter.pauser = config pauser
+    [ok]   StockRouter is not paused
+    [ok]   CashPark.pauser = config pauser
+    [ok]   CashPark is not paused
+    [ok]   FeeVault.pauser = config pauser
+    [ok]   FeeVault is not paused
+    [ok]   SweepExecutor.pauser = config pauser
+    [ok]   SweepExecutor is not paused
+  
+  == ownership (Ownable2Step)
+    [ok]   AssetRegistry: owner = config owner (accepted)
+    [ok]   ElectionRegistry: owner = config owner (accepted)
+    [ok]   ScreeningGate: owner = config owner (accepted)
+    [ok]   StockRouter: owner = config owner (accepted)
+    [ok]   CashPark: owner = config owner (accepted)
+    [ok]   FeeVault: owner = config owner (accepted)
+    [ok]   SweepExecutor: owner = config owner (accepted)
+  
+  == governance policy (owner = TimelockController, minDelay >= 48 h)
+    [warn] owner 0x56B67D71039365083727b661Dbe9Bdb7f7D15189 (7/7 contracts) is an EOA: its owner calls take effect at once (policy: a 48 h TimelockController, docs/GOVERNANCE.md)
+  
+  == SweepExecutor params
+    [ok]   threshold = 5000000
+    [ok]   feeBps = 25
+    [ok]   slippageBps = 150
+    [ok]   epochLength = 86400
+    [ok]   finalityBuffer = 3000
+  
+  == AssetRegistry
+    [ok]   registry holds exactly 36 assets
+    [ok]   SPY: feed / decimals / heartbeat / band match config
+    [ok]   SPY: ACTIVE
+    [ok]   SPY: PoolKey = config (fee 500, tickSpacing 5, hooks 0x0000000000000000000000000000000000000000)
+    [ok]   SPY: pool initialised, id 0xe5923c8a8be481ec89a2ca784a2bbfa4235de6d88f92260fd66b660c4babf907
+    [ok]   SPY: in-range liquidity 3612420651728857958
+    [ok]   SPY: token decimals 18 (the router's math assumes 18)
+    [ok]   SPY: heartbeat 86400 s <= 93600 s (26 h ceiling)
+    [info] SPY: oracle OK, price1e18 770712105750000000000, age 29686s
+    [ok]   NVDA: feed / decimals / heartbeat / band match config
+    [ok]   NVDA: ACTIVE
+    [ok]   NVDA: PoolKey = config (fee 100, tickSpacing 1, hooks 0x0000000000000000000000000000000000000000)
+    [ok]   NVDA: pool initialised, id 0x6444a8e0b267406a15db74ca00c4a24bdfa81ed3180f5b6d0851f8ed6f4f29c5
+    [ok]   NVDA: in-range liquidity 116426523625580268
+    [ok]   NVDA: token decimals 18 (the router's math assumes 18)
+    [ok]   NVDA: heartbeat 86400 s <= 93600 s (26 h ceiling)
+    [info] NVDA: oracle OK, price1e18 234997119070000000000, age 13072s
+    [ok]   AAPL: feed / decimals / heartbeat / band match config
+    [ok]   AAPL: ACTIVE
+    [ok]   AAPL: PoolKey = config (fee 3000, tickSpacing 60, hooks 0x0000000000000000000000000000000000000000)
+    [ok]   AAPL: pool initialised, id 0xc748f4671a867db48b552f6b7650bf3255e05f80f00e3f7aad1b17ccb7898fdb
+    [ok]   AAPL: in-range liquidity 663462535514005168
+    [ok]   AAPL: token decimals 18 (the router's math assumes 18)
+    [ok]   AAPL: heartbeat 86400 s <= 93600 s (26 h ceiling)
+    [info] AAPL: oracle OK, price1e18 333823864120000000000, age 14744s
+    [ok]   TSLA: feed / decimals / heartbeat / band match config
+    [ok]   TSLA: ACTIVE
+    [ok]   TSLA: PoolKey = config (fee 3000, tickSpacing 60, hooks 0x0000000000000000000000000000000000000000)
+    [ok]   TSLA: pool initialised, id 0x8517f8071ae5b831b738052f12125e8e3d6c158b78728aa44ce3b25e5104d32e
+    [ok]   TSLA: in-range liquidity 665935183329451815
+    [ok]   TSLA: token decimals 18 (the router's math assumes 18)
+    [ok]   TSLA: heartbeat 86400 s <= 93600 s (26 h ceiling)
+    [info] TSLA: oracle OK, price1e18 370448000000000000000, age 2993s
+    [ok]   QQQ: feed / decimals / heartbeat / band match config
+    [ok]   QQQ: registered INACTIVE (by config)
+    [ok]   QQQ: PoolKey = config (fee 10000, tickSpacing 200, hooks 0x0000000000000000000000000000000000000000)
+    [ok]   QQQ: pool initialised, id 0xd3d49eaab15eb8f4d1d480a8518fc3ce4e60ca81d69904b3e7dc53b4fc0ce2d9
+    [info] QQQ: in-range liquidity 11845596943468 (inactive)
+    [ok]   QQQ: token decimals 18 (the router's math assumes 18)
+    [ok]   QQQ: heartbeat 86400 s <= 93600 s (26 h ceiling)
+    [info] QQQ: oracle OK, price1e18 751999125340000000000, age 28092s
+    [ok]   SGOV: feed / decimals / heartbeat / band match config
+    [ok]   SGOV: ACTIVE
+    [ok]   SGOV: PoolKey = config (fee 375, tickSpacing 4, hooks 0x0000000000000000000000000000000000000000)
+    [ok]   SGOV: pool initialised, id 0x2a72510d7d92cc121f9733ab6d14227ef8963cfadf9d40ac574f02e20e6299a8
+    [ok]   SGOV: in-range liquidity 2435607275256573649
+    [ok]   SGOV: token decimals 18 (the router's math assumes 18)
+    [ok]   SGOV: heartbeat 86400 s <= 93600 s (26 h ceiling)
+    [info] SGOV: oracle OK, price1e18 101156819450000000000, age 74599s
+    [ok]   AMD: feed / decimals / heartbeat / band match config
+    [ok]   AMD: ACTIVE
+    [ok]   AMD: PoolKey = config (fee 10000, tickSpacing 200, hooks 0x0000000000000000000000000000000000000000)
+    [ok]   AMD: pool initialised, id 0xde9f85fdd9e05a943a52f2c69ffafe3064a3287df03d02c9b431bc92d4781274
+    [ok]   AMD: in-range liquidity 237327596951814558
+    [ok]   AMD: token decimals 18 (the router's math assumes 18)
+    [ok]   AMD: heartbeat 86400 s <= 93600 s (26 h ceiling)
+    [info] AMD: oracle OK, price1e18 632828950000000000000, age 6829s
+    [ok]   AMZN: feed / decimals / heartbeat / band match config
+    [ok]   AMZN: ACTIVE
+    [ok]   AMZN: PoolKey = config (fee 2400, tickSpacing 24, hooks 0x0000000000000000000000000000000000000000)
+    [ok]   AMZN: pool initialised, id 0xefc94885c96b02696b9b45de43eeeb8ac53c0199cab42b4daae4911b96fb8825
+    [ok]   AMZN: in-range liquidity 50271244425408119
+    [ok]   AMZN: token decimals 18 (the router's math assumes 18)
+    [ok]   AMZN: heartbeat 86400 s <= 93600 s (26 h ceiling)
+    [info] AMZN: oracle OK, price1e18 251649999990000000000, age 3247s
+    [ok]   BABA: feed / decimals / heartbeat / band match config
+    [ok]   BABA: ACTIVE
+    [ok]   BABA: PoolKey = config (fee 1000, tickSpacing 10, hooks 0x0000000000000000000000000000000000000000)
+    [ok]   BABA: pool initialised, id 0x1791fc651cc794a282e5dbcb56d0b2b38eff8754b677c8876e86901521ecc439
+    [ok]   BABA: in-range liquidity 57834847956437782
+    [ok]   BABA: token decimals 18 (the router's math assumes 18)
+    [ok]   BABA: heartbeat 86400 s <= 93600 s (26 h ceiling)
+    [info] BABA: oracle OK, price1e18 106069900000000000000, age 3107s
+    [ok]   COIN: feed / decimals / heartbeat / band match config
+    [ok]   COIN: ACTIVE
+    [ok]   COIN: PoolKey = config (fee 2500, tickSpacing 25, hooks 0x0000000000000000000000000000000000000000)
+    [ok]   COIN: pool initialised, id 0xe2e1a0e32205e854525e0fb1d3667a53bd3b4919f032b9bcd2a038b6b6dac314
+    [ok]   COIN: in-range liquidity 24219690563081209
+    [ok]   COIN: token decimals 18 (the router's math assumes 18)
+    [ok]   COIN: heartbeat 86400 s <= 93600 s (26 h ceiling)
+    [info] COIN: oracle OK, price1e18 182635000000000000000, age 4177s
+    [ok]   CRCL: feed / decimals / heartbeat / band match config
+    [ok]   CRCL: ACTIVE
+    [ok]   CRCL: PoolKey = config (fee 1500, tickSpacing 15, hooks 0x0000000000000000000000000000000000000000)
+    [ok]   CRCL: pool initialised, id 0x5177eac8c2176468bbf15e44081e151d35c2e7d068e96d3db94f496a4dc944b2
+    [ok]   CRCL: in-range liquidity 26323839090159726
+    [ok]   CRCL: token decimals 18 (the router's math assumes 18)
+    [ok]   CRCL: heartbeat 86400 s <= 93600 s (26 h ceiling)
+    [info] CRCL: oracle OK, price1e18 81683150000000000000, age 1654s
+    [ok]   CRWV: feed / decimals / heartbeat / band match config
+    [ok]   CRWV: ACTIVE
+    [ok]   CRWV: PoolKey = config (fee 9000, tickSpacing 90, hooks 0x0000000000000000000000000000000000000000)
+    [ok]   CRWV: pool initialised, id 0x237014478f7ef98afbe7412ac35b6a3f96b8fb111de48b7c4dbf49dba4bd9c4b
+    [ok]   CRWV: in-range liquidity 54085476023934643
+    [ok]   CRWV: token decimals 18 (the router's math assumes 18)
+    [ok]   CRWV: heartbeat 86400 s <= 93600 s (26 h ceiling)
+    [info] CRWV: oracle OK, price1e18 89237850000000000000, age 1750s
+    [ok]   DELL: feed / decimals / heartbeat / band match config
+    [ok]   DELL: ACTIVE
+    [ok]   DELL: PoolKey = config (fee 5000, tickSpacing 25, hooks 0x0000000000000000000000000000000000000000)
+    [ok]   DELL: pool initialised, id 0x729651c09684919bdffda473141be4e908ee0e8cf8a43f41135831217fa7d3bb
+    [ok]   DELL: in-range liquidity 82296705859463955
+    [ok]   DELL: token decimals 18 (the router's math assumes 18)
+    [ok]   DELL: heartbeat 86400 s <= 93600 s (26 h ceiling)
+    [info] DELL: oracle OK, price1e18 563763064270000000000, age 5626s
+    [ok]   EWY: feed / decimals / heartbeat / band match config
+    [ok]   EWY: ACTIVE
+    [ok]   EWY: PoolKey = config (fee 5000, tickSpacing 50, hooks 0x0000000000000000000000000000000000000000)
+    [ok]   EWY: pool initialised, id 0x3cba52145fb271e4a76f44df3d8b86f460a04e767841bcb8288a02729047dbbb
+    [ok]   EWY: in-range liquidity 2065640519967402
+    [ok]   EWY: token decimals 18 (the router's math assumes 18)
+    [ok]   EWY: heartbeat 86400 s <= 93600 s (26 h ceiling)
+    [info] EWY: oracle OK, price1e18 191390000000000000000, age 4493s
+    [ok]   GLD: feed / decimals / heartbeat / band match config
+    [ok]   GLD: ACTIVE
+    [ok]   GLD: PoolKey = config (fee 2100, tickSpacing 21, hooks 0x0000000000000000000000000000000000000000)
+    [ok]   GLD: pool initialised, id 0xd85389e64f380f1f634d458dd32bc26ed7d36bf555ee144d798145b46c056f95
+    [ok]   GLD: in-range liquidity 10112695901812477
+    [ok]   GLD: token decimals 18 (the router's math assumes 18)
+    [ok]   GLD: heartbeat 86400 s <= 93600 s (26 h ceiling)
+    [info] GLD: oracle OK, price1e18 380434091270000000000, age 19721s
+    [ok]   GME: feed / decimals / heartbeat / band match config
+    [ok]   GME: ACTIVE
+    [ok]   GME: PoolKey = config (fee 8388608, tickSpacing 10, hooks 0x08E52564Bad99E05a694b4809F397edcA417A080)
+    [ok]   GME: pool initialised, id 0xbb15d6b62c893a86912b5d4b14599f9cc72111e5898327dcadefa0352f20ae11
+    [ok]   GME: in-range liquidity 100992948623284273
+    [ok]   GME: hook has code
+    [ok]   GME: token decimals 18 (the router's math assumes 18)
+    [ok]   GME: heartbeat 86400 s <= 93600 s (26 h ceiling)
+    [ok]   GME: hook flags 0x2080: no *_RETURNS_DELTA permission (it can set the fee or revert, not move amounts)
+    [ok]   GME: hook codehash 0xbb52b2dc4a14fc6c3f90d0a268b51680d7adbdaa392b211bc524b6fd9368bb85 = config
+    [ok]   GME: hook authority 0xA362D98B33A7bb5B5E2180a05f995A70FB404f30 = config
+    [ok]   GME: keeper's hook fee ceiling 500 pips < band 15000 pips (150 bps)
+    [info] GME: hook fee for a buy now 500 pips, pool cap 20000 pips, keeper ceiling 500 pips
+    [info] GME: oracle OK, price1e18 24685000000000000000, age 2905s
+    [ok]   GOOGL: feed / decimals / heartbeat / band match config
+    [ok]   GOOGL: ACTIVE
+    [ok]   GOOGL: PoolKey = config (fee 3000, tickSpacing 60, hooks 0x0000000000000000000000000000000000000000)
+    [ok]   GOOGL: pool initialised, id 0xd4ecb79fdc521d7725d22b33ed43cb4e47aa96bfad76aa29577e3151f723ac5e
+    [ok]   GOOGL: in-range liquidity 594423620606929537
+    [ok]   GOOGL: token decimals 18 (the router's math assumes 18)
+    [ok]   GOOGL: heartbeat 86400 s <= 93600 s (26 h ceiling)
+    [info] GOOGL: oracle OK, price1e18 343661631450000000000, age 16706s
+    [ok]   INTC: feed / decimals / heartbeat / band match config
+    [ok]   INTC: registered INACTIVE (by config)
+    [ok]   INTC: PoolKey = config (fee 10000, tickSpacing 200, hooks 0x0000000000000000000000000000000000000000)
+    [ok]   INTC: pool initialised, id 0xf2e329e631d0fb315a5c563ee3a9120f24822b5ef6c502a91cb56b174d5d8c22
+    [info] INTC: in-range liquidity 468213138295305295 (inactive)
+    [ok]   INTC: token decimals 18 (the router's math assumes 18)
+    [ok]   INTC: heartbeat 86400 s <= 93600 s (26 h ceiling)
+    [info] INTC: oracle OK, price1e18 119301000000000000000, age 2992s
+    [ok]   META: feed / decimals / heartbeat / band match config
+    [ok]   META: ACTIVE
+    [ok]   META: PoolKey = config (fee 310, tickSpacing 3, hooks 0x0000000000000000000000000000000000000000)
+    [ok]   META: pool initialised, id 0xc58bb68060bcb7b3ea0f6d4a4afef1e57f628722e808db12afb6d1733552872f
+    [ok]   META: in-range liquidity 203812358369678189
+    [ok]   META: token decimals 18 (the router's math assumes 18)
+    [ok]   META: heartbeat 86400 s <= 93600 s (26 h ceiling)
+    [info] META: oracle OK, price1e18 730132573550000000000, age 19228s
+    [ok]   MSFT: feed / decimals / heartbeat / band match config
+    [ok]   MSFT: ACTIVE
+    [ok]   MSFT: PoolKey = config (fee 3000, tickSpacing 60, hooks 0x0000000000000000000000000000000000000000)
+    [ok]   MSFT: pool initialised, id 0x9194a557b6a6bb2236b49ea7e2bbccec5d3eeb705aef00903be4b3de1d949579
+    [ok]   MSFT: in-range liquidity 276716156196932185
+    [ok]   MSFT: token decimals 18 (the router's math assumes 18)
+    [ok]   MSFT: heartbeat 86400 s <= 93600 s (26 h ceiling)
+    [info] MSFT: oracle OK, price1e18 517510769190000000000, age 2879s
+    [ok]   MSTR: feed / decimals / heartbeat / band match config
+    [ok]   MSTR: ACTIVE
+    [ok]   MSTR: PoolKey = config (fee 2500, tickSpacing 25, hooks 0x0000000000000000000000000000000000000000)
+    [ok]   MSTR: pool initialised, id 0x319bac87e616a89e241c10aeb8afd4892a852cdd8b373cd9765ecddc40b87cfe
+    [ok]   MSTR: in-range liquidity 694163783108221578
+    [ok]   MSTR: token decimals 18 (the router's math assumes 18)
+    [ok]   MSTR: heartbeat 86400 s <= 93600 s (26 h ceiling)
+    [info] MSTR: oracle OK, price1e18 160665000000000000000, age 2283s
+    [ok]   MU: feed / decimals / heartbeat / band match config
+    [ok]   MU: ACTIVE
+    [ok]   MU: PoolKey = config (fee 8388608, tickSpacing 60, hooks 0x5Eb87F69bE00Df39981622Fd60A8De4b7837e080)
+    [ok]   MU: pool initialised, id 0x8e36bc9877b9383ae306dd937d40ab0e9df65811e7fdfb6bad25e7102bc398b2
+    [ok]   MU: in-range liquidity 17499687292605611
+    [ok]   MU: hook has code
+    [ok]   MU: token decimals 18 (the router's math assumes 18)
+    [ok]   MU: heartbeat 86400 s <= 93600 s (26 h ceiling)
+    [ok]   MU: hook flags 0x2080: no *_RETURNS_DELTA permission (it can set the fee or revert, not move amounts)
+    [ok]   MU: hook codehash 0x577978ad29223268205cb40a5215c46839f5c27a1218beac7d4a0f7cd0aaa341 = config
+    [ok]   MU: hook authority 0xA362D98B33A7bb5B5E2180a05f995A70FB404f30 = config
+    [ok]   MU: keeper's hook fee ceiling 4000 pips < band 15000 pips (150 bps)
+    [info] MU: hook fee for a buy now 1000 pips, pool cap 50000 pips, keeper ceiling 4000 pips
+    [info] MU: oracle OK, price1e18 1077211444390000000000, age 14568s
+    [ok]   ORCL: feed / decimals / heartbeat / band match config
+    [ok]   ORCL: ACTIVE
+    [ok]   ORCL: PoolKey = config (fee 10000, tickSpacing 200, hooks 0x0000000000000000000000000000000000000000)
+    [ok]   ORCL: pool initialised, id 0xc2ce4784e1e72cf0221b51b30c8aaadf6c0b12863cf03ab3687854fb7b1d850a
+    [ok]   ORCL: in-range liquidity 69142927554494314
+    [ok]   ORCL: token decimals 18 (the router's math assumes 18)
+    [ok]   ORCL: heartbeat 86400 s <= 93600 s (26 h ceiling)
+    [info] ORCL: oracle OK, price1e18 142654701630000000000, age 5231s
+    [ok]   PLTR: feed / decimals / heartbeat / band match config
+    [ok]   PLTR: ACTIVE
+    [ok]   PLTR: PoolKey = config (fee 1500, tickSpacing 15, hooks 0x0000000000000000000000000000000000000000)
+    [ok]   PLTR: pool initialised, id 0xc59eaeda6d1a6f031bc7e1d039772f2d675e7b4de2c8668610f4471bd60b3802
+    [ok]   PLTR: in-range liquidity 88274178740307260
+    [ok]   PLTR: token decimals 18 (the router's math assumes 18)
+    [ok]   PLTR: heartbeat 86400 s <= 93600 s (26 h ceiling)
+    [info] PLTR: oracle OK, price1e18 188546000000000000000, age 3267s
+    [ok]   SNDK: feed / decimals / heartbeat / band match config
+    [ok]   SNDK: ACTIVE
+    [ok]   SNDK: PoolKey = config (fee 10000, tickSpacing 200, hooks 0x0000000000000000000000000000000000000000)
+    [ok]   SNDK: pool initialised, id 0x2707cb88a6a40fa0f948f58958051ba097d6f6a3cf7f87929bd68ccc5becea24
+    [ok]   SNDK: in-range liquidity 41758951170711022
+    [ok]   SNDK: token decimals 18 (the router's math assumes 18)
+    [ok]   SNDK: heartbeat 86400 s <= 93600 s (26 h ceiling)
+    [info] SNDK: oracle OK, price1e18 1718198550000000000000, age 14043s
+    [ok]   SPCX: feed / decimals / heartbeat / band match config
+    [ok]   SPCX: ACTIVE
+    [ok]   SPCX: PoolKey = config (fee 250, tickSpacing 3, hooks 0x0000000000000000000000000000000000000000)
+    [ok]   SPCX: pool initialised, id 0xfbc47e0b533fb83e4de65c4a192d85395da62c78fe20365aa237cc25445e610e
+    [ok]   SPCX: in-range liquidity 8713672230629506
+    [ok]   SPCX: token decimals 18 (the router's math assumes 18)
+    [ok]   SPCX: heartbeat 86400 s <= 93600 s (26 h ceiling)
+    [info] SPCX: oracle OK, price1e18 158725000000000000000, age 2033s
+    [ok]   TSM: feed / decimals / heartbeat / band match config
+    [ok]   TSM: ACTIVE
+    [ok]   TSM: PoolKey = config (fee 7500, tickSpacing 75, hooks 0x0000000000000000000000000000000000000000)
+    [ok]   TSM: pool initialised, id 0x0ba5d53d2f6255f334b7c8ead4f56b6aef5af3402c5e4d11180afd38c6b85fb1
+    [ok]   TSM: in-range liquidity 68897961838690753
+    [ok]   TSM: token decimals 18 (the router's math assumes 18)
+    [ok]   TSM: heartbeat 86400 s <= 93600 s (26 h ceiling)
+    [info] TSM: oracle OK, price1e18 473920894800000000000, age 4743s
+    [ok]   USO: feed / decimals / heartbeat / band match config
+    [ok]   USO: ACTIVE
+    [ok]   USO: PoolKey = config (fee 1200, tickSpacing 15, hooks 0x0000000000000000000000000000000000000000)
+    [ok]   USO: pool initialised, id 0x1f2ad5a274a776d8e1408292bde1d92d8fa7b6444acf14ad60b9c3e4e5b66420
+    [ok]   USO: in-range liquidity 237555205259178301
+    [ok]   USO: token decimals 18 (the router's math assumes 18)
+    [ok]   USO: heartbeat 86400 s <= 93600 s (26 h ceiling)
+    [info] USO: oracle OK, price1e18 146833050000000000000, age 8221s
+    [ok]   ASML: feed / decimals / heartbeat / band match config
+    [ok]   ASML: registered INACTIVE (by config)
+    [ok]   ASML: PoolKey = config (fee 7000, tickSpacing 70, hooks 0x0000000000000000000000000000000000000000)
+    [ok]   ASML: pool initialised, id 0x95dfd3468383956e449265b3e3d1dac182d0faad0eec5d409f943acaaec3104f
+    [info] ASML: in-range liquidity 118466018877721 (inactive)
+    [ok]   ASML: token decimals 18 (the router's math assumes 18)
+    [ok]   ASML: heartbeat 86400 s <= 93600 s (26 h ceiling)
+    [info] ASML: oracle OK, price1e18 1866589109710000000000, age 4768s
+    [ok]   CLSK: feed / decimals / heartbeat / band match config
+    [ok]   CLSK: registered INACTIVE (by config)
+    [ok]   CLSK: PoolKey = config (fee 46800, tickSpacing 468, hooks 0x0000000000000000000000000000000000000000)
+    [ok]   CLSK: pool initialised, id 0x2a957ec877e91cccd9920e39b8d50128310a75ba7fa3765eb4e4a5ef11ab69a5
+    [info] CLSK: in-range liquidity 503352679092564 (inactive)
+    [ok]   CLSK: token decimals 18 (the router's math assumes 18)
+    [ok]   CLSK: heartbeat 86400 s <= 93600 s (26 h ceiling)
+    [info] CLSK: oracle OK, price1e18 12735000000000000000, age 2746s
+    [ok]   IONQ: feed / decimals / heartbeat / band match config
+    [ok]   IONQ: registered INACTIVE (by config)
+    [ok]   IONQ: PoolKey = config (fee 40000, tickSpacing 400, hooks 0x0000000000000000000000000000000000000000)
+    [ok]   IONQ: pool initialised, id 0xbd78e53962e76c3b6228b86dc074059258bc73d565e5e343ae4ad3c4c1ac5681
+    [info] IONQ: in-range liquidity 1653219214804083 (inactive)
+    [ok]   IONQ: token decimals 18 (the router's math assumes 18)
+    [ok]   IONQ: heartbeat 86400 s <= 93600 s (26 h ceiling)
+    [info] IONQ: oracle OK, price1e18 43849400000000000000, age 2467s
+    [ok]   NBIS: feed / decimals / heartbeat / band match config
+    [ok]   NBIS: registered INACTIVE (by config)
+    [ok]   NBIS: PoolKey = config (fee 9900, tickSpacing 99, hooks 0x0000000000000000000000000000000000000000)
+    [ok]   NBIS: pool initialised, id 0x7c2f9ce1214ba9baf56d1b6a1fc640c1b63e9a711172c0c7d10e5a9c4a3d4f0c
+    [info] NBIS: in-range liquidity 24543860683376175 (inactive)
+    [ok]   NBIS: token decimals 18 (the router's math assumes 18)
+    [ok]   NBIS: heartbeat 86400 s <= 93600 s (26 h ceiling)
+    [info] NBIS: oracle OK, price1e18 242591000000000000000, age 3424s
+    [ok]   RGTI: feed / decimals / heartbeat / band match config
+    [ok]   RGTI: registered INACTIVE (by config)
+    [ok]   RGTI: PoolKey = config (fee 50000, tickSpacing 500, hooks 0x0000000000000000000000000000000000000000)
+    [ok]   RGTI: pool initialised, id 0x98bb85ee9d390ce0d9104afeed2b83038f83df54843fc35afed5d7545ec4936f
+    [info] RGTI: in-range liquidity 1450161260364978 (inactive)
+    [ok]   RGTI: token decimals 18 (the router's math assumes 18)
+    [ok]   RGTI: heartbeat 86400 s <= 93600 s (26 h ceiling)
+    [info] RGTI: oracle OK, price1e18 15363700000000000000, age 2418s
+    [ok]   RKLB: feed / decimals / heartbeat / band match config
+    [ok]   RKLB: registered INACTIVE (by config)
+    [ok]   RKLB: PoolKey = config (fee 9000, tickSpacing 90, hooks 0x0000000000000000000000000000000000000000)
+    [ok]   RKLB: pool initialised, id 0xbbc15d66fef8391f53569e19016e86545be9de3f302b82db93ed6165236d22f3
+    [info] RKLB: in-range liquidity 5202864324065650 (inactive)
+    [ok]   RKLB: token decimals 18 (the router's math assumes 18)
+    [ok]   RKLB: heartbeat 86400 s <= 93600 s (26 h ceiling)
+    [info] RKLB: oracle OK, price1e18 74015000000000000000, age 3342s
+    [ok]   SLV: feed / decimals / heartbeat / band match config
+    [ok]   SLV: registered INACTIVE (by config)
+    [ok]   SLV: PoolKey = config (fee 20000, tickSpacing 400, hooks 0x0000000000000000000000000000000000000000)
+    [ok]   SLV: pool initialised, id 0xf6f742665e3927ee7ee8da2a9caac0b68580af5249f1c70f4db02937bb1b0b58
+    [info] SLV: in-range liquidity 526912262457 (inactive)
+    [ok]   SLV: token decimals 18 (the router's math assumes 18)
+    [ok]   SLV: heartbeat 86400 s <= 93600 s (26 h ceiling)
+    [info] SLV: oracle OK, price1e18 54673000000000000000, age 5442s
+    [ok]   USAR: feed / decimals / heartbeat / band match config
+    [ok]   USAR: registered INACTIVE (by config)
+    [ok]   USAR: PoolKey = config (fee 954000, tickSpacing 9540, hooks 0x0000000000000000000000000000000000000000)
+    [ok]   USAR: pool initialised, id 0x2a104a8db30e91e3df0cfc42782c197af43f40c848296cf26a90a4e9936167e8
+    [info] USAR: in-range liquidity 26324892589634 (inactive)
+    [ok]   USAR: token decimals 18 (the router's math assumes 18)
+    [ok]   USAR: heartbeat 86400 s <= 93600 s (26 h ceiling)
+    [info] USAR: oracle OK, price1e18 13575000000000000000, age 5238s
+  
+  == default mix
+    [ok]   default mix has 2 legs
+    [ok]   leg 0: SPY 6000 bps
+    [ok]   leg 1: NVDA 4000 bps
+  
+  == CashPark adapters
+    [ok]   CashPark.adapter = UsdgParkAdapter (launch default)
+    [ok]   UsdgParkAdapter.usdg = USDG
+    [ok]   UsdgParkAdapter.park = CashPark
+    [ok]   UsdgParkAdapter.underlying = USDG
+    [ok]   SgovParkAdapter.usdg = USDG
+    [ok]   SgovParkAdapter.sgov = config SGOV
+    [ok]   SgovParkAdapter.park = CashPark
+    [ok]   SgovParkAdapter.router = StockRouter
+    [ok]   SgovParkAdapter.registry = AssetRegistry
+    [ok]   SgovParkAdapter.slippageBps = config
+    [ok]   SgovParkAdapter -> StockRouter USDG + SGOV allowances effectively unlimited
+    [ok]   SGOV registered (adapter prerequisite)
+    [info] CashPark totals: pending 0, units 0
+  
+  SUMMARY: 334 passed, 0 failed, 1 warnings; ownership pending acceptance on 0/7 contracts
+    [warn] config hash differs from the one recorded at deploy (0x5a9ab6c4efc745341382e25d3eeebb5f02b253877587fbf25475f5d3ea1620a0); the checks above ran against the CURRENT config
+  VerifyDeployment: PASS

@@ -1,0 +1,21 @@
+# Supply-chain hygiene for the engine (it ships the keeper, which holds the hot key).
+#
+# minimumReleaseAge: `bun install` / `bun add` / `bun update` only resolve versions
+# that have been on the registry for at least 3 days, so a hijacked release is
+# usually yanked before it can land in bun.lock. Installs from the committed
+# lockfile (both Dockerfiles and CI use --frozen-lockfile) do not resolve and are
+# unaffected.
+#
+# exact: `bun add` writes exact versions, matching the pinned package.json.
+#
+# Lifecycle scripts: Bun runs a dependency's install scripts only when it is in
+# package.json `trustedDependencies` (none are, so keep it that way) or on Bun's
+# built-in default-trusted list, which includes msgpackr-extract (via bullmq).
+# So both Dockerfiles install with --ignore-scripts as well: no dependency code
+# runs at install time in a production image.
+#
+# package.json `overrides` pins esbuild (drizzle-kit's dev-only toolchain) to one
+# patched version, so no esbuild <= 0.24.2 (GHSA-67mh-4wv8-2f99) is installed.
+[install]
+minimumReleaseAge = 259200 # seconds (3 days)
+exact = true

@@ -1,0 +1,921 @@
+{
+  "shared": {
+    "readFirst": "请先阅读",
+    "notBuilt": "尚未开发",
+    "reading": "读取中",
+    "refresh": "刷新",
+    "unavailable": "不可用",
+    "listSep": "、",
+    "customAdapter": "自定义适配器",
+    "readUniverseFail": "无法读取股票池",
+    "dur": {
+      "now": "即将",
+      "hm": "{{h}} 小时 {{m}} 分",
+      "ms": "{{m}} 分 {{s}} 秒",
+      "hmShort": "{{h}}小时{{m}}分",
+      "msShort": "{{m}}分{{s}}秒"
+    },
+    "stockA": "股票 A",
+    "stockB": "股票 B"
+  },
+  "autoInvest": {
+    "hero": {
+      "kicker": "从付款到股票",
+      "subtitle": "自动买入引擎",
+      "description": "暂存零钱一达到门槛，执行器就会买入你的股票组合：每个周期一次，你什么都不用点。",
+      "badge": "全自动"
+    },
+    "what": "买入状态、暂存区和组合",
+    "connectWhy": "连接你的投资钱包，看看执行器会不会、以及何时为它自动买入。",
+    "example": {
+      "title": "自动买入门槛",
+      "note": "示例付款：凑整至 $1，买入门槛 $5。并非你的账户。",
+      "aria": "凑整示例",
+      "parked": "已暂存（示例）",
+      "toGo": "还差 {{amount}}，届时执行器会用这笔零钱买入你的股票组合。",
+      "cols": {
+        "payment": "付款",
+        "paid": "实付",
+        "roundsTo": "凑整后",
+        "spare": "零钱"
+      },
+      "items": {
+        "coffee": "咖啡",
+        "lunch": "午餐",
+        "ride": "打车",
+        "groceries": "超市",
+        "books": "书店"
+      }
+    },
+    "policy": {
+      "title": "自动买入如何执行",
+      "accent": "链上规则",
+      "aria": "买入规则",
+      "venue": {
+        "term": "交易场所",
+        "body": "每个资产只通过 AssetRegistry 为它指定的唯一一个流动性池买入，绝不在运行时临时寻找流动性池。"
+      },
+      "price": {
+        "term": "价格",
+        "body": "执行器为每个资产给出同一区块内的报价限额；路由合约还会拒绝任何超出该资产预言机价格区间的成交。"
+      },
+      "waiting": {
+        "term": "等待",
+        "body": "只要你组合中任一启用资产的预言机已过时（休市）或代币被暂停，执行器就会暂缓整个账户：在所有启用成分都能交易之前，任何成分都不会买入。"
+      },
+      "deferred": {
+        "term": "顺延",
+        "body": "买入时没有报价或兑换回滚：该成分的 USDG 原封不动退回暂存区，顺延至下一周期重试；其他成分照常买入。因行情未能买入的部分，绝不会改为以 USDG 支付给你。"
+      },
+      "delisted": {
+        "term": "已下架",
+        "body": "如果你选定的资产被停用，它不会拖住整次买入：该成分会以 USDG 交付给你，并附上通知（安全结算）。"
+      },
+      "fee": {
+        "term": "手续费",
+        "rate": "仅对实际完成转换的成分收取 {{fee}}，顺延或安全结算的成分一律不收。",
+        "small": "仅对实际完成转换的成分收取少量基点手续费，顺延或安全结算的成分一律不收。"
+      },
+      "delivery": {
+        "term": "交付",
+        "body": "买入的代币直接转入你的账户钱包。如果某个代币拒绝转账，它会作为可领取余额保留在 Spare 余额中。"
+      }
+    },
+    "park": {
+      "usdg": "USDG（无收益）",
+      "sgov": "SGOV 美国国债"
+    },
+    "verdict": {
+      "paused": "已被运营方暂停",
+      "connect": "连接后查看",
+      "attemptedDeferred": "已尝试 · 已顺延",
+      "swept": "本期已买入",
+      "below": "未达门槛",
+      "notEligible": "不符合条件",
+      "noMix": "无组合",
+      "waits": "等待可交易",
+      "checking": "检查行情中",
+      "due": "下次执行时买入"
+    },
+    "swept": {
+      "last": "上次买入于第 {{epoch}} 期。",
+      "never": "尚未买入过。",
+      "legSwapFail": "{{sym}} 兑换未成交",
+      "legStatus": "{{sym}}：{{status}}",
+      "allDeferred": "第 {{epoch}} 期已尝试买入，但所有成分都已顺延（{{why}}）：{{amount}} 已退回暂存区，没有买入任何股票。将在下一周期重试（{{next}} 后）。",
+      "settled": "第 {{epoch}} 期已买入：已结算 {{settled}}。{{next}} 后可再次买入。",
+      "settledDeferred": "第 {{epoch}} 期已买入：已结算 {{settled}}，{{deferred}} 顺延并退回暂存区。{{next}} 后可再次买入。",
+      "plain": "第 {{epoch}} 期已买入；{{next}} 后可再次买入。",
+      "checking": "第 {{epoch}} 期已买入，正在核对成交情况…；{{next}} 后可再次买入。"
+    },
+    "engine": {
+      "readFail": "无法读取 SweepExecutor",
+      "title": "自动买入引擎",
+      "sweepsAt": "触发买入",
+      "sweepsAtSub": "即自动买入门槛",
+      "fee": "手续费",
+      "epoch": "周期",
+      "epochLength": "周期长度",
+      "nextEpochIn": "距下一周期",
+      "epochNo": "第 {{epoch}} 期",
+      "nextIn": "距下期 {{time}}",
+      "epochAria": "当前周期已过去的比例",
+      "hint": "执行器会自动买入，你什么都不用点。<code>sweep()</code> 在链上只有执行器能调用：每个周期一次，它会找出所有暂存零钱已达门槛的账户，按各自的组合拆分，再通过每个成分唯一的白名单流动性池逐一买入。"
+    },
+    "account": {
+      "title": "本账户",
+      "readFail": "无法读取本账户：{{error}}",
+      "reading": "正在从 Robinhood Chain 读取本账户…",
+      "parked": "暂存零钱",
+      "threshold": "门槛",
+      "verdictLabel": "执行器判定",
+      "nextEpochIn": "距下一周期 {{time}}",
+      "progressAria": "暂存零钱距买入门槛的进度",
+      "atThreshold": "已达到或超过门槛。",
+      "toGo": "还差 {{amount}}。",
+      "pendingUnits": "另有待入账 USDG {{amount}} 及已暂存份额。",
+      "checklist": "买入检查清单",
+      "parkIn": "闲置零钱暂存于：{{park}}。",
+      "parkInStale": "闲置零钱暂存于：{{park}}（净值已过时，新计入的零钱暂不放入暂存区）。"
+    },
+    "check": {
+      "engineLive": "引擎运行中",
+      "pausedDetail": "运营方已暂停新的买入。你仍可在 Spare 余额中退出。",
+      "liveDetail": "SweepExecutor 未暂停。",
+      "thresholdMet": "已达门槛",
+      "thresholdMetDetail": "{{value}} ≥ {{threshold}}。",
+      "belowDetail": "凑整零钱会持续暂存，直到达到 {{threshold}}。",
+      "notSwept": "本期未买入",
+      "deferredEpoch": "本期已顺延",
+      "eligible": "符合条件",
+      "notCleared": "未通过筛查",
+      "screenOk": "合规筛查结果仍有效。",
+      "screenBlocked": "合规筛查已启用，本账户未通过筛查，买入时会跳过它。",
+      "screenOff": "上线初期不启用合规筛查。",
+      "ownMix": "自选组合",
+      "defaultMix": "默认组合",
+      "noMixDetail": "既没有自选组合，也没有默认组合，无可买入。",
+      "delisted": "{{sym}} 已下架",
+      "delistedDetail": "已在资产注册表中停用：买入时不会买入该成分，而是以 USDG 支付给你（安全结算）。它不会拖住组合中的其他成分。",
+      "unknownRouter": "预言机状态未知，正在读取路由合约…",
+      "unknownRegistry": "正在读取资产注册表…",
+      "waitingDetail": "{{detail}}。在所有启用成分都能交易之前，执行器会暂缓整个账户，任何成分都不会买入。"
+    }
+  },
+  "spareBalance": {
+    "hero": {
+      "kicker": "零钱 · 链上",
+      "subtitle": "暂存 · 股票 · 领取",
+      "description": "暂存零钱、自动买入的股票，以及所有待领取的资产，全部直接读取自 Robinhood Chain。"
+    },
+    "what": "暂存零钱、股票持仓和可领取资产",
+    "connectWhy": "连接你的投资钱包，查看 Spare 为它保管的一切：暂存零钱、已买入的股票，以及所有待领取的资产。",
+    "example": {
+      "title": "零钱",
+      "note": "一笔付款如何变成零钱：仅为示例，并非你的余额。",
+      "roundUpTo": "凑整至",
+      "aria": "示例凑整规则",
+      "coffee": "咖啡",
+      "roundsTo": "凑整后",
+      "spare": "零钱",
+      "steps": {
+        "park": "这笔零钱会和你的其他凑整一起暂存在 CashPark。",
+        "sweep": "达到买入门槛后，执行器会买入你的股票组合。",
+        "land": "股票会转入你的钱包，并显示在这里。"
+      }
+    },
+    "park": {
+      "usdg": "USDG 适配器 · 无收益",
+      "sgov": "SGOV 适配器 · 美国国债",
+      "units": "{{amount}} 份额",
+      "readFail": "无法读取 CashPark",
+      "title": "暂存区里的零钱",
+      "reading": "正在读取 CashPark…",
+      "total": "总价值",
+      "pending": "待入账 USDG",
+      "pendingSub": "已计入，尚未暂存",
+      "parked": "已暂存",
+      "splitAria": "待入账 {{pending}}，已暂存 {{parked}}",
+      "splitPending": "待入账 {{amount}}",
+      "splitParked": "已暂存 {{amount}}"
+    },
+    "tx": {
+      "exit": "退出 CashPark",
+      "claim": "领取 {{sym}}"
+    },
+    "cols": {
+      "asset": "资产",
+      "tokens": "代币数量",
+      "price": "价格",
+      "value": "价值"
+    },
+    "liveOracle": "实时预言机价格",
+    "priceLast": "{{price}}（上次）",
+    "exit": {
+      "readOnly": "只有账户 {{account}} 能退出：exit() 会把资金付给调用者。请连接该账户后再提取。",
+      "confirm": "会先把待入账的 {{pending}} USDG 发送到此钱包，再把已暂存份额赎回为 USDG；如果暂时无法赎回，则以实物（如 SGOV）交给你。你的规则和已绑定的钱包都不受影响，所以除非你暂停，新的凑整会继续计入。",
+      "info": "即使 Spare 停止新的活动，exit() 也无法被暂停。但它确实依赖运营方：Spare 合约由一把所有者密钥控制（目前还没有多签或时间锁），这把密钥可能在你退出前转走暂存零钱，所以暂存区的安全程度完全取决于这把密钥。",
+      "confirmBtn": "确认：全部提取",
+      "btn": "退出：全部提取"
+    },
+    "holdings": {
+      "title": "股票持仓",
+      "accentUnpriced": "{{value}} + {{count}} 只未定价",
+      "none": "暂无",
+      "readingRegistry": "正在读取资产注册表…",
+      "emptyAccount": "账户 {{account}} 尚未持有注册表中的任何代币化股票。买入的代币会交付到该账户，而不是这个消费钱包。",
+      "emptyWallet": "此钱包尚未持有注册表中的任何代币化股票。自动买入的代币会直接交付到这里。",
+      "value": "股票价值",
+      "unpricedSub": "+ {{count}} 只未定价",
+      "positions": "持仓数",
+      "aria": "股票持仓",
+      "hintAccount": "账户 {{account}} 持有的代币（买入的代币会交付到这里），按路由合约的预言机价格估值。“上次”指休市期间价格源最近一次的报价。账户 USDG：{{usdg}}。",
+      "hintWallet": "此钱包持有的代币（买入的代币会交付到这里），按路由合约的预言机价格估值。“上次”指休市期间价格源最近一次的报价。钱包 USDG：{{usdg}}。"
+    },
+    "claim": {
+      "title": "可领取",
+      "waiting": "{{count}} 笔待领取",
+      "nothing": "无待领取",
+      "empty": "目前没有待领取的资产。只有在买入时某个代币拒绝转账给你，交付才会出现在这里。",
+      "aria": "可领取的交付",
+      "btn": "领取",
+      "readOnly": "claim(token) 会付给调用者：请连接账户 {{account}} 后领取。",
+      "own": "claim(token) 会付给此钱包（也就是账户本身），且永不暂停。"
+    }
+  },
+  "activity": {
+    "filter": {
+      "all": "全部",
+      "roundups": "凑整",
+      "sweeps": "买入",
+      "money": "领取与退出",
+      "settings": "设置"
+    },
+    "ago": {
+      "s": "{{n}} 秒前",
+      "m": "{{n}} 分钟前",
+      "h": "{{n}} 小时前",
+      "d": "{{n}} 天前"
+    },
+    "ev": {
+      "notCollected": "未收取",
+      "scanned": "已扫描",
+      "nothingPulled": "未扣款",
+      "partial": "部分收取",
+      "roundUp": "凑整",
+      "skipped": "未计入",
+      "credited": "已存入暂存区",
+      "attempted": "已尝试",
+      "swept": "已买入",
+      "delivered": "已到账",
+      "claimable": "待领取",
+      "deferred": "已顺延",
+      "safeSettled": "已安全结算",
+      "claimed": "已领取",
+      "returned": "已退回",
+      "toSweep": "转出买入",
+      "exit": "已退出",
+      "exitPartial": "部分退出",
+      "ruleSet": "已设置规则",
+      "linked": "已绑定",
+      "unlinked": "已解绑",
+      "mixSet": "已设置组合",
+      "mixCleared": "已清除组合"
+    },
+    "d": {
+      "where": "{{wallet}} · 区块 {{from}}–{{to}}",
+      "notCollected": "{{where}} · {{payments}} 笔付款应凑整 ≈{{due}}，但实际扣款 $0（未授权扣款、钱包里没有 USDG，或每周上限已用完）。游标已越过这些付款，它们再也无法收取。",
+      "notCollectedAmount": "$0 / ≈{{due}}",
+      "scanned": "{{where}} · 此区间内没有付款，游标已前移",
+      "nothingPulledChecking": "{{where}} · 扣款 $0，正在检查此区间内的付款…",
+      "nothingPulledUnknown": "{{where}} · 扣款 $0，无法检查此区间内的付款（如果规则在此之前改过，请加载更早的记录）",
+      "partial": "扣款自 {{where}} · 应收 ≈{{due}}，少收 ≈{{short}}（受每周上限、扣款授权额度或钱包余额限制），差额已无法再收取",
+      "pulledFrom": "扣款自 {{where}}",
+      "skipped": "{{wallet}}：{{reason}}",
+      "pullReverted": "扣款交易已回滚",
+      "credited": "零钱已存入暂存区",
+      "filled": "{{sym}} 已成交",
+      "legDeferred": "{{sym}} 已顺延",
+      "batch": "批次：{{fills}}",
+      "epoch": "第 {{epoch}} 期",
+      "attempted": "第 {{epoch}} 期 · 所有成分都已顺延，{{amount}} 已退回暂存区，没有买入任何股票；将在下一周期重试",
+      "split": "已结算 {{settled}}，{{deferred}} 顺延并退回暂存区",
+      "delivered": "{{sym}} 已发送到你的钱包",
+      "claimable": "{{sym}} 拒绝了转账，请到 Spare 余额中领取",
+      "swapNoFill": "兑换未成交",
+      "deferred": "{{sym}}：{{reason}}，已退回暂存区",
+      "suspended": "已暂停交易",
+      "safeSettled": "{{sym}} {{reason}}，已以 USDG 支付给你",
+      "claimed": "{{sym}} 已领取",
+      "returned": "已退回暂存区",
+      "toSweep": "已从暂存区转出用于买入",
+      "exited": "已全部提取",
+      "exitedInKind": "已全部提取 · {{units}} 份额以实物交付",
+      "exitPartial": "{{units}} 份已暂存份额暂时无法转出，请稍后再次退出",
+      "ruleSet": "${{roundTo}} · {{mult}}× · 上限 {{cap}}/7 天 · {{state}}",
+      "ruleOn": "已开启",
+      "rulePaused": "已暂停",
+      "linked": "钱包 {{wallet}} 已绑定",
+      "unlinked": "钱包 {{wallet}} 已解绑",
+      "mixCleared": "已恢复默认组合"
+    },
+    "why": "连接你的投资钱包。账户动态读取自该账户在 Robinhood Chain 上的事件日志。",
+    "hero": {
+      "kicker": "你的账本 · 链上",
+      "subtitle": "凑整 · 买入 · 设置",
+      "description": "你的 Spare 账户里每一笔凑整、买入、交付和设置变更，都直接解码自 Robinhood Chain 事件日志。每一行都链接到它在 Blockscout 上的交易。",
+      "noIndexer": "无索引器"
+    },
+    "what": "凑整、买入和设置",
+    "connectTitle": "连接钱包",
+    "sample": {
+      "pulledYours": "扣款自你的消费钱包 · 区间内 3 笔付款"
+    },
+    "cols": {
+      "when": "时间",
+      "event": "事件",
+      "detail": "详情",
+      "amount": "金额",
+      "tx": "交易"
+    },
+    "kinds": {
+      "roundups": "从你已绑定的钱包逐个区间扣取的零钱，也包括应收却未收取的区间。",
+      "sweeps": "暂存零钱自动买入你的股票组合，并交付到你的钱包。无法成交的成分会顺延并退回暂存区。",
+      "money": "你领取的代币，以及从暂存区提取的资金。",
+      "settings": "凑整规则、已绑定钱包和股票组合的变更。"
+    },
+    "preview": {
+      "title": "预览：你会看到什么",
+      "note": "仅为示意：用示例数字展示这个窗口的样子。并非你的账户，也不是实时数据。",
+      "aria": "账户动态示例：仅为示意，并非实时数据",
+      "logged": "会记录哪些内容"
+    },
+    "math": {
+      "aria": "示例：你支付 $3.75，凑整至 $4.00，多出的 $0.25 零钱会被留出用于投资",
+      "youPay": "你支付",
+      "roundTo": "凑整至 $1",
+      "spare": "零钱",
+      "badge": "凑整"
+    },
+    "body": {
+      "blockTitle": "区块 {{n}}",
+      "window": "区块 {{from}}–{{to}}",
+      "scanning": "扫描中…",
+      "statusScanning": "扫描中",
+      "statusError": "出错",
+      "title": "账户动态",
+      "pulled": "已扣取凑整",
+      "pulledSub": "来自你的钱包 · 已加载区间",
+      "swept": "已买入（净额）",
+      "sweptSub": "已扣除顺延退回暂存区的成分",
+      "notCollected": "未收取",
+      "deferredLegs": "顺延成分",
+      "events": "事件数",
+      "scanLabel": "正在扫描事件日志",
+      "chunks": "{{done}}/{{total}} 段",
+      "scanFailed": "扫描失败",
+      "totalsHint": "合计只涵盖已加载的区间：{{window}}。“已买入”是扣除顺延退回暂存区成分后的净额。“未收取”根据钱包自身的 USDG 付款（按当前排除项和生效规则）重新计算每个凑整区间，估算执行器未扣款就跳过的凑整金额。"
+    },
+    "log": {
+      "title": "事件日志",
+      "checking": "检查区间中",
+      "rowsBadge": "{{count}} 行",
+      "filter": "筛选",
+      "filterAria": "筛选事件",
+      "refresh": "↻ 刷新",
+      "aria": "账户动态，最新的在前",
+      "emptyError": "扫描失败，详见上方。",
+      "emptyAll": "已加载的区间内，此账户没有 Spare 动态。",
+      "emptyKind": "已加载的区间内没有此类记录。",
+      "rows": "{{count}} 行",
+      "idle": "已隐藏 {{count}} 条无付款的区间推进记录",
+      "checkingWindows": "正在检查凑整区间…",
+      "older": "加载更早记录（7 天）",
+      "reachedStart": "已到达部署区块，没有更早的记录。"
+    },
+    "selected": {
+      "title": "所选事件",
+      "clear": "取消选择",
+      "block": "区块",
+      "time": "时间",
+      "tx": "交易",
+      "fillsIntro": "本次买入的批次净成交（包含该批次的所有账户，不只是你的）：",
+      "fillSwept": "<b>{{sym}}</b>：投入 {{in}} · 手续费 {{fee}} · 换得 {{out}}",
+      "fillDeferred": "<b>{{sym}}</b>：{{in}} 已顺延"
+    },
+    "footer": "直接从事件日志读取，每段 ≤ 50,000 个区块，不用索引器，也不用服务器。首次扫描约涵盖最近 7 天；更早的记录按需加载，最早可追溯到部署区块。"
+  },
+  "viewingKey": {
+    "items": {
+      "notes": {
+        "piece": "隐私票据承诺",
+        "why": "持仓必须以承诺的形式存在于池中，而不是公开账户上的余额。"
+      },
+      "stealth": {
+        "piece": "隐身注资地址",
+        "why": "每次买入的落点，都必须无法关联回任何已绑定的钱包。"
+      },
+      "key": {
+        "piece": "查看密钥派生 + 审计",
+        "why": "用来解密你自己票据的密钥，必须先完成派生和审查，才能发放。"
+      },
+      "proof": {
+        "piece": "偿付能力证明电路",
+        "why": "池子必须证明它持有所欠的每一份股份，同时不透露谁拥有什么。"
+      },
+      "custody": {
+        "piece": "托管方 + 交易场所协议",
+        "why": "持有股票的一方，必须同意与隐私池进行结算。"
+      }
+    },
+    "preview": {
+      "title": "预览 · 尚未上线",
+      "body": "目前没有任何买入走隐私路由。每次买入都公开结算到你的钱包，这个窗口里的任何操作都不会改变这一点。"
+    },
+    "hero": {
+      "kicker": "Spare 隐私",
+      "subtitle": "隐私通道",
+      "description": "了解隐私通道需要哪些前提。这些都尚未开发：目前每次买入都公开结算。",
+      "noKey": "未发放密钥"
+    },
+    "read": {
+      "p1": "隐私通道背后的隐私余额密码学<warn>尚未开发</warn>。没有部署任何隐私池，从未发放过任何查看密钥，也没有验证过任何证明。",
+      "p2": "下方的路由开关只会切换这个窗口里的示意图。<info>它不会被保存</info>，也不改变任何链上状态。",
+      "p3": "这里不显示任何查看密钥，因为它还不存在。看似真实、实则什么都保护不了的密钥会被保存、被信任，甚至被重复使用。等密钥派生通过审计并正式上线，你的密钥会来自隐私池，而不是这个界面。"
+    },
+    "route": {
+      "title": "买入路由",
+      "accent": "预览",
+      "label": "显示路由",
+      "aria": "显示哪条路由（仅预览）",
+      "optPublic": "公开",
+      "optPrivate": "隐私（尚未开发）"
+    },
+    "readout": {
+      "route": "目前路由",
+      "public": "公开",
+      "saved": "是否保存选择",
+      "key": "持有的密钥材料",
+      "none": "无",
+      "today": "目前是否受保护",
+      "no": "否"
+    },
+    "prereq": {
+      "title": "隐私通道上线之前",
+      "count": "{{count}} 项前提",
+      "required": "必需"
+    },
+    "balance": {
+      "title": "隐私余额",
+      "head": "没有隐私池 · 无内容可显示",
+      "body": "目前没有部署隐私池，所以没有隐私余额可以显示。你现在的 Spare 余额是公开的，都在“Spare 余额”里：包括 CashPark 中的暂存零钱，以及自动买入交付到你钱包的股票代币。"
+    },
+    "lanes": {
+      "aria": "买入结算到哪里",
+      "wallet": "你的钱包",
+      "walletNote": "透明账户",
+      "only": "唯一路由",
+      "pool": "隐私池",
+      "warn": "仅为预览。目前还没有隐私路由：买入仍会公开结算到你的钱包。",
+      "sweep": "买入",
+      "pick": "当前显示"
+    },
+    "notDeployed": "未部署",
+    "diagram": {
+      "label": "隐私通道意味着什么",
+      "title": "隐私源于设计",
+      "badge": "设计稿 · 尚未开发"
+    },
+    "callout": {
+      "a": {
+        "title": "数据归你",
+        "lead": "隐私持仓。",
+        "body": "你的代币化股票以加密承诺的形式存放在池中，而不是任何人都能在区块浏览器上查到的余额。池子的总额公开，你的那一份不公开。"
+      },
+      "b": {
+        "title": "不可关联的钱包",
+        "lead": "隐身注资。",
+        "body": "每次买入都落到一个全新的一次性地址，所以盯着已绑定的钱包，也看不出持续累积的仓位；而这正是透明凑整产品最大的隐私漏洞。"
+      },
+      "c": {
+        "title": "自己的账本自己看",
+        "lead": "查看密钥。",
+        "body": "一把由你自己持有的只读密钥，用来解密你的票据，让你能核对余额和历史记录。它是只读的，无法转移资金。但把它分享出去，就等于让对方永久看到你的账户；所以它绝不能随意发放，更不能由一个演示界面发放。"
+      },
+      "d": {
+        "title": "储备证明",
+        "lead": "公开的偿付能力证明。",
+        "body": "隐私属于你，而不属于运营方。池子会公开证明它持有所欠的每一份股份，所以保护你的余额隐私，绝不意味着要信任一本未经审计的账本。"
+      }
+    },
+    "vault": {
+      "aria": "隐私池：未部署",
+      "badge": "隐私池"
+    }
+  },
+  "about": {
+    "props": {
+      "version": "版本",
+      "network": "网络",
+      "contracts": "合约",
+      "fee": "手续费",
+      "token": "代币",
+      "deployed": "2026年9月30日部署",
+      "feeValue": "完成转换的零钱收取 0.25%，另加流动性池的交易费",
+      "tokenValue": "$SPARE：尚未上线"
+    },
+    "title": "Spare：把凑整零钱投进代币化股票",
+    "meta": "版本 {{version}} · Robinhood Chain (4663) · 合约于 2026年9月30日部署",
+    "body": "Spare 为你已绑定钱包的 USDG 付款凑整，再把零钱自动买入你选的股票。无需订阅；Spare 对完成转换的零钱收取 0.25%，每笔买入另需支付该股票流动性池自身的交易费（因股票而异）。",
+    "footer": "© 2026 Spare。基于 Robinhood Chain 构建。不构成投资建议。",
+    "engine": "凑整引擎",
+    "versionBadge": "版本 {{version}}"
+  },
+  "mySpare": {
+    "drives": "{{count}} 个驱动器",
+    "tagline": "你的 Spare 账户，每个部分都一键直达。",
+    "desc": {
+      "fundWallet": "ETH ↔ USDG 兑换 · 官方跨链桥",
+      "spareBalance": "暂存零钱 · 你的股票 · 退出",
+      "linkWallet": "消费钱包 · 扣款授权",
+      "roundupRules": "$1 / $5 / $10 · 1×–5× · 每周上限",
+      "stockMix": "最多 6 只股票 · 权重合计 100%",
+      "autoInvest": "自动买入 · 门槛 · 下一周期",
+      "activity": "凑整、买入和交付",
+      "viewingKey": "隐私凑整 · S2 推出"
+    }
+  },
+  "taskManager": {
+    "title": "Spare 任务管理器",
+    "accent": "{{open}} 个已打开 · {{services}} 个服务",
+    "intro": "应用程序及其读取的服务，实时更新。",
+    "aria": "已打开的窗口和后台服务",
+    "footer": "进程：{{count}} · 选择一个窗口，再点“结束任务”即可关闭。",
+    "endTask": "结束任务",
+    "cols": {
+      "process": "进程",
+      "status": "状态",
+      "detail": "详情"
+    },
+    "status": {
+      "minimized": "已最小化",
+      "running": "运行中",
+      "live": "实时",
+      "marketClosed": "休市",
+      "partly": "部分实时",
+      "unavailable": "不可用",
+      "checking": "检测中",
+      "online": "在线",
+      "reporting": "正常上报"
+    },
+    "detail": {
+      "window": "窗口",
+      "feedsOk": "{{count}} 个股票价格源正常",
+      "lastCloses": "上次收盘价 · 买入暂缓",
+      "someWaiting": "部分价格源等待中",
+      "noAnswer": "链上无响应",
+      "block": "区块 #{{n}}",
+      "rpcDown": "RPC 无响应",
+      "apiDown": "链上功能仍可用",
+      "lastRoundUp": "上次凑整 {{ago}}",
+      "noRoundUps": "尚未上报凑整",
+      "viaApi": "状态来自 Spare API"
+    },
+    "svc": {
+      "feeds": "Chainlink 价格源",
+      "keeper": "Spare 执行器（远程）"
+    }
+  },
+  "recycleBin": {
+    "objects0": "0 个对象",
+    "empty": "回收站为空",
+    "body": "没有可还原的已删除凑整、买入或设置。链上会记住一切，这是有意为之。",
+    "stats": {
+      "objects": "对象",
+      "size": "大小",
+      "free": "可用"
+    },
+    "emptyBtn": "清空回收站",
+    "restoreAll": "全部还原"
+  },
+  "roadmap": {
+    "status": {
+      "live": "已上线",
+      "inProgress": "进行中",
+      "planned": "计划中"
+    },
+    "hero": {
+      "title": "Spare 的下一步",
+      "subtitle": "只排顺序，不定日期",
+      "description": "S1 已在 Robinhood Chain 上线，之后的阶段都还在规划中。"
+    },
+    "openFull": "查看完整路线图 ↗",
+    "count": "{{live}} 个已上线 · {{toCome}} 个待推出",
+    "wontTitle": "我们不会做的事",
+    "principles": "S1 能上线，是因为它建立在已被验证的模式之上：索引、注册表、单一路由合约。之后每个阶段都能直接接入，无需改动 S1 的接口。我们只公布顺序，不公布日期；只有真正上了主网，才会标记为已上线。",
+    "wont": {
+      "subscription": "订阅制。",
+      "projections": "收益或回报预测。",
+      "card": "绑定银行卡或银行账户。",
+      "pausableExit": "可被暂停的退出。",
+      "earlyAddress": "在代币真正存在之前公布代币地址。"
+    },
+    "phases": {
+      "s1": {
+        "title": "凑整，已上线",
+        "summary": "钱包原生的凑整，投入代币化股票，走公开通道。合约自 2026年9月30日起在 Robinhood Chain 主网上线。",
+        "link": "绑定消费钱包（最多 8 个）",
+        "rules": "凑整规则：$1 / $5 / $10、1×–5×、每周上限",
+        "mix": "股票组合：最多 6 只股票；默认 60% SPY / 40% NVDA",
+        "cashPark": "CashPark，退出功能无法被暂停",
+        "keeper": "执行器：每分钟收取一次，买入受报价限额约束",
+        "pools": "Uniswap v4 指定流动性池，配合 Chainlink 价格保护",
+        "stocks": "股票：Robinhood Chain 完整股票池，流动性池价格贴近 Chainlink 的股票即启用",
+        "fund": "钱包充值：ETH ↔ USDG 兑换和官方跨链桥链接",
+        "fee": "0.25% 转换手续费，无需订阅"
+      },
+      "hardening": {
+        "title": "加固 S1",
+        "summary": "在扩展之前，先让已上线的系统更稳固。",
+        "multisig": "将所有者密钥迁移至多签",
+        "audit": "第三方安全审计",
+        "standby": "流动性池价格贴近 Chainlink 后，启用待命股票（QQQ 等）",
+        "treasuryPark": "完成主网分叉测试后，把暂存零钱转入 SGOV 美国国债暂存",
+        "gate": "决定合规筛查闸门的去留（已部署，未开启）"
+      },
+      "s2": {
+        "title": "隐私凑整",
+        "summary": "凑整不再被围观：隐私余额、不可关联的注资、保密金额、查看密钥回顾、公开的偿付能力证明。退出始终开放。",
+        "balance": "隐私 Spare 余额",
+        "stealth": "从消费钱包隐身注资",
+        "confidential": "保密金额与密封买入",
+        "viewingKey": "查看密钥：完整账本，只有你能看",
+        "proofs": "按周期发布偿付能力证明"
+      },
+      "s3": {
+        "title": "加码奖励与 $SPARE",
+        "summary": "用奖励为凑整加码，而不是用手续费从中扣减。",
+        "boosts": "加码奖励：合作伙伴返利直接计入凑整",
+        "streaks": "连续打卡与首次凑满一股的里程碑",
+        "match": "配捐赞助（家人或雇主），设有上限",
+        "kids": "把凑整存进孩子的账户或共同目标",
+        "recap": "每周回顾卡片",
+        "token": "$SPARE：手续费用于回购和奖励质押者"
+      },
+      "s4": {
+        "title": "付款即凑整，支持更多链",
+        "summary": "在付款的那一刻完成凑整，并支持其他链上的钱包。",
+        "hook": "付款时触发的账户抽象 (ERC-4337) 凑整 hook",
+        "chains": "其他链上的消费钱包 (Solana, Arc)"
+      }
+    }
+  },
+  "markets": {
+    "stockTokenNote": "股票代币是由 Robinhood Assets (Jersey) Limited 发行、追踪标的股票的 ERC-20 代币，并非股份。此处价格均为单个代币的价格，已计入代币的乘数。Chainlink 在美股 24/5 交易时段内更新股票价格；交易时段之外显示上次收盘价，买入暂缓。不向美国人士提供。",
+    "hooked": "带 hook",
+    "noHook": "无 hook",
+    "market": {
+      "live": "实时",
+      "liveTitle": "Chainlink 股票价格源正在实时更新",
+      "partly": "部分实时",
+      "partlyTitle": "部分股票价格源在实时更新，部分在等待",
+      "closed": "休市",
+      "closedTitle": "美股 24/5 交易时段已结束：显示上次收盘价，买入暂缓",
+      "checking": "检测中",
+      "checkingTitle": "正在从 Robinhood Chain 读取股票池",
+      "offlineTitle": "无法连接 Robinhood Chain"
+    },
+    "copyTitle": "复制 {{token}}",
+    "copyAria": "复制 {{symbol}} 代币地址 {{short}}",
+    "copied": "已复制 ✓",
+    "dynamicFee": "动态费率"
+  },
+  "stockDesk": {
+    "hero": {
+      "kicker": "Robinhood Chain · 股票池",
+      "subtitle": "代币化股票",
+      "description": "你的零钱能买的股票，实时读取自 Robinhood Chain 上 Spare 的资产注册表和 Chainlink。只有启用的股票才能加入组合。"
+    },
+    "badge": "{{active}} 只启用 · {{total}} 只已注册",
+    "noPrices": "Robinhood Chain 没有响应，暂时没有价格可显示。",
+    "divider": "股票池",
+    "loading": "加载中",
+    "readingAria": "正在读取股票池",
+    "readingRegistry": "正在读取 Robinhood Chain 上的 AssetRegistry…",
+    "aboutTokens": "关于股票代币",
+    "card": {
+      "noFeedPrice": "价格源暂无报价",
+      "livePrice": "Chainlink 实时价格 · {{ago}}",
+      "lastClose": "上次收盘价 · {{ago}}",
+      "active": "启用",
+      "inactive": "未启用",
+      "price": "价格",
+      "noPrice": "暂无价格",
+      "oracle": "预言机",
+      "pool": "流动性池",
+      "defaultMix": "默认组合",
+      "addToMix": "加入组合",
+      "change": "约 1 日"
+    },
+    "age": {
+      "firstLoad": "首次加载",
+      "loadingPrices": "正在加载价格",
+      "label": "数据时效",
+      "value": "{{age}} 秒 / {{max}} 秒"
+    },
+    "feed": {
+      "title": "看盘数据源",
+      "universe": "股票池",
+      "prices": "价格",
+      "viaGuard": "经由 StockRouter 的预言机保护",
+      "refresh": "刷新频率",
+      "every": "每 {{n}} 秒",
+      "updated": "更新时间"
+    }
+  },
+  "afterHours": {
+    "depth": {
+      "noQuote": "无报价",
+      "deep": "深",
+      "ok": "中",
+      "thin": "浅"
+    },
+    "active": "启用",
+    "inactive": "未启用",
+    "premium": "溢价",
+    "discount": "折价",
+    "onchainPremium": "链上溢价",
+    "onchainDiscount": "链上折价",
+    "feedPrice": "价格源 {{price}}",
+    "closePrice": "收盘 {{price}}",
+    "live": "实时",
+    "lastClose": "上次收盘",
+    "cols": {
+      "stock": "股票",
+      "gap": "价差",
+      "depth": "深度",
+      "onchain": "链上"
+    },
+    "et": "{{time}} (ET)",
+    "inM": "{{n}} 分钟",
+    "inH": "{{n}} 小时",
+    "session": {
+      "open": "开盘中",
+      "closed": "已休市",
+      "title": "美股 24/5 交易时段：周日 20:00 至周五 20:00 (ET)",
+      "lineOpen": "美股交易时段进行中",
+      "lineOpens": "{{when}} 开盘 · 还有 {{in}}",
+      "lineClosed": "美股交易时段已结束",
+      "hintOpen": "Chainlink 正在发布实时股票价格，链上流动性池的价格应该与之接近。",
+      "hintClosed": "Chainlink 显示的是上次收盘价。流动性池照常交易，所以价差反映的是链上对开盘价的预期。Spare 的自动买入会等到交易时段开始。",
+      "card": "交易时段"
+    },
+    "hero": {
+      "kicker": "代币化股票 · 24/7",
+      "subtitle": "Robinhood Chain 永不休市",
+      "description": "华尔街有交易时间，股票代币却没有。对比每只股票此刻的链上成交价和 Chainlink 价格，再看看背后流动性池有多深。"
+    },
+    "quoting": "报价中…",
+    "quotingAria": "正在向股票流动性池询价",
+    "stats": {
+      "premium": "溢价",
+      "premiumSub": "链上高于 Chainlink",
+      "discount": "折价",
+      "discountSub": "链上低于 Chainlink",
+      "widest": "最大可参考价差",
+      "none": "无",
+      "noneSub": "没有足够深的启用流动性池可供参考"
+    },
+    "noTape": "Robinhood Chain 没有响应，暂时没有行情可显示。",
+    "tape": {
+      "title": "链上 vs Chainlink",
+      "accent": "{{count}} 只股票 · $100 报价",
+      "loading": "加载中",
+      "empty": "股票池里还没有股票。",
+      "aria": "盘后行情：每只股票的链上价格、Chainlink 价格、价差和流动性池深度",
+      "quotesFailed": "部分报价失败，这些行显示为“—”。",
+      "gapBar": "价差条：溢价向右延伸，折价向左延伸，按看板上最大的价差缩放（最小 ±1%）。"
+    },
+    "how": {
+      "title": "如何看懂行情",
+      "body": "链上 = $100 USDG 此刻通过 Spare 为该股票指定的 Uniswap v4 流动性池能买到的价格 · Chainlink = 价格源的报价（交易时段结束时为上次收盘价） · 深度 = 从 $5 到 $100 买入的价格影响。",
+      "warn": "浅池上的大价差只说明流动性不足，并不是信号。这里的内容均不构成投资建议。"
+    }
+  },
+  "xray": {
+    "kind": {
+      "stocks": "股票",
+      "cash": "现金",
+      "eth": "ETH"
+    },
+    "priceNote": {
+      "none": "尚无 Chainlink 价格",
+      "live": "Chainlink 实时价格",
+      "lastClose": "Chainlink 上次收盘价",
+      "usd": "按 $1.00 计"
+    },
+    "parked": {
+      "symbol": "暂存",
+      "name": "CashPark 中的零钱"
+    },
+    "etherGas": "Ether (Gas)",
+    "split": "按类别划分",
+    "splitAria": "{{label}}：{{parts}}",
+    "weightAria": "{{symbol}} 权重",
+    "cols": {
+      "asset": "资产",
+      "value": "价值",
+      "weight": "权重",
+      "kind": "类别",
+      "balance": "余额"
+    },
+    "example": {
+      "note": "仅为示意：这是示例钱包，并非你的数据。"
+    },
+    "how": {
+      "title": "持仓透视如何运作",
+      "connect": "连接",
+      "connectBody": "也就是持有你 Robinhood Chain 资产的那个钱包。",
+      "read": "读取",
+      "readBody": "持仓透视读取它在 Robinhood Chain 上的余额：Spare 支持的每一种股票代币、USDG、ETH 和 WETH，以及在 Spare 中为它暂存的零钱。",
+      "price": "定价",
+      "priceBody": "每个持仓都按 Chainlink 价格定价（USDG 按 $1.00 计），再算出它在整个钱包中的权重。",
+      "hint": "只读。无需签名，不会发送任何数据，也不提供任何建议，只如实呈现。"
+    },
+    "status": {
+      "noWallet": "未连接钱包"
+    },
+    "hero": {
+      "kicker": "我的钱包里有什么",
+      "subtitle": "你的链上账本",
+      "description": "读取你钱包在 Robinhood Chain 上的持仓（股票代币、USDG、ETH，以及暂存在 Spare 的零钱），用 Chainlink 定价，并展示账本的构成。",
+      "readOnly": "只读"
+    },
+    "connectWhy": "连接钱包，透视它在 Robinhood Chain 上的持仓。持仓透视只读取余额，绝不会要求你的钱包签名。",
+    "wallet": {
+      "reading": "正在读取",
+      "hint": "· Robinhood Chain 上的余额，每分钟刷新",
+      "rescan": "重新扫描",
+      "progress": "正在透视你的钱包",
+      "spending": "此钱包是已绑定的消费钱包；它凑整出来的零钱暂存在它的 Spare 账户中，不在这里。"
+    },
+    "readFail": {
+      "title": "无法读取此钱包",
+      "body": "Robinhood Chain 没有响应，暂时没有可显示的内容。"
+    },
+    "empty": {
+      "title": "暂时没有可透视的内容",
+      "accent": "空",
+      "body": "此钱包在 Robinhood Chain 上还没有 ETH、USDG 或股票代币。先给它充值并设置凑整，零钱买到的股票就会显示在这里。",
+      "open": "打开钱包充值"
+    },
+    "holdings": {
+      "title": "持仓",
+      "accent": "{{total}} · 已定价 {{priced}}/{{count}}",
+      "value": "钱包价值",
+      "valueSub": "{{count}} 个持仓中有 {{priced}} 个已定价",
+      "positions": "持仓数",
+      "largest": "最大持仓",
+      "aria": "持仓：资产、类别、余额、价值和权重",
+      "showFewer": "收起",
+      "showAll": "显示全部 {{count}} 个"
+    },
+    "ray": {
+      "title": "透视结果",
+      "inStocks": "股票占比",
+      "stockTokenOne": "{{count}} 种股票代币",
+      "stockTokenMany": "{{count}} 种股票代币",
+      "inCash": "现金占比",
+      "inCashHint": "USDG，以及暂存在 Spare 的零钱",
+      "inEth": "ETH 占比",
+      "inEthHint": "Gas 费用（ETH 和 WETH）",
+      "largestHint": "占已定价钱包的比例"
+    },
+    "next": {
+      "title": "下一步",
+      "body": "凑整买到的股票会存入这个钱包。可以在“股票组合”里调整要买哪些股票，或在“Spare 余额”里查看已暂存的金额。"
+    },
+    "footer": "链上余额 · Chainlink 价格（休市期间，股票显示上次收盘价） · USDG 按 $1.00 计 · 不构成投资建议。"
+  },
+  "oracle": {
+    "label": {
+      "live": "实时",
+      "stale": "已过时",
+      "paused": "已暂停",
+      "seqDown": "排序器故障",
+      "badAnswer": "数据异常"
+    },
+    "detail": {
+      "live": "预言机价格为最新，可以自动买入",
+      "stale": "价格源已超过心跳间隔 + 1 小时未更新（休市），买入暂缓",
+      "paused": "代币已暂停（公司行动），买入暂缓",
+      "seqDown": "排序器故障，买入暂缓",
+      "badAnswer": "预言机返回了异常数据，买入暂缓",
+      "unknown": "预言机状态未知"
+    }
+  },
+  "tx": {
+    "connectFirst": "请先连接钱包。",
+    "revertedOnChain": "交易在链上回滚，没有任何变更。"
+  }
+}

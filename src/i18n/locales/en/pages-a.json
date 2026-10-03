@@ -1,0 +1,613 @@
+{
+  "legal": {
+    "englishGoverns": "Translated for convenience. If this translation and the English version differ, the English version governs.",
+    "kicker": "Legal · Spare",
+    "version": "Legal"
+  },
+  "common": {
+    "openSpare": "Open Spare",
+    "active": "ACTIVE",
+    "inactive": "INACTIVE",
+    "liveReadUnavailable": "live read unavailable"
+  },
+  "payments": {
+    "title": "What counts as a payment",
+    "definition": "An outgoing USDG transfer from a linked wallet.",
+    "excluded": {
+      "sameAccount": "transfers between wallets linked to the same Spare account",
+      "toAccount": "transfers to your Spare account itself",
+      "toContracts": "transfers to Spare's contracts",
+      "swaps": "swaps: transfers into the Uniswap pools and routers Spare uses",
+      "otherTokens": "ETH and every other token (USDG only in S1)",
+      "beforeLink": "payments made before you linked the wallet, or while your rule was off"
+    }
+  },
+  "risks": {
+    "items": {
+      "contracts": "<b>New contracts.</b> Spare's contracts went live on 30 Sep 2026. They were reviewed and fork-tested (tested against a copy of Robinhood Chain mainnet); no third-party audit has been published. Keep amounts small.",
+      "adminKey": "<b>Admin key.</b> Spare's owner is a single wallet — no multisig and no timelock — which is also the pauser. It can pause collections and sweeps, change fees within the 1% ceiling, change pool pins and price feeds, deactivate stocks, change the keeper, and replace the executor that CashPark trusts. That last power means a compromised or misused owner key could take all spare change that is parked and waiting, in one transaction. It could also make itself the keeper, pull made-up round-ups from your linked wallets (up to your weekly cap per window, so up to twice the cap within a week) and take those too, or point a stock at a pool and price feed it controls. Stocks already delivered to your wallet are out of its reach. The plan to move the owner to a 2-of-3 Safe behind a 48-hour timelock is published; until it is carried out, parked spare change depends on that one key.",
+      "keeper": "<b>Keeper.</b> If the keeper stops, collections and sweeps stop; your parked spare stays exitable. The contract cannot check the round-up amounts the keeper reports, so a compromised keeper could pull up to your weekly cap per window (up to twice the cap within a week, because the cap is counted in UTC days) into your own park, where Exit returns it, and could buy at up to 1.5% under the Chainlink price.",
+      "market": "<b>Market and price.</b> Stock tokens move with the underlying and can lose value. Tokens trade around the clock but Chainlink prices follow the US-equities 24/5 session, so sweeps wait when the market is closed.",
+      "liquidity": "<b>Liquidity.</b> On-chain pools can be thin. Spare only buys through pinned pools and within quote and oracle limits; a stock can be deactivated if its pool degrades.",
+      "token": "<b>The token itself.</b> A stock token is not a share. It is issued by Robinhood Assets (Jersey) Limited, tracks the underlying through a price multiplier (ERC-8056), enforces its own transfer rules, and can be paused by its issuer.",
+      "regulation": "<b>Regulation.</b> Tokenized stocks are restricted by jurisdiction and rules can change.",
+      "noAdvice": "<b>No advice.</b> Spare is software. It does not recommend stocks, and nothing here is investment advice."
+    }
+  },
+  "docs": {
+    "meta": {
+      "pageTitle": "Docs — Spare",
+      "description": "How Spare works: link a wallet, set a round-up rule, pick your stocks. Fees, limits, sweeps, risks and contract addresses.",
+      "kicker": "Docs · Spare S1",
+      "title": "How Spare works",
+      "subtitle": "Round up the payments you already make. Invest the change in tokenized stocks. Everything here is live on Robinhood Chain mainnet unless it says otherwise."
+    },
+    "nav": {
+      "start": "Start here",
+      "using": "Using Spare",
+      "money": "Money",
+      "trust": "Trust",
+      "help": "Help",
+      "overview": "Overview",
+      "quickstart": "Quickstart",
+      "link": "Link a wallet",
+      "rules": "Round-up rules",
+      "mix": "Stock mix",
+      "sweep": "How a sweep runs",
+      "balance": "Your balance and exit",
+      "fees": "Fees",
+      "limits": "Limits and timing",
+      "safety": "Safety rails",
+      "risks": "Risks",
+      "eligibility": "Who can use Spare",
+      "contracts": "Contracts",
+      "faq": "FAQ",
+      "glossary": "Glossary"
+    },
+    "live": {
+      "live": "live · Robinhood Chain",
+      "loading": "reading Robinhood Chain…",
+      "fallback": "documented value · live read unavailable"
+    },
+    "liveTag": {
+      "live": "LIVE",
+      "reading": "READING",
+      "documented": "DOCUMENTED",
+      "documentedTip": "The live read did not answer; this is the value documented at launch."
+    },
+    "oracle": {
+      "marketClosed": "MARKET CLOSED",
+      "unknown": "UNKNOWN"
+    },
+    "universe": {
+      "reading": "Reading the stock universe from AssetRegistry…",
+      "fallbackTitle": "Live universe unavailable",
+      "fallbackBody": "The Robinhood Chain RPC didn't answer, so the live universe can't be shown right now. It fills in as soon as the chain answers.",
+      "headStock": "Stock",
+      "headStatus": "Status",
+      "headOracle": "Oracle",
+      "headDefaultMix": "Default mix"
+    },
+    "calc": {
+      "title": "Try it",
+      "accent": "runs in your browser",
+      "amountsLabel": "Payments in USDG (comma-separated)",
+      "roundTo": "Round to",
+      "roundToAria": "Round up to",
+      "multiplier": "Multiplier",
+      "notAmount": "Not a dollar amount: {{list}}",
+      "headPayment": "Payment",
+      "headRoundUp": "Round-up",
+      "total": "Spare change from these payments",
+      "note": "The same math the contract and keeper use, on USDG base units. Your weekly cap still applies on-chain."
+    },
+    "overview": {
+      "heading": "Round-ups, rebuilt for your wallet",
+      "p1": "Spare watches the USDG payments you make from wallets you link. Each payment is rounded up — to the next $1, $5 or $10, times a multiplier from 1× to 5× — and the difference is set aside as spare change. When your spare change reaches $5, Spare's keeper sweeps it into the tokenized stocks you picked, through Uniswap v4 on Robinhood Chain, and the tokens land in your wallet.",
+      "p2": "No subscription. No card link. No bank link. Spare's only fee is 0.25% of the spare change that actually converts into stock; each buy also pays its pool's own swap fee, which differs by stock.",
+      "statRoundTo": "Round up to",
+      "statRoundToSub": "set by you",
+      "statSweepAt": "Sweep at",
+      "statFee": "Fee",
+      "statStocks": "Stocks live",
+      "exampleTitle": "Example",
+      "example": "You pay $3.75 for a coffee in USDG. With a $1 rule at 1×, $0.25 goes to your spare change. Turbo at 3×: $0.75. A $4.00 payment is already on the dollar, so it adds nothing.",
+      "seeStocks": "See the stocks"
+    },
+    "quickstart": {
+      "label": "Five steps",
+      "s1": "<b>Connect.</b> Open trysparerh.com, press Enter and connect your wallet. This wallet is your Spare account — the stocks you buy are delivered to it.",
+      "s2": "<b>Fund it.</b> You need a little ETH for gas and USDG to pay with. Fund Wallet swaps ETH ↔ USDG in one step and lists the official bridges onto Robinhood Chain.",
+      "s3": "<b>Link a spending wallet.</b> Link Wallet adds the wallet you pay from — the same wallet, or another wallet you control (that wallet signs once). Then approve the pull: USDG to Permit2, and Permit2 to Spare's SweepExecutor.",
+      "s4": "<b>Set your rule.</b> Round-Up Rules: round to $1, $5 or $10, pick a multiplier, and set a weekly cap. The cap is enforced by the contract.",
+      "s5": "<b>Pick your stocks.</b> Stock Mix: up to 6 stocks, weights adding to 100%. Skip it and you get the default: 60% SPY, 40% NVDA.",
+      "after": "Then pay the way you normally do, in USDG. Round-ups count from the moment you link — never before."
+    },
+    "payments": {
+      "cardTitle": "Payments",
+      "notCounted": "These don't count:"
+    },
+    "link": {
+      "p1": "Your Spare account can collect round-ups from up to 8 wallets. Linking the account's own wallet is one transaction. Linking another wallet needs a signature from that wallet, so nobody can attach a wallet they don't control, and no admin can link or unlink on your behalf.",
+      "p2": "To let Spare collect, the spending wallet approves USDG to Permit2 and grants Spare's SweepExecutor a Permit2 allowance. The allowance has no amount limit, so it doesn't need renewing every week, and it expires after one year. What bounds every pull is your weekly cap, which the contract counts over the current UTC day and the six before it (so up to twice the cap can be pulled within any 7 × 24 hours).",
+      "p3": "Unlink a wallet and collection from it stops immediately. You can also revoke the Permit2 allowance at any time."
+    },
+    "rules": {
+      "formula": "<code>Round-up = (round-to − payment mod round-to) × multiplier</code>. A payment already on the boundary adds $0.",
+      "headPayment": "Payment",
+      "headTo": "to {{amount}}",
+      "headToTurbo": "to {{amount}} ×3",
+      "cap": "Weekly cap: the most Spare can collect from all your linked wallets over the current UTC day and the six before it (because that window moves a day at a time, up to twice the cap can be collected within any 7 × 24 hours). Presets $10, $25, $50, $100, or type your own. A cap of $0 turns collection off. A pull never exceeds your remaining cap, your Permit2 allowance or your USDG balance. If only part fits, Spare collects that part and the rest of that batch is dropped. If nothing fits, the batch waits.",
+      "off": "Turning your rule off pauses collection. Turning it back on never reaches back into the paused period."
+    },
+    "mix": {
+      "body": "Choose up to 6 stocks from the stock universe and weight them; weights must add to exactly 100%. Only active stocks can be chosen, and an invalid mix is rejected whole. Until you set one, the default mix applies: 60% SPY / 40% NVDA.",
+      "cta": "See the stock universe"
+    },
+    "sweep": {
+      "s1": "Every 10 minutes the keeper looks for accounts with at least {{threshold}} parked that haven't been swept today (each day is a 24-hour epoch).",
+      "s2": "Stocks are bought only while the US-equities 24/5 session is open and every stock in your mix has a fresh Chainlink price. Otherwise the sweep waits.",
+      "s3": "All accounts in the batch are netted: one swap per stock, through that stock's pinned Uniswap v4 pool.",
+      "s4": "In the same block, the keeper quotes the exact swap on Uniswap's V4Quoter and sets the minimum output at the quote minus 0.5%. The router also rejects any fill more than 1.5% away from Chainlink.",
+      "s5": "0.25% of the USDG converted goes to Spare's FeeVault. The tokens bought are split pro-rata to what each account put in and sent to each Spare account.",
+      "pausedTitle": "Sweeps are paused right now",
+      "pausedBody": "Collections and sweeps are paused on-chain. Exit stays open.",
+      "outcomes": "Three outcomes per stock",
+      "boughtTitle": "Bought",
+      "boughtAccent": "fee taken",
+      "boughtBody": "Bought — tokens delivered to your wallet, fee taken.",
+      "deferredTitle": "Deferred",
+      "noFee": "no fee",
+      "deferredBody": "Deferred — market closed, stale or paused price, a quote or pool problem. Your USDG goes back to the park, untouched, and is retried next time. No fee.",
+      "safeTitle": "Safe-settled",
+      "safeBody": "Safe-settled — only if Spare deactivates a stock that's in your mix: that part is sent to you as USDG, with a notice. No fee.",
+      "claim": "If a token transfer to you is refused, the tokens are held for you and Spare Balance shows them as claimable, with a Claim button."
+    },
+    "balance": {
+      "p1": "Spare Balance shows your parked spare change, the stock tokens in your wallet (valued at Chainlink prices) and anything waiting to be claimed.",
+      "p2": "<b>Exit — withdraw all:</b> sends every cent of your parked spare change back to you as USDG, at any time. Pausing Spare stops new collections and sweeps; it never stops an exit. Stocks already delivered are in your wallet — hold them, move them or sell them like any token, subject to the issuer's transfer rules.",
+      "p3": "Today parked spare sits in USDG and earns nothing. A treasury parking option (SGOV) is deployed but switched off."
+    },
+    "fund": {
+      "p1": "Fund Wallet swaps ETH ↔ USDG through Uniswap's Universal Router on the ETH/USDG 0.05% pool. Spare's 0.25% fee is taken from the output and paid to FeeVault in the same transaction, and a hard minimum protects what you receive (default slippage 0.5%).",
+      "p2": "It refuses to swap when the pool price is more than 5% from Chainlink's ETH/USD or the price impact is over 3%, and it keeps a small ETH reserve so you can still pay gas.",
+      "p3": "Need to get funds onto Robinhood Chain first? Fund Wallet lists the official bridges; the reference is Robinhood Chain's bridging guide.",
+      "guide": "Robinhood Chain bridging guide ↗"
+    },
+    "fees": {
+      "headWhat": "What",
+      "headFee": "Fee",
+      "headTo": "Goes to",
+      "conversion": "Spare change converted to stock",
+      "conversionFee": "0.25% of the USDG converted, only on stocks actually bought",
+      "swap": "Fund Wallet swap",
+      "swapFee": "0.25% of the swap output",
+      "deferred": "Deferred or safe-settled legs",
+      "none": "none",
+      "account": "Subscription, account, withdrawal, exit",
+      "pool": "Uniswap pool fee",
+      "poolFee": "inside the fill price: each stock's pinned pool charges its own LP fee (listed per stock on the Universe page)",
+      "lps": "liquidity providers",
+      "gas": "Gas",
+      "gasFee": "you pay ETH for your own transactions (link, rule, mix, approvals, exit, swaps); the keeper pays for collections and sweeps",
+      "network": "network",
+      "ceilingTitle": "Fee ceiling",
+      "ceilingBody": "The conversion fee can't be raised above 1%: that ceiling is written into the contract.",
+      "now": "Conversion fee now",
+      "ceiling": "On-chain ceiling"
+    },
+    "limits": {
+      "title": "Limits",
+      "roundTo": "Round to",
+      "multiplier": "Multiplier",
+      "wallets": "Linked wallets",
+      "walletsValue": "up to 8 per account",
+      "cap": "Weekly cap",
+      "capValue": "yours to set, rolling 7 days",
+      "threshold": "Sweep threshold",
+      "sweeps": "Sweeps",
+      "sweepsValue": "at most once per account per day, in market hours",
+      "counts": "When a payment counts",
+      "countsValue": "about 5 minutes after it confirms (3,000 blocks)",
+      "perMix": "Stocks per mix",
+      "perMixValue": "up to 6"
+    },
+    "safety": {
+      "pinned": "<b>Pinned venues.</b> Each stock trades through one exact Uniswap v4 pool, hook included. Pools are never discovered at runtime.",
+      "oracle": "<b>Oracle guards.</b> Every buy checks the Chainlink feed's age against its 24-hour heartbeat (plus 1 hour), whether the token or its oracle is paused, and whether the answer is sane.",
+      "quote": "<b>Quote-limited execution.</b> Sweeps are keeper-only and carry a same-block quote limit, so a sandwich can't take the fill.",
+      "caps": "<b>On-chain caps.</b> The weekly cap is enforced by the contract, over the current UTC day and the six before it.",
+      "noDouble": "<b>No double counting.</b> Collections cover block ranges with an on-chain cursor that only moves forward and never starts before you linked.",
+      "daily": "<b>Once a day.</b> An account can be swept at most once per epoch.",
+      "exit": "Exit is never gated.",
+      "collectionTitle": "Collection",
+      "verifiedHeading": "How collection is verified",
+      "verifiedBody": "A contract can't read your past transfers by itself, so the keeper reports how much each wallet's payments rounded up to for a block range. The contract bounds that report: only wallets you linked, only after you linked, never the same range twice, never above your weekly cap or allowance. Anyone can recalculate every collection from public chain data — the Activity app does exactly that, checking each collection against the wallet's own USDG payments."
+    },
+    "risks": {
+      "cardTitle": "Read this before you link",
+      "accent": "risks",
+      "owner": "Owner · pauser · attestor",
+      "ownerHint": "a single wallet (EOA) at launch",
+      "keeper": "Keeper",
+      "keeperHint": "Spare's automated operator"
+    },
+    "eligibility": {
+      "title": "Eligibility",
+      "gateBadge": "Eligibility gate: {{state}}",
+      "on": "ON",
+      "off": "OFF",
+      "body": "Tokenized stocks on Robinhood Chain are not offered to US persons and are restricted in other jurisdictions, including Canada, the UK and Switzerland. Don't use Spare where holding them is not allowed. Spare deploys an eligibility gate (ScreeningGate); it is switched off at launch, which means checking your eligibility is on you.",
+      "gate": "Eligibility gate",
+      "hintFallback": "ScreeningGate.enforced() did not answer; it was off at launch",
+      "hintLive": "ScreeningGate.enforced(), read live"
+    },
+    "contracts": {
+      "body": "Spare S1 is eight core contracts plus two park adapters on Robinhood Chain mainnet (chain ID 4663), created on 30 Sep 2026 in blocks 76,221,503–76,221,683.",
+      "cta": "Full developer reference"
+    },
+    "faq": {
+      "account": {
+        "q": "Do I need a Robinhood account?",
+        "a": "No. You need a wallet on Robinhood Chain with ETH for gas and USDG to pay with."
+      },
+      "saturday": {
+        "q": "Why didn't my sweep run on Saturday?",
+        "a": "Stocks are only bought in the US-equities 24/5 session with a fresh price. Your spare stays parked and is swept on the next open."
+      },
+      "noRoundUp": {
+        "q": "My payment didn't round up.",
+        "a": "Check it was USDG, from a linked wallet, after you linked, and not to one of your own wallets or a swap. Collections land about 5 minutes after a payment confirms."
+      },
+      "where": {
+        "q": "Where are my stocks?",
+        "a": "In your Spare account wallet. They're ordinary tokens; your wallet may need their contract address to display them (see <universe>/universe</universe>)."
+      },
+      "cap": {
+        "q": "Can Spare take more than my cap?",
+        "a": "Not past the contract's limit. It adds up what was pulled today (UTC) and on the six days before, and refuses any pull that would take that past your cap. Because the window moves a day at a time, up to twice the cap can be pulled within any 7 × 24 hours: the cap late on one day, and the cap again 6 days and 1 second later."
+      },
+      "stop": {
+        "q": "How do I stop?",
+        "a": "Turn your rule off, or set the cap to $0, or unlink the wallet. Use Exit to withdraw parked spare."
+      },
+      "private": {
+        "q": "Is Spare private?",
+        "a": "Not yet. Today everything settles publicly on Robinhood Chain. Private round-ups are the S2 milestone."
+      },
+      "interest": {
+        "q": "Does parked spare earn interest?",
+        "a": "No. It's held in USDG. A treasury parking option exists but is switched off."
+      },
+      "token": {
+        "q": "What is $SPARE?",
+        "a": "Spare's planned token. It isn't live and has no contract address yet. See the <roadmap>roadmap</roadmap>."
+      }
+    },
+    "glossary": {
+      "headSay": "Say",
+      "headMeaning": "Meaning",
+      "items": {
+        "account": { "term": "Spare account", "meaning": "The wallet that owns the rule and the mix and receives the stocks." },
+        "spending": { "term": "spending wallet / linked wallet", "meaning": "A wallet whose outgoing USDG payments are rounded up (can be the account itself). Up to 8." },
+        "roundUp": { "term": "round-up" },
+        "turbo": { "term": "turbo round-ups", "meaning": "multiplier 2×–5×." },
+        "spare": { "term": "spare change / parked spare", "meaning": "USDG collected and waiting in CashPark." },
+        "cap": { "term": "weekly cap", "meaning": "Most Spare can collect from your wallets in any rolling 7 days. On-chain." },
+        "mix": { "term": "stock mix", "meaning": "Up to 6 stocks with weights summing to 100%. Default 60% SPY / 40% NVDA." },
+        "sweep": { "term": "sweep", "meaning": "The keeper converting parked spare into your mix (max once per account per day)." },
+        "deferred": { "term": "deferred", "meaning": "A leg that waits (market closed, stale price, paused token, quote or pool problem). USDG stays parked." },
+        "safeSettled": { "term": "safe-settled", "meaning": "A leg paid back to you as USDG because the stock was deactivated." },
+        "keeper": { "term": "keeper", "meaning": "Spare's automated operator. Collects round-ups and runs sweeps." },
+        "fund": { "term": "Fund Wallet", "meaning": "In-app ETH ↔ USDG swap (0.25% fee) + official bridge links." },
+        "universe": { "term": "stock universe", "meaning": "The stocks Spare can buy (AssetRegistry)." },
+        "mcp": { "term": "Spare MCP", "meaning": "Read-only tools for AI agents." }
+      }
+    }
+  },
+  "whitepaper": {
+    "meta": {
+      "pageTitle": "Whitepaper — Spare",
+      "description": "The design of Spare: wallet-native round-ups into tokenized stocks on Robinhood Chain — contracts, trust model, execution, fees and roadmap.",
+      "kicker": "Whitepaper · S1",
+      "subtitle": "Round-ups for the on-chain era. How Spare turns payments into tokenized stocks, what's live today, and what isn't yet.",
+      "date": "30 SEP 2026"
+    },
+    "nav": {
+      "intro": "Introduction",
+      "design": "Design",
+      "economics": "Economics",
+      "closing": "Closing",
+      "abstract": "Abstract",
+      "summary": "Readable summary",
+      "problem": "The problem",
+      "whynow": "Why now",
+      "laws": "Six laws",
+      "architecture": "Architecture",
+      "accrual": "Collection and trust",
+      "execution": "Execution",
+      "parking": "Parking",
+      "units": "Units",
+      "fees": "Fees",
+      "privacy": "The private path",
+      "roadmap": "Roadmap",
+      "boundaries": "Boundaries",
+      "disclaimers": "Disclaimers"
+    },
+    "feesLive": {
+      "title": "FeeVault, live",
+      "onChainNow": "On-chain now",
+      "conversionFee": "Conversion fee",
+      "usdgSub": "balanceOf, live",
+      "wethSub": "Fund Wallet USDG → ETH fees",
+      "allTime": "All-time, from AssetSwept events",
+      "feesAllTime": "Fees all-time",
+      "convertedAllTime": "Converted all-time",
+      "apiAsking": "asking the Spare API…",
+      "apiDown": "Spare API unavailable",
+      "apiCatchingUp": "scan still catching up",
+      "apiNeededTitle": "All-time totals need the Spare API",
+      "apiNeededBody": "Summing every AssetSwept event takes an indexer, and the Spare API isn't answering right now. The balances above are read straight from Robinhood Chain.",
+      "wethNote": "FeeVault's WETH balance can include ETH that others stranded on the Universal Router, so Fund Wallet income is counted per swap receipt, not from the balance."
+    },
+    "flow": {
+      "aria": "How a round-up becomes a stock",
+      "yourWallet": "your wallet",
+      "keeper": "keeper",
+      "pay": { "step": "Pay", "what": "You pay in USDG from a linked wallet" },
+      "collect": { "step": "Collect", "what": "Keeper reports the round-up; the pull is capped on-chain" },
+      "park": { "step": "Park", "what": "Spare change waits, exitable any time" },
+      "sweep": { "step": "Sweep", "what": "At $5, once a day, in market hours" },
+      "buy": { "step": "Buy", "what": "Pinned v4 pool, quote + Chainlink limits" },
+      "deliver": { "step": "Deliver", "what": "Stock tokens land in your account" }
+    },
+    "laws": {
+      "intro": "Spare's design laws, stated with their S1 status. The contracts cite laws 1 to 5 as \"spec law N\".",
+      "title": "Law {{n}}",
+      "live": "LIVE",
+      "thisSite": "THIS SITE",
+      "l1": "Round-ups only from wallets the user explicitly links. Observation is read-only; collection needs the user's capped pull.",
+      "l2": "Elections only from the eligible registry, fail-closed.",
+      "l3": "Every buy: allowlisted venue, slippage cap, Chainlink sanity with staleness and pause guards. A breach never becomes a forced sale.",
+      "l3Note": "See Execution.",
+      "l4": "Idle spare parks; a stale price holds, never blocks.",
+      "l4Note": "Live with a USDG park; treasury park on standby.",
+      "l5": "Exit is never gated.",
+      "l5Note": "The full law also covers private-path guarantees: S2.",
+      "l6": "No APY or projection strings.",
+      "l6Note": "Applies to this site."
+    },
+    "stages": {
+      "live": "LIVE",
+      "inProgress": "IN PROGRESS",
+      "planned": "PLANNED",
+      "s1Live": { "title": "Round-ups, live", "line": "Wallet-native round-ups into tokenized stocks, on the public path." },
+      "s1Hardening": { "title": "Hardening S1", "line": "Multisig owner, third-party audit, standby stocks switched on as their pools track Chainlink, the SGOV treasury park." },
+      "s2": { "title": "Private round-ups", "line": "Shielded balance, unlinkable funding, viewing key, solvency proofs." },
+      "s3": { "title": "Boosts and $SPARE", "line": "Partner rebates into round-ups; fees fund $SPARE buybacks and stakers." },
+      "s4": { "title": "In-flow round-ups and more chains", "line": "Round up at payment time (ERC-4337) and from other chains." },
+      "cta": "The full roadmap"
+    },
+    "abstract": {
+      "p1": "Spare is a round-up investing protocol on Robinhood Chain (chain ID 4663). A user links the wallets they pay from and sets a rule — round each outgoing USDG payment up to the next $1, $5 or $10, times a multiplier from 1× to 5×, within a weekly cap. The difference is collected into a park and, once it reaches $5, swept into the tokenized stocks the user chose, bought through pinned Uniswap v4 pools under Chainlink and same-block quote limits, and delivered to the user's wallet. There is no subscription; Spare charges 0.25% of the USDG it converts.",
+      "p2": "This paper describes the S1 system that went live on 30 Sep 2026: its contracts, its collection trust model, its execution rules and its economics. It marks clearly what is not built yet: the private path (S2), boosts and the $SPARE token (S3), and in-flow round-ups (S4)."
+    },
+    "summary": {
+      "product": { "title": "Product", "body": "Round-ups from wallets you link, auto-invested into tokenized stocks you pick." },
+      "custody": { "title": "Custody", "body": "Stocks are delivered to your wallet. Spare change waiting to be invested sits in the CashPark contract. You can withdraw it at any time with Exit, and until Spare's owner key is behind a timelock, that key can move it too (see Risks)." },
+      "execution": { "body": "Pinned Uniswap v4 pools, Chainlink sanity band, keeper quote limits, netted batches, at most one sweep per account per day." },
+      "trust": { "title": "Trust", "body": "Collections are keeper-reported but bounded on-chain, and anyone can recalculate them from public data." },
+      "fees": { "body": "0.25% on conversion, 0.25% on Fund Wallet swaps. No subscription." },
+      "token": { "title": "Token", "body": "$SPARE is planned for S3. No address, supply or price is published." },
+      "privacy": { "title": "Privacy", "body": "Planned for S2. Not live." }
+    },
+    "problem": {
+      "heading": "Round-ups work. The way they're sold doesn't.",
+      "body": "Round-up apps proved that spare change is a habit people keep: invest the difference every time you spend and a portfolio builds itself. But the model has structural problems. Flat monthly fees weigh heavily on small balances. You invest into the provider's portfolios, not the stocks you'd pick. The app has to see every card purchase. And round-ups alone are small, so providers push recurring deposits instead."
+    },
+    "whynow": {
+      "p1": "Robinhood Chain has tokenized stocks as native ERC-20 tokens with live Chainlink prices, and a dollar stablecoin, USDG, that people pay with. Wallet payments are visible on-chain, so round-ups can be calculated from public data and executed without a card network or a bank link.",
+      "p2": "No round-up product for tokenized stocks existed on any chain when Spare was built."
+    },
+    "architecture": {
+      "offChainTitle": "Off-chain",
+      "offChainBody": "Off-chain, one keeper process (Bun + viem) holds no database: every cursor it needs lives on-chain, so a restart loses nothing. It collects round-ups every ~60 seconds and checks for sweeps every 10 minutes. The Spare API serves read-only data and the Spare MCP tools.",
+      "deps": "External dependencies:",
+      "usdgHint": "Global Dollar, 6 decimals",
+      "feeds": "Chainlink feeds · Robinhood stock tokens",
+      "universeLink": "stock universe"
+    },
+    "accrual": {
+      "title": "Collection",
+      "accent": "keeper-reported, bounded",
+      "intro": "A contract can't verify an arbitrary past transfer without storage proofs, so collection is keeper-reported but bounded:",
+      "b1": "<code>accrue(account, amount, toBlock)</code> can only be called by the keeper.",
+      "b2": "It covers <code>(lastAccruedBlock, toBlock]</code> and advances a per-wallet cursor, so a range is never collected twice.",
+      "b3": "The range never starts before the wallet was linked or before the rule was last switched on.",
+      "b4": "<code>toBlock</code> must trail the head by 3,000 blocks (reorg safety).",
+      "b5": "The pull is capped on-chain by the rolling weekly cap and by the user's own Permit2 allowance.",
+      "outro": "A compromised keeper can pull at most what the user authorised. Anyone can recalculate every amount from public chain data. Fully trustless, in-flow round-ups are the S4 account-abstraction hook.",
+      "paymentsIntro": "An outgoing USDG transfer from a linked wallet. These don't count:",
+      "mathTitle": "Round-up math",
+      "math": "<code>delta = (roundTo − amount mod roundTo) × multiplier</code>, 0 on the boundary; money in USDG base units (6 dp), rounded once at the end.",
+      "acceptance": "Acceptance: $3.75 → $0.25 at 1×, $0.75 at 3×."
+    },
+    "execution": {
+      "title": "Execution rules",
+      "b1": "<b>Pinned pools.</b> About a thousand v4 pools touch these tokens on Robinhood Chain and most are junk. Each stock is pinned to one exact PoolKey, hook included, because a hooked pool is arbitrary code. When the NVDA hooked pool quoted normally but filled about 3% worse through Spare's router on a fork, NVDA was pinned to the hookless 0.01% pool instead.",
+      "b2": "<b>Oracle guard.</b> Stale (older than heartbeat + 1 h), paused oracle, paused token, sequencer down (optional: Robinhood Chain publishes no sequencer feed yet) or a bad answer all defer the leg.",
+      "b3": "<b>Quote limit.</b> Sweeps are keeper-only. For each stock the keeper passes the minimum tokens per 1 USDG from a same-block V4Quoter quote of the exact netted swap, less 0.5%. The router's 1.5% Chainlink band stays as the backstop.",
+      "b4": "<b>Netting.</b> One swap per stock per batch; output split pro-rata to each account's USDG.",
+      "b5": "<b>Defer versus safe-settle.</b> Anything that means 'not now' defers and the USDG returns to the park. Only an owner deactivation pays a leg out as USDG.",
+      "fillsHeading": "Live fills",
+      "headStock": "Stock",
+      "headPool": "Pool",
+      "headGap": "V4Quoter vs Chainlink",
+      "headStatus": "Status",
+      "caption": "Live: a V4Quoter quote through each pinned pool at $5 and $100 against the Chainlink price, read when you opened this page. Negative = fewer tokens than Chainlink's price buys.",
+      "hookless": "hookless {{fee}}",
+      "reading": "Quoting every pinned pool…",
+      "dynamicFee": "dynamic",
+      "hookedFee": "hooked {{fee}}",
+      "gapAt": "{{a}} at $5 · {{b}} at $100"
+    },
+    "parking": {
+      "accent": "USDG · no yield",
+      "p1": "CashPark is adapter-based. The live adapter parks USDG: no yield, always fresh. An SGOV adapter (iShares 0–3 Month Treasury ETF, a genuine treasury exposure) is deployed on standby; switching is an owner decision and only possible while the park is empty. A Maple-managed USDG product exists on Robinhood Chain but is private credit, not treasuries, so Spare doesn't call it treasury yield.",
+      "p2": "While an adapter reports a stale price, new collections are held as plain USDG and sweeps redeem at market.",
+      "live": "Live park",
+      "standby": "Standby park"
+    },
+    "units": {
+      "decimals": "{{n}} decimals",
+      "stockTokens": "Stock tokens",
+      "stockHint": "raw balances that never rebase",
+      "prices": "Chainlink prices",
+      "priceHint": "per token and already multiplier-adjusted"
+    },
+    "fees": {
+      "body": "Spare charges 0.25% of the USDG it converts into stock, only on legs that convert, sent to FeeVault in the same transaction. Fund Wallet swaps carry a 0.25% fee on the output. The contract caps the conversion fee at 1%. There is no subscription."
+    },
+    "token": {
+      "accent": "COMING SOON",
+      "body": "$SPARE is planned for S3. The design routes Spare's conversion fees and boost-partner fees to $SPARE buybacks and to stakers who back the protocol's parameters and asset registry. No contract address, supply, allocation, price or launch date has been published. Until an address appears on this page and on X (@TrySpareRH), any token calling itself $SPARE is not ours.",
+      "ca": "$SPARE contract address",
+      "caHint": "not published — nothing to copy yet"
+    },
+    "privacy": {
+      "title": "The private path (S2, not built)",
+      "accent": "NOT BUILT",
+      "body": "The goal: round-ups settle into a shielded balance, holdings are commitments, the spending wallet can't be linked to the investing account, amounts are confidential, and you read your own book with a viewing key — with public solvency proofs so the system stays provably backed and exits stay open. None of this is live. Today every collection and sweep settles publicly, and the Viewing Key app says so."
+    },
+    "boundaries": {
+      "b1": "Stock tokens are not offered to US persons and are restricted elsewhere.",
+      "b2": "No yield or return is projected anywhere.",
+      "b3": "Round-ups only from wallets you link — no card, no bank.",
+      "b4": "Exit is never gated.",
+      "b5": "Admin: single-wallet owner at launch (no multisig, no timelock); multisig planned."
+    },
+    "disclaimers": {
+      "body": "Not investment advice. Spare is software that executes your own rule; it doesn't recommend stocks. Tokenized stocks can lose value. $SPARE is not live and nothing on this site offers it. This paper describes the system as deployed on 30 Sep 2026 and will change as it evolves.",
+      "readDocs": "Read the docs"
+    }
+  },
+  "privacy": {
+    "meta": {
+      "pageTitle": "Privacy — Spare",
+      "description": "How Spare handles information: no accounts or emails, your public wallet address and on-chain activity, local-only preferences, and the third parties the site uses.",
+      "title": "Privacy Policy",
+      "subtitle": "Last updated: 2 Oct 2026. Spare has no accounts, no passwords and no emails — you connect a wallet. Here is what that means for your information."
+    },
+    "who": {
+      "title": "Who we are",
+      "body": "Spare is software for round-up investing on Robinhood Chain, available at trysparerh.com. ‘We’ means the Spare team. You can reach us on X at <x>@TrySpareRH</x> or on Telegram at <tg>t.me/sparerh</tg>."
+    },
+    "what": {
+      "title": "What Spare is — and isn't",
+      "body": "Spare has no user accounts, passwords or emails. You connect a wallet; your wallet address is your identity. Spare’s contracts run on a public blockchain."
+    },
+    "process": {
+      "title": "Information we process",
+      "i1": "Your public wallet address and the public on-chain activity of wallets you link (your USDG payments, which is how round-ups are calculated). This data is public on Robinhood Chain whether or not you use Spare.",
+      "i2": "Requests to the Spare API (spare-api, run on a cloud hosting provider), which may include your wallet address and your IP address in standard server logs.",
+      "i3": "Requests your browser makes to the Robinhood Chain public RPC and, if you choose WalletConnect, to its relay."
+    },
+    "device": {
+      "title": "Stored on your device",
+      "body": "Preferences in your browser’s local storage (zoom and language) and any wallet-link signatures you’ve started but not submitted. They never leave your device. We set no cookies of our own. Spare’s Chinese translations are its own and ship with the site; switching language sends nothing to a translation service."
+    },
+    "thirdParties": {
+      "title": "Third parties",
+      "body": "Robinhood Chain RPC; Chainlink and Uniswap (on-chain, public); a cloud hosting provider (hosting the API and keeper); Google Fonts (typefaces, plus Chinese typefaces only if you switch to Chinese); Spline (the animated backgrounds); WalletConnect/Reown (only if used). We don’t sell data and we run no ad trackers."
+    },
+    "onchain": {
+      "title": "On-chain data is permanent",
+      "body": "Anything written to Robinhood Chain — links, rules, mixes, collections, sweeps, exits — is public and can’t be deleted by us or you. Spare’s private path (S2) is not built; today your Spare activity is public."
+    },
+    "security": {
+      "title": "Security",
+      "body": "No method of transmission or storage is completely secure. Never share your seed phrase; Spare will never ask for it."
+    },
+    "children": {
+      "title": "Children",
+      "body": "Spare is not for people under the age of majority where they live."
+    },
+    "changes": {
+      "title": "Changes and contact",
+      "body": "We’ll post changes here, and the date at the top shows the latest version. Questions: X <x>@TrySpareRH</x>, Telegram <tg>t.me/sparerh</tg>."
+    },
+    "otherLink": "Read the Terms"
+  },
+  "terms": {
+    "meta": {
+      "pageTitle": "Terms — Spare",
+      "description": "The terms for using Spare: eligibility, what Spare does, your authorisations, fees, execution, risks and the $SPARE token's status.",
+      "title": "Terms of Use",
+      "subtitle": "Last updated: 3 Oct 2026. Spare is software on Robinhood Chain; while your spare change is parked it sits in Spare's contracts (see Risks). Please read these terms, especially Eligibility and Risks, before you use it."
+    },
+    "agreement": {
+      "title": "Agreement",
+      "body": "By using trysparerh.com or Spare’s contracts you agree to these terms. If you don’t agree, don’t use Spare."
+    },
+    "eligibility": {
+      "title": "Eligibility",
+      "body": "You must be of legal age where you live. Tokenized stocks are not offered to US persons and are restricted in other jurisdictions (including Canada, the UK and Switzerland). You’re responsible for making sure you may use Spare and hold tokenized stocks where you are. Spare’s eligibility gate is off at launch; that doesn’t make Spare available where it isn’t allowed."
+    },
+    "what": {
+      "title": "What Spare does",
+      "body": "Spare is software: an interface and smart contracts that execute the round-up rule you set. Stocks are delivered to your own wallet, but spare change waiting to be converted is held by Spare’s contracts, and until the owner key is behind a timelock that key can move it (see Risks). Spare doesn’t give advice, choose investments for you (beyond a default mix you can change), or guarantee execution."
+    },
+    "authorisations": {
+      "title": "Your authorisations",
+      "body": "When you link a wallet and approve Permit2, you authorise Spare’s SweepExecutor, called by Spare’s keeper, to pull USDG round-ups from that wallet up to your weekly cap, which the contract counts over the current UTC day and the six before it (because that window moves a day at a time, up to twice the cap can be pulled within any 7 × 24 hours), and to convert parked spare into your mix. The Permit2 allowance the app asks for has no amount limit and lasts one year; your weekly cap is what bounds the pulls. You can stop at any time by turning off your rule, setting a $0 cap, unlinking, or revoking your Permit2 allowance, and you can withdraw parked spare with Exit."
+    },
+    "fees": {
+      "title": "Fees",
+      "body": "0.25% of USDG converted into stock; 0.25% of Fund Wallet swap output. The conversion fee can’t exceed 1% on-chain. Each conversion also pays the Uniswap pool’s own swap fee, which differs by stock and is set by the pool, not by Spare. You pay network gas for your own transactions. Fees may change within those limits; changes are public on-chain."
+    },
+    "execution": {
+      "title": "Execution",
+      "body": "Sweeps happen at most once per account per day, only in market hours and within quote and price limits. They can be deferred. Prices can move between a payment and a sweep. A stock can be deactivated; its share of your spare is then returned in USDG."
+    },
+    "risks": {
+      "title": "Risks",
+      "owner": "Owner, pauser and attestor wallet at launch: <owner>{{address}}</owner>."
+    },
+    "thirdParty": {
+      "title": "Third-party components",
+      "body": "Robinhood Chain, USDG, stock tokens and their issuer, Chainlink, Uniswap and Permit2 are run by others. We don’t control them and aren’t responsible for them."
+    },
+    "spareToken": {
+      "body": "The $SPARE token is not live. Nothing on this site is an offer or solicitation of any token or security."
+    },
+    "prohibited": {
+      "title": "Prohibited use",
+      "body": "Don’t use Spare to break the law, evade sanctions or restrictions, interfere with the contracts or keeper, or misrepresent your eligibility."
+    },
+    "ip": {
+      "title": "Intellectual property",
+      "body": "The Spare name, marks and site belong to the Spare team."
+    },
+    "disclaimers": {
+      "title": "Disclaimers",
+      "body": "Spare is provided ‘as is’ without warranties. Nothing on this site is investment, legal or tax advice."
+    },
+    "liability": {
+      "title": "Limitation of liability",
+      "body": "IN NO EVENT WILL WE OR OUR DIRECTORS, EMPLOYEES, OR AGENTS BE LIABLE TO YOU OR ANY THIRD PARTY FOR ANY DIRECT, INDIRECT, CONSEQUENTIAL, EXEMPLARY, INCIDENTAL, SPECIAL, OR PUNITIVE DAMAGES, INCLUDING LOST PROFIT, LOST REVENUE, LOSS OF DATA, OR OTHER DAMAGES ARISING FROM YOUR USE OF THE SITE OR SERVICE, EVEN IF WE HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES."
+    },
+    "changes": {
+      "title": "Changes",
+      "body": "We may update these terms; the date above shows the latest version."
+    },
+    "law": {
+      "title": "Governing law",
+      "body": "These terms and your use of Spare are governed by applicable laws, without regard to conflict-of-law principles."
+    },
+    "contact": {
+      "title": "Contact",
+      "body": "X <x>@TrySpareRH</x>, Telegram <tg>t.me/sparerh</tg>."
+    },
+    "otherLink": "Read the Privacy Policy"
+  }
+}
